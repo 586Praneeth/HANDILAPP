@@ -9,7 +9,7 @@ import WhyHandil from "./components/WhyHandil";
 import Features from "./components/Features";
 import CloudSection from "./components/CloudSection";
 import RewardsFeedback from "./components/RewardsFeedback";
-import AppShowcase from "./components/AppShowcase";
+import AppShowcase from "./components/AppShowCase";
 import DownloadCTA from "./components/DownloadCTA";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
