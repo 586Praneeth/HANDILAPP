@@ -1,21 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lenis from "lenis";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import WhatIsHandil from "./components/WhatIsHandil";
 import ProblemSection from "./components/ProblemSection";
-import WhyHandil from "./components/WhyHandil";
-import Features from "./components/Features";
 import CloudSection from "./components/CloudSection";
 import RewardsFeedback from "./components/RewardsFeedback";
-import AppShowcase from "./components/AppShowCase";
-import DownloadCTA from "./components/DownloadCTA";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
-import HowItWorks from "./components/HowItWorks"
+import HowItWorks from "./components/HowItWorks";
+import EarlyAccessModal from "./components/EarlyAccessModal";
 
 function App() {
+  const [showEarlyAccess, setShowEarlyAccess] = useState(false);
+
+  const openEarlyAccess = () => {
+    setShowEarlyAccess(true);
+  };
+
+  const closeEarlyAccess = () => {
+    setShowEarlyAccess(false);
+  };
+
   useEffect(() => {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
@@ -43,18 +50,21 @@ function App() {
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <Loader />
-      <Navbar />
-      <Hero />
+
+      <Navbar onEarlyAccess={openEarlyAccess} />
+      <Hero onEarlyAccess={openEarlyAccess} />
+
       <WhatIsHandil />
-      <HowItWorks />
       <ProblemSection />
-      <WhyHandil />
-      <Features />
+      <HowItWorks />
       <CloudSection />
       <RewardsFeedback />
-      <AppShowcase />
-      <DownloadCTA />
-      <Footer />
+      <Footer onEarlyAccess={openEarlyAccess} />
+
+      <EarlyAccessModal
+        open={showEarlyAccess}
+        onClose={closeEarlyAccess}
+      />
     </main>
   );
 }

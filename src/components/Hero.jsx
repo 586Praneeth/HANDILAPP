@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import onboarding from "../assets/screens/onboarding.png";
 import chat from "../assets/screens/chat.png";
-function Hero() {
+function Hero({ onEarlyAccess }) {
   return (
     <section className="relative overflow-hidden bg-[#f8fbff] px-6 pb-24 pt-20 md:px-12">
       {/* PREMIUM FUTURISTIC GLOWS */}
@@ -23,7 +23,7 @@ function Hero() {
           </p>
 
           <h1 className="text-5xl font-black leading-tight text-slate-950 md:text-7xl">
-            Messaging built for the next generation.
+            Built to change how the world connects.
           </h1>
 
           <p className="mt-8 max-w-xl text-lg leading-8 text-slate-600">
@@ -47,20 +47,22 @@ function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <motion.button
+              onClick={onEarlyAccess}
               whileHover={{ scale: 1.04, y: -3 }}
               whileTap={{ scale: 0.97 }}
               className="rounded-full bg-sky-500 px-8 py-4 font-semibold text-white shadow-xl shadow-sky-200"
             >
-              Download App
+              Get Early Access
             </motion.button>
 
-            <motion.button
+            <motion.a
+              href="#how-it-works"
               whileHover={{ scale: 1.04, y: -3 }}
               whileTap={{ scale: 0.97 }}
               className="rounded-full border border-slate-200 bg-white/70 px-8 py-4 font-semibold text-slate-700 backdrop-blur"
             >
-              Explore Handil
-            </motion.button>
+              See How It Works
+            </motion.a>
           </div>
         </div>
 

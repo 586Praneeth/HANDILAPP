@@ -37,8 +37,7 @@ function HowItWorks() {
   }, [steps.length]);
 
   return (
-    <section className="bg-slate-950 px-6 py-32 text-white md:px-12">
-      <div className="mx-auto grid max-w-[1600px] items-center gap-20 lg:grid-cols-2">
+<section id="how-it-works" className="bg-slate-950 px-6 py-32 text-white md:px-12">      <div className="mx-auto grid max-w-[1600px] items-center gap-20 lg:grid-cols-2">
         <div>
           <p className="mb-5 uppercase tracking-[0.3em] text-sky-400">
             HOW HANDIL WORKS
