@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+:root{
+  --handil-blue:#1CB7F3;
+  --handil-blue-dark:#0EA5E9;
+  --handil-bg:#FFFFFF;
+  --handil-text:#111827;
+  --handil-muted:#6B7280;
+  --handil-card:#F8FAFC;
+}
