@@ -1,6 +1,46 @@
-import Reveal from "./Reveal"
+import { useState } from "react";
+import Reveal from "./Reveal";
+import { supabase } from "../lib/supabaseClient";
 
 function RewardsFeedback() {
+  const [addText, setAddText] = useState("");
+  const [removeText, setRemoveText] = useState("");
+  const [problemText, setProblemText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async () => {
+    setMessage("");
+
+    if (addText.trim().length < 15) {
+      setMessage("Please enter at least 15 characters for what we should add.");
+      return;
+    }
+
+    setLoading(true);
+
+    const { error } = await supabase.from("website_feedback").insert([
+      {
+        add_text: addText.trim(),
+        remove_text: removeText.trim(),
+        problem_text: problemText.trim(),
+      },
+    ]);
+
+    setLoading(false);
+
+    if (error) {
+      console.error("Supabase insert error:", error);
+      setMessage(error.message);
+      return;
+    }
+
+    setAddText("");
+    setRemoveText("");
+    setProblemText("");
+    setMessage("Thank you! Your feedback was submitted successfully.");
+  };
+
   return (
     <section id="feedback" className="px-6 py-28 md:px-12">
       <div className="mx-auto max-w-[1600px]">
@@ -15,8 +55,8 @@ function RewardsFeedback() {
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Handil grows with real user feedback. Tell us what to add,
-              what to remove, and what would make messaging better for you.
+              Handil grows with real user feedback. Tell us what to add, what to
+              remove, and what would make messaging better for you.
             </p>
           </div>
         </Reveal>
@@ -30,22 +70,44 @@ function RewardsFeedback() {
 
               <div className="mt-8 grid gap-5">
                 <textarea
+                  value={addText}
+                  onChange={(e) => setAddText(e.target.value)}
                   placeholder="What should we add to Handil?"
                   className="min-h-28 resize-none rounded-[24px] border border-slate-200 p-5 outline-none transition focus:border-sky-400"
                 />
 
                 <textarea
+                  value={removeText}
+                  onChange={(e) => setRemoveText(e.target.value)}
                   placeholder="What should we remove from Handil?"
                   className="min-h-28 resize-none rounded-[24px] border border-slate-200 p-5 outline-none transition focus:border-sky-400"
                 />
 
                 <textarea
+                  value={problemText}
+                  onChange={(e) => setProblemText(e.target.value)}
                   placeholder="What problem do you face in current messaging apps?"
                   className="min-h-28 resize-none rounded-[24px] border border-slate-200 p-5 outline-none transition focus:border-sky-400"
                 />
 
-                <button className="rounded-full bg-sky-500 px-8 py-4 font-semibold text-white shadow-xl shadow-sky-200 transition hover:-translate-y-1">
-                  Submit Feedback
+                {message && (
+                  <p
+                    className={`rounded-2xl px-5 py-4 text-sm font-semibold ${
+                      message.includes("Thank you")
+                        ? "bg-green-50 text-green-700"
+                        : "bg-red-50 text-red-600"
+                    }`}
+                  >
+                    {message}
+                  </p>
+                )}
+
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  className="rounded-full bg-sky-500 px-8 py-4 font-semibold text-white shadow-xl shadow-sky-200 transition hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {loading ? "Submitting..." : "Submit Feedback"}
                 </button>
               </div>
             </div>
@@ -62,9 +124,9 @@ function RewardsFeedback() {
               </h3>
 
               <p className="mt-6 leading-8 text-slate-300">
-                Handil is designed with a reward-ready feedback system where users
-                can help shape the product, suggest improvements, and unlock future
-                perks as the platform grows.
+                Handil is designed with a reward-ready feedback system where
+                users can help shape the product, suggest improvements, and
+                unlock future perks as the platform grows.
               </p>
 
               <div className="mt-8 grid gap-4">
@@ -87,7 +149,7 @@ function RewardsFeedback() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default RewardsFeedback
+export default RewardsFeedback;
