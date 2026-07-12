@@ -7,9 +7,10 @@ function JobDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const { slug } = useParams();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/careers/jobs/slug/${slug}`)
+    fetch(`${API_BASE_URL}/api/careers/jobs/slug/${slug}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch job details");

@@ -5,9 +5,11 @@ function Careers() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/careers/jobs")
+      fetch(`${API_BASE_URL}/api/careers/jobs`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch jobs");

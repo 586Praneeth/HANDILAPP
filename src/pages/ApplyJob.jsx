@@ -27,12 +27,12 @@ function ApplyJob() {
   const [submitting, setSubmitting] = useState(false);
   const [pageError, setPageError] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     async function loadJob() {
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/careers/jobs/slug/${slug}`,
+        const response = await fetch(`${API_BASE_URL}/api/careers/jobs/slug/${slug}`,
         );
 
         if (!response.ok) {
@@ -117,13 +117,13 @@ function ApplyJob() {
     try {
       setSubmitting(true);
 
-      const response = await fetch(
-        "http://localhost:8080/api/careers/apply",
-        {
-          method: "POST",
-          body: requestData,
-        },
-      );
+     const response = await fetch(
+  `${API_BASE_URL}/api/careers/apply`,
+  {
+    method: "POST",
+    body: requestData,
+  },
+);
 
       if (!response.ok) {
         const errorBody = await response.json().catch(() => null);
