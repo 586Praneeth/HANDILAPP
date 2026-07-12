@@ -1,27 +1,23 @@
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import WhatIsHandil from "./components/WhatIsHandil";
-import ProblemSection from "./components/ProblemSection";
 import CloudSection from "./components/CloudSection";
 import RewardsFeedback from "./components/RewardsFeedback";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import HowItWorks from "./components/HowItWorks";
 import EarlyAccessModal from "./components/EarlyAccessModal";
+import Careers from "./pages/Careers";
+import JobDetails from "./pages/JobDetails";
+import ApplyJob from "./pages/ApplyJob";
+import ApplicationSuccess from "./pages/ApplicationSuccess";
 
 function App() {
   const [showEarlyAccess, setShowEarlyAccess] = useState(false);
-
-  const openEarlyAccess = () => {
-    setShowEarlyAccess(true);
-  };
-
-  const closeEarlyAccess = () => {
-    setShowEarlyAccess(false);
-  };
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -42,28 +38,48 @@ function App() {
 
     requestAnimationFrame(raf);
 
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <Loader />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Loader />
+              <Navbar onEarlyAccess={() => setShowEarlyAccess(true)} />
+              <Hero onEarlyAccess={() => setShowEarlyAccess(true)} />
+              <WhatIsHandil />
+              <HowItWorks />
+              <CloudSection />
+              <RewardsFeedback />
+              <Footer onEarlyAccess={() => setShowEarlyAccess(true)} />
+            </>
+          }
+        />
 
-      <Navbar onEarlyAccess={openEarlyAccess} />
-      <Hero onEarlyAccess={openEarlyAccess} />
+        <Route path="/careers/:slug" element={<JobDetails />} />
 
-      <WhatIsHandil />
-      <ProblemSection />
-      <HowItWorks />
-      <CloudSection />
-      <RewardsFeedback />
-      <Footer onEarlyAccess={openEarlyAccess} />
+        <Route path="/careers/:slug/apply" element={<ApplyJob />} />
+        <Route path="/careers/:slug/success" element={<ApplicationSuccess />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route
+          path="/careers"
+          element={
+            <>
+              <Navbar onEarlyAccess={() => setShowEarlyAccess(true)} />
+              <Careers />
+              <Footer onEarlyAccess={() => setShowEarlyAccess(true)} />
+            </>
+          }
+        />
+      </Routes>
 
       <EarlyAccessModal
         open={showEarlyAccess}
-        onClose={closeEarlyAccess}
+        onClose={() => setShowEarlyAccess(false)}
       />
     </main>
   );
