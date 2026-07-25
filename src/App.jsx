@@ -44,10 +44,10 @@ function App() {
 
     let animationFrameId;
 
-    function raf(time) {
+    const raf = (time) => {
       lenis.raf(time);
       animationFrameId = requestAnimationFrame(raf);
-    }
+    };
 
     animationFrameId = requestAnimationFrame(raf);
 
@@ -67,20 +67,16 @@ function App() {
             <>
               <Loader />
 
-              <Navbar onEarlyAccess={openEarlyAccess} />
+              <Navbar />
 
-              <Hero onEarlyAccess={openEarlyAccess} />
+              <Hero />
 
-              {/* Section 2 */}
               <RethinkingMessaging />
 
-              {/* Section 3 — Why Handil */}
               <WhatIsHandil />
 
-              {/* Section 4 — Interactive phone */}
               <HowItWorks />
 
-              {/* Section 5 — Security and data control */}
               <CloudSection />
 
               <FAQ />
@@ -97,7 +93,7 @@ function App() {
           path="/careers"
           element={
             <>
-              <Navbar onEarlyAccess={openEarlyAccess} />
+              <Navbar />
               <Careers />
               <Footer onEarlyAccess={openEarlyAccess} />
             </>

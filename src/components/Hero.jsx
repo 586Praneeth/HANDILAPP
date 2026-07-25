@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import onboarding from "../assets/screens/onboarding.png";
 import chat from "../assets/screens/chat.png";
 
-function Hero({ onEarlyAccess }) {
+function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#f8fbff] px-6 pb-24 pt-20 md:px-12">
       {/* BACKGROUND GLOWS */}
@@ -34,6 +34,7 @@ function Hero({ onEarlyAccess }) {
             className="max-w-4xl text-5xl font-black leading-[1.05] text-slate-950 sm:text-6xl lg:text-7xl xl:text-8xl"
           >
             Private messaging.
+
             <span className="mt-2 block text-sky-500">
               Your data, your choice.
             </span>
@@ -64,18 +65,16 @@ function Hero({ onEarlyAccess }) {
             transition={{ duration: 0.7, delay: 0.28 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            {[
-              "Username-first",
-              "Offline-first",
-              "Local or Cloud",
-            ].map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-sky-100 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur"
-              >
-                {item}
-              </span>
-            ))}
+            {["Username-first", "Offline-first", "Local or Cloud"].map(
+              (item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-sky-100 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur"
+                >
+                  {item}
+                </span>
+              ),
+            )}
           </motion.div>
 
           <motion.div
@@ -84,16 +83,6 @@ function Hero({ onEarlyAccess }) {
             transition={{ duration: 0.7, delay: 0.34 }}
             className="mt-10 flex flex-wrap gap-4"
           >
-            <motion.button
-              type="button"
-              onClick={onEarlyAccess}
-              whileHover={{ scale: 1.04, y: -3 }}
-              whileTap={{ scale: 0.97 }}
-              className="rounded-full bg-sky-500 px-8 py-4 font-semibold text-white shadow-xl shadow-sky-200 transition hover:bg-sky-400"
-            >
-              Get Early Access
-            </motion.button>
-
             <motion.a
               href="#how-it-works"
               whileHover={{ scale: 1.04, y: -3 }}
@@ -156,7 +145,7 @@ function Hero({ onEarlyAccess }) {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -right-12 top-24 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block"
+              className="absolute -right-16 top-20 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block"
             >
               <p className="text-sm font-black text-slate-950">
                 Private Identity
@@ -175,7 +164,7 @@ function Hero({ onEarlyAccess }) {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -right-10 bottom-24 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block"
+              className="absolute -right-16 bottom-28 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block"
             >
               <p className="text-sm font-black text-slate-950">
                 Your Data

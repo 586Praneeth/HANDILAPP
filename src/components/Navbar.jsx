@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 
-function Navbar({ onEarlyAccess }) {
-  const [open, setOpen] = useState(false);
+function Navbar() {  const [open, setOpen] = useState(false);
   const location = useLocation();
 
   const navItems = [
