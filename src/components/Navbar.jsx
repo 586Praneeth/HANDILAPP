@@ -7,12 +7,11 @@ function Navbar({ onEarlyAccess }) {
   const location = useLocation();
 
   const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Problem", href: "#problem" },
+    { label: "Features", href: "#features" },
+    { label: "Why Handil", href: "#why-handil" },
     { label: "How It Works", href: "#how-it-works" },
-    { label: "Upcoming", href: "#cloud" },
-    { label: "Feedback", href: "#feedback" },
-    { label: "Careers", href: "/careers" },
+    { label: "Security", href: "#security" },
+    { label: "FAQ", href: "#faq" },
   ];
 
   const closeMenu = () => {
@@ -22,12 +21,10 @@ function Navbar({ onEarlyAccess }) {
   const handleSectionClick = (event, href) => {
     closeMenu();
 
-    // Already on home page, so the normal anchor link can scroll.
     if (location.pathname === "/") {
       return;
     }
 
-    // From Careers or another page, go back to the home section.
     event.preventDefault();
     window.location.assign(`/${href}`);
   };
@@ -37,7 +34,6 @@ function Navbar({ onEarlyAccess }) {
       ? "rounded-2xl bg-slate-50 px-4 py-3 transition hover:bg-sky-50 hover:text-sky-500"
       : "relative font-medium text-slate-600 transition-all duration-300 hover:-translate-y-[1px] hover:text-sky-500";
 
-    // Internal React route, such as /careers.
     if (item.href.startsWith("/")) {
       return (
         <Link
@@ -51,7 +47,6 @@ function Navbar({ onEarlyAccess }) {
       );
     }
 
-    // Home-page section link, such as #about.
     return (
       <a
         key={item.label}
@@ -76,18 +71,18 @@ function Navbar({ onEarlyAccess }) {
           <Logo />
         </Link>
 
-        <div className="hidden items-center gap-8 text-sm lg:flex">
+        <div className="hidden items-center gap-7 text-sm lg:flex">
           {navItems.map((item) => renderNavItem(item))}
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => onEarlyAccess?.()}
+          <Link
+            to="/careers"
+            onClick={closeMenu}
             className="hidden rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-100 transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-400 hover:shadow-sky-200 sm:inline-flex"
           >
-            Get Early Access
-          </button>
+            Careers
+          </Link>
 
           <button
             type="button"
@@ -106,16 +101,13 @@ function Navbar({ onEarlyAccess }) {
           <div className="flex flex-col gap-4 text-sm font-semibold text-slate-700">
             {navItems.map((item) => renderNavItem(item, true))}
 
-            <button
-              type="button"
-              onClick={() => {
-                closeMenu();
-                onEarlyAccess?.();
-              }}
-              className="rounded-2xl bg-sky-500 px-4 py-3 text-center text-white transition hover:bg-sky-400"
+            <Link
+              to="/careers"
+              onClick={closeMenu}
+              className="hidden rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-100 transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-400 hover:shadow-sky-200 sm:inline-flex"
             >
-              Get Early Access
-            </button>
+              Careers
+            </Link>
           </div>
         </div>
       )}

@@ -1,6 +1,8 @@
-import logo from "../assets/logo/handil-logo.png"
+import logo from "../assets/logo/handil-logo.png";
 
-function Logo() {
+function Logo({ variant = "dark" }) {
+  const isLight = variant === "light";
+
   return (
     <div className="flex items-center gap-4">
       <img
@@ -10,16 +12,24 @@ function Logo() {
       />
 
       <div>
-        <h1 className="text-3xl font-black tracking-tight text-slate-950">
+        <p
+          className={`text-3xl font-black tracking-tight ${
+            isLight ? "text-white" : "text-slate-950"
+          }`}
+        >
           Handil
-        </h1>
+        </p>
 
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sky-500">
+        <p
+          className={`text-[11px] font-semibold uppercase tracking-[0.28em] ${
+            isLight ? "text-sky-400" : "text-sky-500"
+          }`}
+        >
           CONNECT. CHAT. CARE.
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default Logo
+export default Logo;

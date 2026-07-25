@@ -4,13 +4,16 @@ import Lenis from "lenis";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import RethinkingMessaging from "./components/RethinkingMessaging";
 import WhatIsHandil from "./components/WhatIsHandil";
+import HowItWorks from "./components/HowItWorks";
 import CloudSection from "./components/CloudSection";
+import FAQ from "./components/FAQ";
 import RewardsFeedback from "./components/RewardsFeedback";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
-import HowItWorks from "./components/HowItWorks";
 import EarlyAccessModal from "./components/EarlyAccessModal";
+
 import Careers from "./pages/Careers";
 import JobDetails from "./pages/JobDetails";
 import ApplyJob from "./pages/ApplyJob";
@@ -18,6 +21,14 @@ import ApplicationSuccess from "./pages/ApplicationSuccess";
 
 function App() {
   const [showEarlyAccess, setShowEarlyAccess] = useState(false);
+
+  const openEarlyAccess = () => {
+    setShowEarlyAccess(true);
+  };
+
+  const closeEarlyAccess = () => {
+    setShowEarlyAccess(false);
+  };
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -31,55 +42,84 @@ function App() {
       wheelMultiplier: 0.9,
     });
 
+    let animationFrameId;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      animationFrameId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    animationFrameId = requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      lenis.destroy();
+    };
   }, []);
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <Routes>
+        {/* HOME PAGE */}
         <Route
           path="/"
           element={
             <>
               <Loader />
-              <Navbar onEarlyAccess={() => setShowEarlyAccess(true)} />
-              <Hero onEarlyAccess={() => setShowEarlyAccess(true)} />
+
+              <Navbar onEarlyAccess={openEarlyAccess} />
+
+              <Hero onEarlyAccess={openEarlyAccess} />
+
+              {/* Section 2 */}
+              <RethinkingMessaging />
+
+              {/* Section 3 — Why Handil */}
               <WhatIsHandil />
+
+              {/* Section 4 — Interactive phone */}
               <HowItWorks />
+
+              {/* Section 5 — Security and data control */}
               <CloudSection />
+
+              <FAQ />
+
               <RewardsFeedback />
-              <Footer onEarlyAccess={() => setShowEarlyAccess(true)} />
+
+              <Footer onEarlyAccess={openEarlyAccess} />
             </>
           }
         />
 
-        <Route path="/careers/:slug" element={<JobDetails />} />
-
-        <Route path="/careers/:slug/apply" element={<ApplyJob />} />
-        <Route path="/careers/:slug/success" element={<ApplicationSuccess />} />
-        <Route path="/careers" element={<Careers />} />
+        {/* CAREERS LIST */}
         <Route
           path="/careers"
           element={
             <>
-              <Navbar onEarlyAccess={() => setShowEarlyAccess(true)} />
+              <Navbar onEarlyAccess={openEarlyAccess} />
               <Careers />
-              <Footer onEarlyAccess={() => setShowEarlyAccess(true)} />
+              <Footer onEarlyAccess={openEarlyAccess} />
             </>
           }
+        />
+
+        {/* JOB DETAILS */}
+        <Route path="/careers/:slug" element={<JobDetails />} />
+
+        {/* JOB APPLICATION */}
+        <Route path="/careers/:slug/apply" element={<ApplyJob />} />
+
+        {/* APPLICATION SUCCESS */}
+        <Route
+          path="/careers/:slug/success"
+          element={<ApplicationSuccess />}
         />
       </Routes>
 
       <EarlyAccessModal
         open={showEarlyAccess}
-        onClose={() => setShowEarlyAccess(false)}
+        onClose={closeEarlyAccess}
       />
     </main>
   );
