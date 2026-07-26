@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+import { supabase } from "../lib/supabaseClient";
+
 const INITIAL_FORM = {
   fullName: "",
   email: "",
@@ -27,28 +29,42 @@ function ApplyJob() {
   const [submitting, setSubmitting] = useState(false);
   const [pageError, setPageError] = useState("");
   const [submitError, setSubmitError] = useState("");
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    async function loadJob() {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/careers/jobs/slug/${slug}`,
-        );
+    let isMounted = true;
 
-        if (!response.ok) {
-          throw new Error("Unable to load this position.");
-        }
+    const loadJob = async () => {
+      setLoading(true);
+      setPageError("");
 
-        const data = await response.json();
-        setJob(data);
-      } catch (error) {
-        setPageError(error.message);
-      } finally {
-        setLoading(false);
+      const { data, error } = await supabase
+        .from("careers_jobs")
+        .select("*")
+        .eq("slug", slug)
+        .eq("is_active", true)
+        .single();
+
+      if (!isMounted) {
+        return;
       }
-    }
+
+      if (error) {
+        console.error("Failed to load job:", error);
+        setPageError("Unable to load this position.");
+        setJob(null);
+        setLoading(false);
+        return;
+      }
+
+      setJob(data);
+      setLoading(false);
+    };
 
     loadJob();
+
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
 
   const handleChange = (event) => {
@@ -68,6 +84,7 @@ function ApplyJob() {
     }
 
     const allowedExtensions = [".pdf", ".doc", ".docx"];
+
     const validExtension = allowedExtensions.some((extension) =>
       file.name.toLowerCase().endsWith(extension),
     );
@@ -90,6 +107,20 @@ function ApplyJob() {
     setResume(file);
   };
 
+  const createSafeFileName = (fileName) => {
+    const extension = fileName.includes(".")
+      ? fileName.substring(fileName.lastIndexOf("."))
+      : "";
+
+    const baseName = fileName
+      .replace(extension, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    return `${baseName || "resume"}${extension.toLowerCase()}`;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitError("");
@@ -104,43 +135,90 @@ function ApplyJob() {
       return;
     }
 
-    const requestData = new FormData();
-
-    requestData.append("jobId", String(job.id));
-
-    Object.entries(formData).forEach(([key, value]) => {
-      requestData.append(key, value.trim());
-    });
-
-    requestData.append("resume", resume);
+    setSubmitting(true);
 
     try {
-      setSubmitting(true);
+      const safeFileName = createSafeFileName(resume.name);
+      const uniqueId = crypto.randomUUID();
 
-     const response = await fetch(
-  `${API_BASE_URL}/api/careers/apply`,
-  {
-    method: "POST",
-    body: requestData,
-  },
-);
+      const uploadedResumePath =
+        `${job.slug}/${uniqueId}-${safeFileName}`;
 
-      if (!response.ok) {
-        const errorBody = await response.json().catch(() => null);
+      const { error: uploadError } = await supabase.storage
+        .from("resumes")
+        .upload(uploadedResumePath, resume, {
+          cacheControl: "3600",
+          contentType: resume.type || undefined,
+          upsert: false,
+        });
+
+      if (uploadError) {
+        console.error("Resume upload failed:", uploadError);
 
         throw new Error(
-          errorBody?.message || "Application submission failed.",
+          "Unable to upload your resume. Please try again.",
+        );
+      }
+
+      const applicationData = {
+        job_id: job.id,
+
+        full_name: formData.fullName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim() || null,
+
+        linkedin: formData.linkedin.trim() || null,
+        github: formData.github.trim() || null,
+        portfolio: formData.portfolio.trim() || null,
+
+        years_experience:
+          formData.yearsExperience.trim() || null,
+
+        current_company:
+          formData.currentCompany.trim() || null,
+
+        current_job_title:
+          formData.currentJobTitle.trim() || null,
+
+        notice_period:
+          formData.noticePeriod.trim() || null,
+
+        cover_letter:
+          formData.coverLetter.trim() || null,
+
+        resume_file_name: resume.name,
+        resume_storage_path: uploadedResumePath,
+
+        status: "Applied",
+      };
+
+      const { error: insertError } = await supabase
+        .from("career_applications")
+        .insert(applicationData);
+
+      if (insertError) {
+        console.error(
+          "Application insert failed:",
+          insertError,
+        );
+
+        throw new Error(
+          "Application submission failed. Please try again.",
         );
       }
 
       navigate(`/careers/${slug}/success`, {
         state: {
           jobTitle: job.title,
-          applicantName: formData.fullName,
+          applicantName: formData.fullName.trim(),
         },
       });
     } catch (error) {
-      setSubmitError(error.message);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Application submission failed.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -160,6 +238,13 @@ function ApplyJob() {
         <p className="text-red-600">
           {pageError || "Position not found."}
         </p>
+
+        <Link
+          to="/careers"
+          className="mt-6 inline-flex rounded-full bg-sky-500 px-6 py-3 font-bold text-white"
+        >
+          Back to Careers
+        </Link>
       </main>
     );
   }
@@ -187,10 +272,17 @@ function ApplyJob() {
           </h1>
 
           <p className="mt-4 text-slate-600">
-            {job.location} • {job.employmentType} • {job.experience}
+            {job.location}
+            {job.employment_type &&
+              ` • ${job.employment_type}`}
+            {job.experience &&
+              ` • ${job.experience}`}
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-12 space-y-10">
+          <form
+            onSubmit={handleSubmit}
+            className="mt-12 space-y-10"
+          >
             <FormSection
               title="Personal information"
               description="Tell us how we can contact you."
@@ -216,6 +308,7 @@ function ApplyJob() {
                 />
 
                 <input
+                  type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -239,6 +332,7 @@ function ApplyJob() {
             >
               <div className="grid gap-5 md:grid-cols-2">
                 <input
+                  type="url"
                   name="linkedin"
                   value={formData.linkedin}
                   onChange={handleChange}
@@ -247,6 +341,7 @@ function ApplyJob() {
                 />
 
                 <input
+                  type="url"
                   name="github"
                   value={formData.github}
                   onChange={handleChange}
@@ -255,6 +350,7 @@ function ApplyJob() {
                 />
 
                 <input
+                  type="url"
                   name="portfolio"
                   value={formData.portfolio}
                   onChange={handleChange}
@@ -310,7 +406,9 @@ function ApplyJob() {
 
                 <button
                   type="button"
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() =>
+                    fileInputRef.current?.click()
+                  }
                   className="rounded-full bg-slate-950 px-6 py-3 font-bold text-white transition hover:bg-sky-600"
                 >
                   Choose Resume
@@ -321,7 +419,7 @@ function ApplyJob() {
                 </p>
 
                 {resume && (
-                  <p className="mt-4 font-semibold text-sky-600">
+                  <p className="mt-4 break-all font-semibold text-sky-600">
                     Selected: {resume.name}
                   </p>
                 )}
@@ -352,7 +450,9 @@ function ApplyJob() {
               disabled={submitting}
               className="w-full rounded-full bg-sky-500 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-sky-100 transition hover:bg-sky-600 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? "Submitting Application..." : "Submit Application"}
+              {submitting
+                ? "Submitting Application..."
+                : "Submit Application"}
             </button>
           </form>
         </section>
@@ -361,12 +461,24 @@ function ApplyJob() {
   );
 }
 
-function FormSection({ title, description, children }) {
+function FormSection({
+  title,
+  description,
+  children,
+}) {
   return (
     <section>
-      <h2 className="text-2xl font-black">{title}</h2>
-      <p className="mt-2 text-slate-500">{description}</p>
-      <div className="mt-5">{children}</div>
+      <h2 className="text-2xl font-black">
+        {title}
+      </h2>
+
+      <p className="mt-2 text-slate-500">
+        {description}
+      </p>
+
+      <div className="mt-5">
+        {children}
+      </div>
     </section>
   );
 }
