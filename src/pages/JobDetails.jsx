@@ -29,7 +29,11 @@ function JobDetails() {
       }
 
       if (supabaseError) {
-        console.error("Failed to fetch job details:", supabaseError);
+        console.error(
+          "Failed to fetch job details:",
+          supabaseError,
+        );
+
         setError("Unable to load this job.");
         setJob(null);
         setLoading(false);
@@ -51,7 +55,9 @@ function JobDetails() {
     return (
       <main className="min-h-screen bg-white px-6 py-32 text-slate-950 md:px-12">
         <div className="mx-auto max-w-5xl">
-          <p className="text-slate-500">Loading job...</p>
+          <p className="text-slate-500">
+            Loading job...
+          </p>
         </div>
       </main>
     );
@@ -94,50 +100,147 @@ function JobDetails() {
           {job.title}
         </h1>
 
-        <p className="mt-6 text-lg text-slate-600">
-          {job.location}
-          {job.employment_type && ` • ${job.employment_type}`}
-          {job.experience && ` • ${job.experience}`}
-        </p>
+        <div className="mt-6 flex flex-wrap gap-x-3 gap-y-2 text-lg text-slate-600">
+          {job.location && <span>{job.location}</span>}
 
-        <section className="mt-12 space-y-10">
-          <div>
-            <h2 className="text-2xl font-black">About the role</h2>
+          {job.employment_type && (
+            <>
+              <span aria-hidden="true">•</span>
+              <span>{job.employment_type}</span>
+            </>
+          )}
 
-            <p className="mt-4 whitespace-pre-line leading-8 text-slate-600">
+          {job.experience && (
+            <>
+              <span aria-hidden="true">•</span>
+              <span>{job.experience}</span>
+            </>
+          )}
+        </div>
+
+        <section className="mt-14 space-y-14">
+          {job.description && (
+            <JobSection title="What We Do">
               {job.description}
-            </p>
-          </div>
+            </JobSection>
+          )}
+
+          {job.team_overview && (
+            <JobSection title="Engineering at Handil">
+              {job.team_overview}
+            </JobSection>
+          )}
+
+          {job.role_overview && (
+            <JobSection title="Role Overview">
+              {job.role_overview}
+            </JobSection>
+          )}
+
+          {job.responsibilities_overview && (
+            <JobSection title="Responsibilities and Qualifications">
+              {job.responsibilities_overview}
+            </JobSection>
+          )}
 
           {job.responsibilities && (
-            <div>
-              <h2 className="text-2xl font-black">Responsibilities</h2>
-
-              <p className="mt-4 whitespace-pre-line leading-8 text-slate-600">
-                {job.responsibilities}
-              </p>
-            </div>
+            <JobSection
+              title="Key Responsibilities"
+              isList
+            >
+              {job.responsibilities}
+            </JobSection>
           )}
 
           {job.requirements && (
-            <div>
-              <h2 className="text-2xl font-black">Requirements</h2>
+            <JobSection
+              title="Basic Qualifications"
+              isList
+            >
+              {job.requirements}
+            </JobSection>
+          )}
 
-              <p className="mt-4 whitespace-pre-line leading-8 text-slate-600">
-                {job.requirements}
-              </p>
-            </div>
+          {job.preferred_qualifications && (
+            <JobSection
+              title="Preferred Qualifications"
+              isList
+            >
+              {job.preferred_qualifications}
+            </JobSection>
+          )}
+
+          {job.what_we_offer && (
+            <JobSection title="About Handil">
+              {job.what_we_offer}
+            </JobSection>
           )}
         </section>
 
-        <Link
-          to={`/careers/${job.slug}/apply`}
-          className="mt-12 inline-flex rounded-full bg-sky-500 px-8 py-4 font-bold text-white transition hover:bg-sky-600"
-        >
-          Apply Now
-        </Link>
+        <div className="mt-16 border-t border-slate-200 pt-10">
+          <Link
+            to={`/careers/${job.slug}/apply`}
+            className="inline-flex rounded-full bg-sky-500 px-8 py-4 font-bold text-white transition hover:bg-sky-600"
+          >
+            Apply Now
+          </Link>
+        </div>
       </div>
     </main>
+  );
+}
+
+function JobSection({
+  title,
+  children,
+  isList = false,
+}) {
+  if (isList) {
+    const items = String(children)
+      .split(/\r?\n/)
+      .map((item) =>
+        item
+          .replace(/^[-•]\s*/, "")
+          .trim(),
+      )
+      .filter(Boolean);
+
+    return (
+      <section>
+        <h2 className="text-2xl font-black md:text-3xl">
+          {title}
+        </h2>
+
+        <ul className="mt-6 list-disc space-y-3 pl-6 text-lg leading-8 text-slate-600 marker:text-sky-500">
+          {items.map((item, index) => (
+            <li key={`${title}-${index}`}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
+  const paragraphs = String(children)
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  return (
+    <section>
+      <h2 className="text-2xl font-black md:text-3xl">
+        {title}
+      </h2>
+
+      <div className="mt-6 space-y-5 text-lg leading-8 text-slate-600">
+        {paragraphs.map((paragraph, index) => (
+          <p key={`${title}-paragraph-${index}`}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </section>
   );
 }
 
