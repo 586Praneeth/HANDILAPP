@@ -13,6 +13,7 @@ import RewardsFeedback from "./components/RewardsFeedback";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import EarlyAccessModal from "./components/EarlyAccessModal";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Careers from "./pages/Careers";
 import JobDetails from "./pages/JobDetails";
@@ -59,6 +60,8 @@ function App() {
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
+
+       <ScrollToTop />
       <Routes>
         {/* HOME PAGE */}
         <Route

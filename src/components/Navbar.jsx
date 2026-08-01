@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 
-function Navbar() {  const [open, setOpen] = useState(false);
+function Navbar() {
+  const [open, setOpen] = useState(false);
   const location = useLocation();
 
   const navItems = [
@@ -77,8 +78,14 @@ function Navbar() {  const [open, setOpen] = useState(false);
         <div className="flex items-center gap-3">
           <Link
             to="/careers"
-            onClick={closeMenu}
-            className="hidden rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-100 transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-400 hover:shadow-sky-200 sm:inline-flex"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }}
+            className="rounded-full bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-100 transition hover:-translate-y-0.5 hover:bg-sky-600"
           >
             Careers
           </Link>
