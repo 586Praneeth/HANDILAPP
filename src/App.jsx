@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Lenis from "lenis";
 
 import Navbar from "./components/Navbar";
@@ -21,6 +21,29 @@ import ApplyJob from "./pages/ApplyJob";
 import ApplicationSuccess from "./pages/ApplicationSuccess";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
+import WorkingAtHandil from "./pages/WorkingAtHandil";
+
+function HomePage() {
+  return (
+    <>
+      <Loader />
+
+      <Hero />
+
+      <RethinkingMessaging />
+
+      <WhatIsHandil />
+
+      <HowItWorks />
+
+      <CloudSection />
+
+      <FAQ />
+
+      <RewardsFeedback />
+    </>
+  );
+}
 
 function App() {
   const [showEarlyAccess, setShowEarlyAccess] = useState(false);
@@ -61,70 +84,61 @@ function App() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white text-slate-950">
+    <div className="flex min-h-screen flex-col bg-white text-slate-950">
+      <ScrollToTop />
 
-       <ScrollToTop />
-      <Routes>
-        {/* HOME PAGE */}
-        <Route
-          path="/"
-          element={
-            <>
-              <Loader />
+      {/* SHOWN ON EVERY PAGE */}
+      <Navbar />
 
-              <Navbar />
+      {/* PAGE CONTENT */}
+      <main className="flex-1">
+        <Routes>
+          {/* HOME */}
+          <Route path="/" element={<HomePage />} />
 
-              <Hero />
+          {/* CAREERS */}
+          <Route path="/careers" element={<Careers />} />
 
-              <RethinkingMessaging />
+          {/* WORKING AT HANDIL */}
+          <Route
+            path="/working-at-handil"
+            element={<WorkingAtHandil />}
+          />
 
-              <WhatIsHandil />
+          {/* JOB DETAILS */}
+          <Route path="/careers/:slug" element={<JobDetails />} />
 
-              <HowItWorks />
+          {/* JOB APPLICATION */}
+          <Route
+            path="/careers/:slug/apply"
+            element={<ApplyJob />}
+          />
 
-              <CloudSection />
+          {/* APPLICATION SUCCESS */}
+          <Route
+            path="/careers/:slug/success"
+            element={<ApplicationSuccess />}
+          />
 
-              <FAQ />
+          {/* LEGAL */}
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicy />}
+          />
 
-              <RewardsFeedback />
+          <Route path="/terms" element={<Terms />} />
+        </Routes>
+      </main>
 
-              <Footer onEarlyAccess={openEarlyAccess} />
-            </>
-          }
-        />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms" element={<Terms />} />
+      {/* SHOWN ON EVERY PAGE */}
+      <Footer onEarlyAccess={openEarlyAccess} />
 
-        {/* CAREERS LIST */}
-        <Route
-          path="/careers"
-          element={
-            <>
-              <Navbar />
-              <Careers />
-              <Footer onEarlyAccess={openEarlyAccess} />
-            </>
-          }
-        />
-
-        {/* JOB DETAILS */}
-        <Route path="/careers/:slug" element={<JobDetails />} />
-
-        {/* JOB APPLICATION */}
-        <Route path="/careers/:slug/apply" element={<ApplyJob />} />
-
-        {/* APPLICATION SUCCESS */}
-        <Route
-          path="/careers/:slug/success"
-          element={<ApplicationSuccess />}
-        />
-      </Routes>
-
+      {/* GLOBAL EARLY ACCESS MODAL */}
       <EarlyAccessModal
         open={showEarlyAccess}
         onClose={closeEarlyAccess}
       />
-    </main>
+    </div>
   );
 }
 

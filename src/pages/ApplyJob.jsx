@@ -476,34 +476,13 @@ function ApplyJob() {
 
 function ApplyHero({ job }) {
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-6 pb-20 pt-28 text-white md:px-12 md:pb-24 md:pt-32">
+    <section className="relative overflow-hidden bg-slate-950 px-6 pb-16 pt-16 text-white md:px-12 md:pb-20 md:pt-20">
       <div className="absolute -left-32 top-16 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
       <div className="absolute -right-32 top-0 h-[420px] w-[420px] rounded-full bg-violet-500/20 blur-3xl" />
 
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:52px_52px]" />
 
-      <Link
-        to="/"
-        aria-label="Go to Handil home page"
-        className="absolute left-6 top-6 z-20 inline-flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/15 md:left-12 md:top-8"
-      >
-        <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg">
-          <img
-            src="/handil-logo.png"
-            alt="Handil"
-            className="h-full w-full object-contain"
-          />
-        </div>
-
-        <div>
-          <p className="text-lg font-black leading-none">Handil</p>
-          <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-sky-300">
-            Connect. Chat. Care.
-          </p>
-        </div>
-      </Link>
-
-      <div className="relative mx-auto max-w-[1400px] pt-16">
+      <div className="relative mx-auto max-w-[1400px]">
         <Link
           to={`/careers/${job.slug}`}
           className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-bold text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/15"
@@ -512,7 +491,7 @@ function ApplyHero({ job }) {
           Back to role
         </Link>
 
-        <div className="mt-14 max-w-5xl">
+        <div className="mt-10 max-w-5xl">
           <p className="font-black uppercase tracking-[0.24em] text-sky-400">
             Apply to Handil
           </p>

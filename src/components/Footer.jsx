@@ -6,270 +6,145 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import Logo from "./Logo";
 
-function Footer({ onEarlyAccess }) {
-  const handleEarlyAccess = () => {
-    onEarlyAccess?.();
+function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <footer
-      id="contact"
-      className="relative overflow-hidden bg-slate-950 px-6 py-20 text-white md:px-12"
-    >
-      {/* BACKGROUND GLOW */}
-      <div className="absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full bg-sky-500/10 blur-[140px]" />
+    <footer className="relative overflow-hidden bg-gradient-to-r from-sky-600 via-blue-600 to-violet-600 px-6 py-10 text-white md:px-12">
+      <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
 
-      <div className="absolute -bottom-40 -right-32 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-[150px]" />
+      <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-cyan-300/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-[1500px]">
-        {/* MAIN FOOTER CONTENT */}
-        <div className="grid gap-14 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-          {/* BRAND */}
-          <div>
-            <div className="inline-flex rounded-2xl bg-white p-3">
-              <Logo />
-            </div>
+      <div className="relative mx-auto max-w-[1400px]">
+        {/* FOOTER NAVIGATION */}
+        <nav
+          aria-label="Footer navigation"
+          className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm font-semibold md:text-base"
+        >
+          <Link
+            to="/"
+            onClick={scrollToTop}
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            Home
+          </Link>
 
-            <p className="mt-7 max-w-sm leading-8 text-slate-400">
-              Private messaging built for the way people communicate today—with
-              more organization, more privacy and clearer control over personal
-              data.
-            </p>
+          <Link
+            to="/careers"
+            onClick={scrollToTop}
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            Opportunities
+          </Link>
 
-            <button
-              type="button"
-              onClick={handleEarlyAccess}
-              className="mt-8 rounded-full bg-sky-500 px-7 py-4 font-semibold text-white shadow-lg shadow-sky-950/40 transition hover:-translate-y-1 hover:bg-sky-400"
-            >
-              Get Early Access
-            </button>
-          </div>
+          <Link
+            to="/working-at-handil"
+            onClick={scrollToTop}
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            How We Work
+          </Link>
 
-          {/* COMPANY */}
-          <div>
-            <h3 className="mb-7 text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
-              Company
-            </h3>
+          <a
+            href="/#feedback"
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            Feedback
+          </a>
 
-            <ul className="space-y-5 text-slate-300">
-              <li>
-                <Link
-                  to="/careers"
-                  onClick={() => {
-                    window.scrollTo({
-                      top: 0,
-                      left: 0,
-                      behavior: "smooth",
-                    });
-                  }}
-                  className="transition hover:text-sky-400"
-                >
-                  Careers
-                </Link>
-              </li>
+          <a
+            href="/#faq"
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            FAQ
+          </a>
 
-              <li>
-                <a
-                  href="/#feedback"
-                  className="transition hover:text-sky-400"
-                >
-                  Feedback
-                </a>
-              </li>
+          <Link
+            to="/privacy-policy"
+            onClick={scrollToTop}
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            Privacy Policy
+          </Link>
 
-              <li>
-                <a href="/#faq" className="transition hover:text-sky-400">
-                  FAQ
-                </a>
-              </li>
+          <Link
+            to="/terms"
+            onClick={scrollToTop}
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            Terms
+          </Link>
+        </nav>
 
-            </ul>
-          </div>
+        {/* SOCIAL MEDIA */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
+          <a
+            href="https://www.linkedin.com/company/handil"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Handil on LinkedIn"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-white hover:bg-white hover:text-blue-600"
+          >
+            <FaLinkedinIn size={20} />
+          </a>
 
-          {/* TRUST */}
-          <div>
-            <h3 className="mb-7 text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
-              Trust
-            </h3>
+          <a
+            href="https://www.facebook.com/handil"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Handil on Facebook"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-white hover:bg-white hover:text-blue-600"
+          >
+            <FaFacebookF size={19} />
+          </a>
 
-            <ul className="space-y-5 text-slate-300">
-              <li>
-                <Link
-                  to="/privacy-policy"
-                  className="transition hover:text-sky-400"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
+          <a
+            href="https://www.instagram.com/handil"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Handil on Instagram"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-white hover:bg-white hover:text-violet-600"
+          >
+            <FaInstagram size={21} />
+          </a>
 
-              <li>
-                <Link
-                  to="/terms"
-                  className="transition hover:text-sky-400"
-                >
-                  Terms of Service
-                </Link>
-              </li>
+          <a
+            href="https://x.com/handil"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Handil on X"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-white hover:bg-white hover:text-slate-950"
+          >
+            <FaXTwitter size={20} />
+          </a>
 
-              <li>
-                <a
-                  href="/#security"
-                  className="transition hover:text-sky-400"
-                >
-                  Security and Data Control
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* GET HANDIL */}
-          <div>
-            <h3 className="mb-7 text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
-              Get Handil
-            </h3>
-
-            <ul className="space-y-5 text-slate-300">
-              <li>
-                <button
-                  type="button"
-                  onClick={handleEarlyAccess}
-                  className="text-left transition hover:text-sky-400"
-                >
-                  Android Early Access
-                </button>
-              </li>
-
-              <li>
-                <button
-                  type="button"
-                  onClick={handleEarlyAccess}
-                  className="text-left transition hover:text-sky-400"
-                >
-                  iPhone Early Access
-                </button>
-              </li>
-
-              <li>
-                <button
-                  type="button"
-                  onClick={handleEarlyAccess}
-                  className="text-left transition hover:text-sky-400"
-                >
-                  Join the Waitlist
-                </button>
-              </li>
-            </ul>
-          </div>
+          <a
+            href="https://www.youtube.com/@handil"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Handil on YouTube"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition duration-300 hover:-translate-y-1 hover:scale-105 hover:border-white hover:bg-white hover:text-red-600"
+          >
+            <FaYoutube size={21} />
+          </a>
         </div>
 
-        {/* SOCIAL LINKS */}
-        <div className="mt-20 border-t border-slate-800 pt-10">
-          <div className="flex flex-col items-center gap-8">
-            <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-sm text-slate-300">
-              <Link
-                to="/careers"
-                onClick={() => {
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
-                  });
-                }}
-                className="transition hover:text-sky-400"
-              >
-                Careers
-              </Link>
+        {/* COPYRIGHT */}
+        <div className="mt-8 border-t border-white/20 pt-6 text-center">
+          <p className="text-sm text-white/80">
+            © {new Date().getFullYear()} Handil. All rights reserved.
+          </p>
 
-              <a
-                href="/#feedback"
-                className="transition hover:text-sky-400"
-              >
-                Feedback
-              </a>
-
-              <a href="/#faq" className="transition hover:text-sky-400">
-                FAQ
-              </a>
-
-             
-
-              <Link
-                to="/privacy-policy"
-                className="transition hover:text-sky-400"
-              >
-                Privacy Policy
-              </Link>
-
-              <Link
-                to="/terms"
-                className="transition hover:text-sky-400"
-              >
-                Terms
-              </Link>
-            </div>
-
-            <div className="flex items-center justify-center gap-5">
-              <a
-                href="https://www.linkedin.com/company/handil"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Handil on LinkedIn"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 text-slate-300 transition hover:-translate-y-1 hover:border-sky-400 hover:bg-sky-500 hover:text-white"
-              >
-                <FaLinkedinIn size={19} />
-              </a>
-
-              <a
-                href="https://www.facebook.com/handil"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Handil on Facebook"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 text-slate-300 transition hover:-translate-y-1 hover:border-sky-400 hover:bg-sky-500 hover:text-white"
-              >
-                <FaFacebookF size={18} />
-              </a>
-
-              <a
-                href="https://www.instagram.com/handil"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Handil on Instagram"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 text-slate-300 transition hover:-translate-y-1 hover:border-sky-400 hover:bg-sky-500 hover:text-white"
-              >
-                <FaInstagram size={20} />
-              </a>
-
-              <a
-                href="https://x.com/handil"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Handil on X"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 text-slate-300 transition hover:-translate-y-1 hover:border-sky-400 hover:bg-sky-500 hover:text-white"
-              >
-                <FaXTwitter size={19} />
-              </a>
-
-              <a
-                href="https://www.youtube.com/@handil"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Handil on YouTube"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 text-slate-300 transition hover:-translate-y-1 hover:border-sky-400 hover:bg-sky-500 hover:text-white"
-              >
-                <FaYoutube size={20} />
-              </a>
-            </div>
-
-            <p className="text-center text-sm text-slate-500">
-              © {new Date().getFullYear()} Handil. All rights reserved.
-            </p>
-
-            <p className="text-center text-sm text-slate-600">
-              Private communication. Clearer control. Built around trust.
-            </p>
-          </div>
+          <p className="mt-2 text-xs text-white/60">
+            Private communication. Clearer control. Built around trust.
+          </p>
         </div>
       </div>
     </footer>

@@ -71,27 +71,6 @@ function JobDetails() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                to="/"
-                aria-label="Go to Handil home page"
-                className="group inline-flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/15"
-              >
-                <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg">
-                  <img
-                    src="/handil-logo.png"
-                    alt="Handil"
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-
-                <div className="text-left">
-                  <p className="text-lg font-black leading-none">Handil</p>
-
-                  <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.28em] text-sky-300">
-                    Connect. Chat. Care.
-                  </p>
-                </div>
-              </Link>
 
               <Link
                 to="/careers"
@@ -114,8 +93,8 @@ function JobDetails() {
       <JobHero job={job} applyPath={applyPath} />
 
       <section className="px-6 py-20 md:px-12 md:py-28">
-        <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <div className="space-y-8">
+        <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="min-w-0">
             {job.description && (
               <JobSection title="What We Do" eyebrow="Handil" icon="company">
                 {job.description}
@@ -214,34 +193,12 @@ function JobDetails() {
 
 function JobHero({ job, applyPath }) {
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-6 pb-24 pt-36 text-white md:px-12 md:pb-32 md:pt-40">
+    <section className="relative overflow-hidden bg-slate-950 px-6 pb-20 pt-16 text-white md:px-12 md:pb-24 md:pt-20">
       <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
       <div className="absolute -right-32 top-0 h-[420px] w-[420px] rounded-full bg-violet-500/20 blur-3xl" />
       <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
 
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:52px_52px]" />
-
-      <Link
-        to="/"
-        aria-label="Go to Handil home page"
-        className="absolute left-6 top-6 z-20 inline-flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/15 md:left-12 md:top-8"
-      >
-        <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg">
-          <img
-            src="/handil-logo.png"
-            alt="Handil"
-            className="h-full w-full object-contain"
-          />
-        </div>
-
-        <div>
-          <p className="text-lg font-black leading-none">Handil</p>
-
-          <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.25em] text-sky-300">
-            Connect. Chat. Care.
-          </p>
-        </div>
-      </Link>
 
       <div className="relative mx-auto max-w-[1400px]">
         <Link
@@ -252,7 +209,7 @@ function JobHero({ job, applyPath }) {
           Back to Careers
         </Link>
 
-        <div className="mt-16 grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="mt-10 grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div>
             {job.department && (
               <div className="inline-flex items-center gap-3 rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2">
@@ -436,16 +393,20 @@ function JobSection({
   icon,
   featured = false,
 }) {
-  const sectionClasses = featured
-    ? "border-sky-200 bg-gradient-to-br from-sky-50 via-white to-indigo-50 shadow-xl shadow-sky-100/60"
-    : "border-slate-200 bg-white shadow-sm";
-
   return (
-    <section className={`rounded-[36px] border p-7 md:p-10 ${sectionClasses}`}>
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+    <section
+      className={`py-9 ${
+        featured
+          ? "border-y border-sky-200 bg-gradient-to-r from-sky-50/70 via-white to-indigo-50/70"
+          : "border-t border-slate-200 first:border-t-0"
+      }`}
+    >
+      <div className="flex items-start gap-4">
         <div
-          className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${
-            featured ? "bg-sky-500 text-white" : "bg-slate-100 text-slate-800"
+          className={`mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+            featured
+              ? "bg-sky-500 text-white"
+              : "bg-sky-50 text-sky-600"
           }`}
         >
           <SectionIcon type={icon} />
@@ -453,12 +414,12 @@ function JobSection({
 
         <div className="min-w-0 flex-1">
           {eyebrow && (
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-sky-500">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-sky-500">
               {eyebrow}
             </p>
           )}
 
-          <h2 className="mt-2 text-2xl font-black leading-tight md:text-3xl">
+          <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 md:text-3xl">
             {title}
           </h2>
 
@@ -480,17 +441,14 @@ function JobBulletList({ title, content }) {
     .filter(Boolean);
 
   return (
-    <ul className="mt-7 grid gap-4">
+    <ul className="mt-5 space-y-2.5">
       {items.map((item, index) => (
         <li
           key={`${title}-${index}`}
-          className="flex gap-4 rounded-2xl border border-slate-100 bg-slate-50/80 p-4"
+          className="flex items-start gap-3 text-[16px] leading-7 text-slate-600"
         >
-          <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-600">
-            <CheckIcon />
-          </span>
-
-          <span className="leading-7 text-slate-600">{item}</span>
+          <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-sky-400" />
+          <span>{item}</span>
         </li>
       ))}
     </ul>
@@ -504,7 +462,7 @@ function JobParagraphs({ title, content }) {
     .filter(Boolean);
 
   return (
-    <div className="mt-7 space-y-5 text-lg leading-8 text-slate-600">
+    <div className="mt-5 space-y-3 text-[16px] leading-7 text-slate-600">
       {paragraphs.map((paragraph, index) => (
         <p key={`${title}-paragraph-${index}`}>{paragraph}</p>
       ))}
@@ -565,7 +523,7 @@ function JobDetailsLoading() {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="h-72 animate-pulse rounded-[36px] border border-slate-200 bg-white"
+              className="h-56 animate-pulse border-t border-slate-200 bg-white"
             />
           ))}
         </div>
@@ -744,19 +702,6 @@ function SectionIcon({ type }) {
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden="true">
-      <path
-        d="m7 12 3 3 7-7"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 
 function BackIcon() {

@@ -3,91 +3,13 @@ import { Link } from "react-router-dom";
 
 import { supabase } from "../lib/supabaseClient";
 
-const CULTURE_CARDS = [
-  {
-    number: "01",
-    title: "Build with purpose",
-    description:
-      "Work on communication technology designed around trust, privacy and meaningful user control.",
-    accent: "from-sky-400 to-blue-600",
-  },
-  {
-    number: "02",
-    title: "Own meaningful problems",
-    description:
-      "Contribute from early thinking and technical design through release, learning and improvement.",
-    accent: "from-violet-400 to-indigo-600",
-  },
-  {
-    number: "03",
-    title: "Grow with the product",
-    description:
-      "Help establish the engineering, product and operating foundations of an ambitious company.",
-    accent: "from-fuchsia-400 to-purple-600",
-  },
-  {
-    number: "04",
-    title: "Work across boundaries",
-    description:
-      "Collaborate closely across mobile, backend, AI, product, design and infrastructure.",
-    accent: "from-cyan-400 to-sky-600",
-  },
-];
-
-const TEAM_CARDS = [
-  {
-    title: "Mobile Engineering",
-    department: "Mobile Engineering",
-    description:
-      "Create intuitive, dependable experiences for the core Handil mobile product.",
-    icon: "mobile",
-  },
-  {
-    title: "Backend Engineering",
-    department: "Backend Engineering",
-    description:
-      "Build secure services, APIs and data foundations that support the platform.",
-    icon: "backend",
-  },
-  {
-    title: "Frontend Engineering",
-    department: "Frontend Engineering",
-    description:
-      "Shape polished web experiences, internal tools and public-facing platforms.",
-    icon: "frontend",
-  },
-  {
-    title: "AI Engineering",
-    department: "AI Engineering",
-    description:
-      "Develop responsible, measurable and privacy-conscious intelligent systems.",
-    icon: "ai",
-  },
-  {
-    title: "Platform Engineering",
-    department: "Platform Engineering",
-    description:
-      "Create reliable infrastructure, delivery automation and operational systems.",
-    icon: "platform",
-  },
-];
-
-const VALUES = [
-  "Trust is a product decision.",
-  "Privacy must be designed from the beginning.",
-  "Ownership continues after release.",
-  "Clear communication is part of good engineering.",
-  "Simple, dependable systems scale better.",
-];
-
 function Careers() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDepartment, setSelectedDepartment] =
-    useState("All");
+  const [selectedDepartment, setSelectedDepartment] = useState("All");
 
   useEffect(() => {
     let isMounted = true;
@@ -108,25 +30,21 @@ function Careers() {
             employment_type,
             experience,
             description,
+            display_order,
             created_at
           `,
         )
         .eq("is_active", true)
-        .order("created_at", { ascending: false });
+        .order("display_order", { ascending: true });
 
       if (!isMounted) {
         return;
       }
 
       if (supabaseError) {
-        console.error(
-          "Failed to fetch careers:",
-          supabaseError,
-        );
+        console.error("Failed to fetch careers:", supabaseError);
 
-        setError(
-          "Unable to load open positions. Please try again.",
-        );
+        setError("Unable to load open positions. Please try again.");
         setJobs([]);
         setLoading(false);
         return;
@@ -148,21 +66,15 @@ function Careers() {
       .map((job) => job.department)
       .filter(Boolean);
 
-    return [
-      "All",
-      ...Array.from(new Set(availableDepartments)),
-    ];
+    return ["All", ...Array.from(new Set(availableDepartments))];
   }, [jobs]);
 
   const filteredJobs = useMemo(() => {
-    const normalizedSearch = searchTerm
-      .trim()
-      .toLowerCase();
+    const normalizedSearch = searchTerm.trim().toLowerCase();
 
     return jobs.filter((job) => {
       const matchesDepartment =
-        selectedDepartment === "All" ||
-        job.department === selectedDepartment;
+        selectedDepartment === "All" || job.department === selectedDepartment;
 
       const searchableContent = [
         job.title,
@@ -176,51 +88,22 @@ function Careers() {
         .toLowerCase();
 
       const matchesSearch =
-        !normalizedSearch ||
-        searchableContent.includes(normalizedSearch);
+        !normalizedSearch || searchableContent.includes(normalizedSearch);
 
       return matchesDepartment && matchesSearch;
     });
   }, [jobs, searchTerm, selectedDepartment]);
 
   const scrollToOpenRoles = () => {
-    document
-      .getElementById("open-roles")
-      ?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-  };
-
-  const handleTeamClick = (department) => {
-    setSelectedDepartment(department);
-
-    requestAnimationFrame(() => {
-      document
-        .getElementById("open-roles")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+    document.getElementById("open-roles")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
     });
   };
 
   return (
     <main className="overflow-hidden bg-white text-slate-950">
-      <CareersHero
-        jobsCount={jobs.length}
-        onViewRoles={scrollToOpenRoles}
-      />
-
-      <WhyHandilSection />
-
-      <HowWeWorkSection />
-
-      <TeamsSection onTeamClick={handleTeamClick} />
-
-      <LifeAtHandilSection />
-
-      <ValuesSection />
+      <CareersHero jobsCount={jobs.length} onViewRoles={scrollToOpenRoles} />
 
       <OpenRolesSection
         jobs={filteredJobs}
@@ -233,6 +116,8 @@ function Careers() {
         onSearchChange={setSearchTerm}
         onDepartmentChange={setSelectedDepartment}
       />
+
+      <WorkingAtHandilCTA />
 
       <ClosingSection />
 
@@ -316,54 +201,39 @@ function CareersHero({ jobsCount, onViewRoles }) {
           </h1>
 
           <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-            Join a team shaping a thoughtful,
-            privacy-focused communication platform. Work
-            on meaningful problems, own important
-            decisions and help define what Handil becomes.
+            Join a team shaping a thoughtful, privacy-focused communication
+            platform. Work on meaningful problems, own important decisions and
+            help define what Handil becomes.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <button
               type="button"
               onClick={onViewRoles}
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-sky-500 px-8 py-4 font-black text-white shadow-2xl shadow-sky-500/25 transition hover:-translate-y-1 hover:bg-sky-400"
+              className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sky-500 via-cyan-500 to-blue-600 px-8 py-4 font-black text-white shadow-[0_18px_45px_rgba(14,165,233,0.35)] transition duration-500 hover:-translate-y-1 hover:scale-[1.04] hover:from-cyan-400 hover:via-blue-500 hover:to-violet-600 hover:shadow-[0_24px_65px_rgba(124,58,237,0.42)] active:translate-y-0 active:scale-[0.98]"
             >
-              View Open Roles
-              <ArrowDownIcon />
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+
+              <span className="relative z-10">View Open Roles</span>
+
+              <span className="relative z-10 transition duration-500 group-hover:translate-y-1">
+                <ArrowDownIcon />
+              </span>
             </button>
 
-            <a
-              href="#life-at-handil"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 py-4 font-black text-white backdrop-blur-lg transition hover:-translate-y-1 hover:bg-white/15"
+            <Link
+              to="/working-at-handil"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-white/20 bg-white/10 px-8 py-4 font-black text-white backdrop-blur-lg transition duration-500 hover:-translate-y-1 hover:border-sky-300/50 hover:bg-gradient-to-r hover:from-sky-500/20 hover:via-cyan-500/20 hover:to-violet-500/20"
             >
-              Life at Handil
-            </a>
-          </div>
-
-          <div className="mt-14 grid max-w-xl grid-cols-3 gap-4">
-            <HeroStat value="Remote" label="First" />
-            <HeroStat value="Small" label="Teams" />
-            <HeroStat value="Real" label="Ownership" />
+              How We Work
+              <ArrowUpRightIcon />
+            </Link>
           </div>
         </div>
 
         <HeroVisual />
       </div>
     </section>
-  );
-}
-
-function HeroStat({ value, label }) {
-  return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl">
-      <p className="text-xl font-black text-white">
-        {value}
-      </p>
-
-      <p className="mt-1 text-sm text-slate-400">
-        {label}
-      </p>
-    </div>
   );
 }
 
@@ -380,17 +250,13 @@ function HeroVisual() {
 
           <div>
             <p className="font-black">Privacy by design</p>
-            <p className="text-sm text-slate-300">
-              Built into every decision
-            </p>
+            <p className="text-sm text-slate-300">Built into every decision</p>
           </div>
         </div>
       </div>
 
       <div className="careers-float-reverse absolute right-0 top-8 z-20 rounded-3xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur-xl">
-        <p className="text-sm font-bold text-cyan-300">
-          TEAM PRINCIPLE
-        </p>
+        <p className="text-sm font-bold text-cyan-300">TEAM PRINCIPLE</p>
         <p className="mt-2 max-w-[190px] text-lg font-black">
           Understand the problem before writing the code.
         </p>
@@ -400,9 +266,7 @@ function HeroVisual() {
         <div className="overflow-hidden rounded-[38px] bg-slate-50">
           <div className="flex items-center justify-between bg-slate-950 px-5 py-5 text-white">
             <div>
-              <p className="text-xs text-slate-400">
-                Handil Team
-              </p>
+              <p className="text-xs text-slate-400">Handil Team</p>
               <p className="font-black">Build together</p>
             </div>
 
@@ -434,9 +298,7 @@ function HeroVisual() {
 
             <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
               <div className="flex items-center justify-between">
-                <p className="font-black text-slate-950">
-                  Today’s focus
-                </p>
+                <p className="font-black text-slate-950">Today’s focus</p>
 
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-600">
                   In progress
@@ -458,9 +320,7 @@ function HeroVisual() {
           Ownership
         </p>
 
-        <p className="mt-2 font-black">
-          From idea to impact
-        </p>
+        <p className="mt-2 font-black">From idea to impact</p>
 
         <div className="mt-4 flex gap-2">
           <span className="h-2 flex-1 rounded-full bg-sky-400" />
@@ -477,9 +337,7 @@ function HeroVisual() {
 
           <div>
             <p className="font-black">Learn quickly</p>
-            <p className="text-sm text-slate-300">
-              Improve continuously
-            </p>
+            <p className="text-sm text-slate-300">Improve continuously</p>
           </div>
         </div>
       </div>
@@ -499,11 +357,7 @@ function MessageBubble({ align, title, text }) {
   const isRight = align === "right";
 
   return (
-    <div
-      className={`flex ${
-        isRight ? "justify-end" : "justify-start"
-      }`}
-    >
+    <div className={`flex ${isRight ? "justify-end" : "justify-start"}`}>
       <div
         className={`max-w-[88%] rounded-3xl px-4 py-3 ${
           isRight
@@ -519,9 +373,7 @@ function MessageBubble({ align, title, text }) {
           {title}
         </p>
 
-        <p className="mt-1 text-sm leading-6">
-          {text}
-        </p>
+        <p className="mt-1 text-sm leading-6">{text}</p>
       </div>
     </div>
   );
@@ -530,378 +382,10 @@ function MessageBubble({ align, title, text }) {
 function ProgressRow({ label, value }) {
   return (
     <div className="flex items-center justify-between text-sm">
-      <span className="font-semibold text-slate-600">
-        {label}
-      </span>
+      <span className="font-semibold text-slate-600">{label}</span>
 
-      <span className="font-black text-slate-950">
-        {value}
-      </span>
+      <span className="font-black text-slate-950">{value}</span>
     </div>
-  );
-}
-
-function WhyHandilSection() {
-  return (
-    <section className="px-6 py-28 md:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <SectionEyebrow>Why Handil</SectionEyebrow>
-
-        <div className="mt-6 flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <h2 className="max-w-4xl text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
-            Do the most meaningful work of your career.
-          </h2>
-
-          <p className="max-w-xl text-lg leading-8 text-slate-600">
-            We are building more than a product. We are
-            establishing how a company thinks, creates and
-            earns trust.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {CULTURE_CARDS.map((card) => (
-            <article
-              key={card.number}
-              className="group relative min-h-[330px] overflow-hidden rounded-[40px] border border-slate-200 bg-slate-50 p-8 transition duration-500 hover:-translate-y-2 hover:border-slate-300 hover:shadow-2xl md:p-10"
-            >
-              <div
-                className={`absolute -right-20 -top-20 h-52 w-52 rounded-full bg-gradient-to-br ${card.accent} opacity-15 blur-2xl transition duration-500 group-hover:scale-125 group-hover:opacity-25`}
-              />
-
-              <div className="relative flex h-full flex-col justify-between">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-black tracking-[0.2em] text-slate-400">
-                    {card.number}
-                  </span>
-
-                  <div
-                    className={`h-3 w-3 rounded-full bg-gradient-to-br ${card.accent}`}
-                  />
-                </div>
-
-                <div className="mt-20">
-                  <h3 className="text-3xl font-black md:text-4xl">
-                    {card.title}
-                  </h3>
-
-                  <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-                    {card.description}
-                  </p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowWeWorkSection() {
-  const principles = [
-    "Take ownership instead of waiting for perfect instructions.",
-    "Care about the quality and consequences of decisions.",
-    "Communicate clearly, especially when something is uncertain.",
-    "Learn quickly and change direction when evidence demands it.",
-    "Choose dependable solutions over unnecessary complexity.",
-    "Protect user trust in product and engineering decisions.",
-  ];
-
-  return (
-    <section className="bg-slate-950 px-6 py-28 text-white md:px-12">
-      <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <SectionEyebrow dark>How we work</SectionEyebrow>
-
-          <h2 className="mt-6 max-w-xl text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
-            High ownership.
-            <span className="block text-slate-500">
-              Low ego.
-            </span>
-          </h2>
-
-          <p className="mt-8 max-w-xl text-lg leading-8 text-slate-300">
-            We want people who challenge ideas without
-            attacking people, move with urgency without
-            sacrificing judgment and understand that trust
-            is earned through consistent decisions.
-          </p>
-        </div>
-
-        <div className="divide-y divide-white/10 border-y border-white/10">
-          {principles.map((principle, index) => (
-            <div
-              key={principle}
-              className="group flex gap-6 py-7"
-            >
-              <span className="mt-1 text-sm font-black text-sky-400">
-                0{index + 1}
-              </span>
-
-              <p className="text-xl font-bold leading-8 text-slate-200 transition group-hover:translate-x-2 group-hover:text-white md:text-2xl">
-                {principle}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TeamsSection({ onTeamClick }) {
-  return (
-    <section className="bg-slate-50 px-6 py-28 md:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <SectionEyebrow>Teams at Handil</SectionEyebrow>
-
-        <h2 className="mt-6 max-w-4xl text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
-          Find where your strengths can create impact.
-        </h2>
-
-        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {TEAM_CARDS.map((team, index) => (
-            <button
-              key={team.title}
-              type="button"
-              onClick={() =>
-                onTeamClick(team.department)
-              }
-              className={`group min-h-[310px] rounded-[36px] border border-slate-200 p-7 text-left transition duration-500 hover:-translate-y-2 hover:shadow-2xl ${
-                index === 0
-                  ? "bg-sky-500 text-white md:col-span-2"
-                  : "bg-white text-slate-950"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div
-                  className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
-                    index === 0
-                      ? "bg-white/15"
-                      : "bg-slate-100"
-                  }`}
-                >
-                  <TeamIcon
-                    type={team.icon}
-                    light={index === 0}
-                  />
-                </div>
-
-                <span
-                  className={`flex h-11 w-11 items-center justify-center rounded-full border transition group-hover:rotate-45 ${
-                    index === 0
-                      ? "border-white/25"
-                      : "border-slate-200"
-                  }`}
-                >
-                  <ArrowUpRightIcon />
-                </span>
-              </div>
-
-              <div className="mt-16">
-                <h3 className="text-2xl font-black md:text-3xl">
-                  {team.title}
-                </h3>
-
-                <p
-                  className={`mt-4 max-w-xl leading-7 ${
-                    index === 0
-                      ? "text-sky-50"
-                      : "text-slate-600"
-                  }`}
-                >
-                  {team.description}
-                </p>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function LifeAtHandilSection() {
-  return (
-    <section
-      id="life-at-handil"
-      className="px-6 py-28 md:px-12"
-    >
-      <div className="mx-auto grid max-w-[1400px] items-center gap-16 lg:grid-cols-2">
-        <div className="relative min-h-[620px]">
-          <div className="absolute left-0 top-0 h-[360px] w-[78%] overflow-hidden rounded-[44px] bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 p-8 text-white shadow-2xl">
-            <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border-[36px] border-white/10" />
-
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-sky-100">
-              Small teams
-            </p>
-
-            <p className="mt-8 max-w-md text-4xl font-black leading-tight">
-              Direct conversations. Faster decisions.
-              Clearer ownership.
-            </p>
-
-            <div className="absolute bottom-8 left-8 flex items-center gap-3">
-              <div className="flex -space-x-3">
-                <LargeAvatar initials="P" />
-                <LargeAvatar initials="E" />
-                <LargeAvatar initials="D" />
-              </div>
-
-              <p className="text-sm font-bold text-sky-100">
-                Product + Engineering + Design
-              </p>
-            </div>
-          </div>
-
-          <div className="absolute bottom-0 right-0 w-[68%] rounded-[40px] border border-slate-200 bg-white p-8 shadow-2xl">
-            <div className="flex items-center justify-between">
-              <p className="font-black text-slate-950">
-                From idea to learning
-              </p>
-
-              <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-600">
-                Continuous
-              </span>
-            </div>
-
-            <div className="mt-8 space-y-5">
-              <TimelineItem
-                number="1"
-                title="Understand"
-                description="Start with the user and the real problem."
-              />
-
-              <TimelineItem
-                number="2"
-                title="Create"
-                description="Build thoughtfully and collaborate openly."
-              />
-
-              <TimelineItem
-                number="3"
-                title="Improve"
-                description="Measure outcomes and learn from reality."
-              />
-            </div>
-          </div>
-
-          <div className="careers-float absolute right-4 top-24 rounded-3xl bg-slate-950 p-5 text-white shadow-2xl">
-            <SparkIcon />
-            <p className="mt-3 font-black">
-              Ideas can come
-              <br />
-              from anyone.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <SectionEyebrow>Life at Handil</SectionEyebrow>
-
-          <h2 className="mt-6 text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
-            Small teams.
-            <span className="block text-sky-500">
-              Meaningful ownership.
-            </span>
-            Direct impact.
-          </h2>
-
-          <p className="mt-8 text-lg leading-8 text-slate-600">
-            At Handil, people work closely from the
-            beginning. You will understand why something is
-            being built, contribute to how it should work
-            and remain involved as it reaches real users.
-          </p>
-
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-            We value builders who connect product thinking
-            with execution, raise concerns early and care
-            about the quality of the outcome—not only the
-            completion of the task.
-          </p>
-
-          <div className="mt-10 grid grid-cols-2 gap-4">
-            <MiniValue title="Remote-first" />
-            <MiniValue title="Cross-functional" />
-            <MiniValue title="High ownership" />
-            <MiniValue title="Continuous learning" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function LargeAvatar({ initials }) {
-  return (
-    <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-sky-500 bg-white font-black text-sky-600">
-      {initials}
-    </div>
-  );
-}
-
-function TimelineItem({
-  number,
-  title,
-  description,
-}) {
-  return (
-    <div className="flex gap-4">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-950 font-black text-white">
-        {number}
-      </div>
-
-      <div>
-        <p className="font-black text-slate-950">
-          {title}
-        </p>
-
-        <p className="mt-1 text-sm leading-6 text-slate-500">
-          {description}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function MiniValue({ title }) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 font-bold text-slate-700">
-      {title}
-    </div>
-  );
-}
-
-function ValuesSection() {
-  return (
-    <section className="bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 px-6 py-28 text-white md:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        <p className="font-bold uppercase tracking-[0.25em] text-sky-100">
-          What we believe
-        </p>
-
-        <div className="mt-12">
-          {VALUES.map((value, index) => (
-            <div
-              key={value}
-              className="group border-t border-white/20 py-8 last:border-b"
-            >
-              <div className="flex items-start gap-6">
-                <span className="mt-2 text-sm font-black text-sky-200">
-                  0{index + 1}
-                </span>
-
-                <p className="text-3xl font-black leading-tight transition duration-300 group-hover:translate-x-3 md:text-5xl">
-                  {value}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -919,9 +403,59 @@ function OpenRolesSection({
   return (
     <section
       id="open-roles"
-      className="scroll-mt-20 bg-slate-50 px-6 py-28 md:px-12"
+      className="relative scroll-mt-20 overflow-hidden bg-slate-50 px-6 pb-28 pt-24 md:px-12 md:pt-28"
     >
-      <div className="mx-auto max-w-[1400px]">
+      {/* BACKGROUND COLOR VARIATION */}
+      <div className="absolute left-[-120px] top-[-80px] h-[360px] w-[360px] rounded-full bg-sky-300/25 blur-[120px]" />
+
+      <div className="absolute right-[-120px] top-[80px] h-[360px] w-[360px] rounded-full bg-violet-300/25 blur-[130px]" />
+
+      <div className="absolute bottom-[-140px] left-1/2 h-[320px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-200/25 blur-[130px]" />
+
+      <div className="relative mx-auto max-w-[1400px]">
+        {/* GLASS TRANSITION PANEL */}
+        <div className="-mt-16 mb-16 rounded-[36px] border border-white/70 bg-white/75 p-5 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur-2xl md:p-7">
+          <div className="grid gap-5 md:grid-cols-3">
+            <GlassStat
+              label="Open opportunities"
+              value={loading ? "—" : totalJobs}
+              gradient="from-sky-500/20 via-cyan-400/10 to-blue-500/20"
+            />
+
+            <GlassStat
+              label="Work style"
+              value="Remote"
+              gradient="from-violet-500/20 via-fuchsia-400/10 to-indigo-500/20"
+            />
+
+            <GlassStat
+              label="Employment"
+              value="Full-time"
+              gradient="from-cyan-500/20 via-sky-400/10 to-emerald-500/20"
+            />
+          </div>
+
+          <div className="mt-5 rounded-[28px] border border-white/70 bg-gradient-to-r from-slate-950/95 via-blue-950/95 to-violet-950/95 px-6 py-6 text-white md:px-8">
+            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-sky-300">
+                  Build with Handil
+                </p>
+
+                <p className="mt-2 max-w-3xl text-lg font-bold leading-7">
+                  Find a role where your work influences the product,
+                  architecture and the way Handil grows.
+                </p>
+              </div>
+
+              <div className="inline-flex items-center gap-2 text-sm font-bold text-cyan-200">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
+                Applications open
+              </div>
+            </div>
+          </div>
+        </div>
+
         <SectionEyebrow>Open positions</SectionEyebrow>
 
         <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
@@ -934,31 +468,24 @@ function OpenRolesSection({
               {loading
                 ? "Loading opportunities..."
                 : `${totalJobs} ${
-                    totalJobs === 1
-                      ? "opportunity"
-                      : "opportunities"
+                    totalJobs === 1 ? "opportunity" : "opportunities"
                   } currently open.`}
             </p>
           </div>
 
           <div className="w-full lg:max-w-md">
-            <label
-              htmlFor="career-search"
-              className="sr-only"
-            >
+            <label htmlFor="career-search" className="sr-only">
               Search open roles
             </label>
 
-            <div className="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-5 shadow-sm focus-within:border-sky-400 focus-within:ring-4 focus-within:ring-sky-100">
+            <div className="flex items-center gap-3 rounded-full border border-white/80 bg-white/75 px-5 shadow-lg shadow-slate-200/60 backdrop-blur-xl transition focus-within:border-sky-400 focus-within:ring-4 focus-within:ring-sky-100">
               <SearchIcon />
 
               <input
                 id="career-search"
                 type="search"
                 value={searchTerm}
-                onChange={(event) =>
-                  onSearchChange(event.target.value)
-                }
+                onChange={(event) => onSearchChange(event.target.value)}
                 placeholder="Search roles, teams or locations"
                 className="w-full bg-transparent py-4 outline-none placeholder:text-slate-400"
               />
@@ -969,20 +496,17 @@ function OpenRolesSection({
         {!loading && !error && departments.length > 1 && (
           <div className="mt-10 flex flex-wrap gap-3">
             {departments.map((department) => {
-              const isSelected =
-                selectedDepartment === department;
+              const isSelected = selectedDepartment === department;
 
               return (
                 <button
                   key={department}
                   type="button"
-                  onClick={() =>
-                    onDepartmentChange(department)
-                  }
-                  className={`rounded-full px-5 py-3 text-sm font-black transition ${
+                  onClick={() => onDepartmentChange(department)}
+                  className={`rounded-full px-5 py-3 text-sm font-black transition duration-300 ${
                     isSelected
-                      ? "bg-slate-950 text-white shadow-lg"
-                      : "border border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:text-sky-600"
+                      ? "bg-gradient-to-r from-sky-500 via-blue-600 to-violet-600 text-white shadow-lg shadow-sky-500/20"
+                      : "border border-white/80 bg-white/70 text-slate-600 backdrop-blur-xl hover:-translate-y-0.5 hover:border-sky-300 hover:bg-gradient-to-r hover:from-sky-50 hover:via-cyan-50 hover:to-violet-50 hover:text-sky-700 hover:shadow-lg"
                   }`}
                 >
                   {department}
@@ -996,42 +520,53 @@ function OpenRolesSection({
 
         {!loading && error && (
           <div className="mt-12 rounded-[32px] border border-red-100 bg-red-50 p-8">
-            <p className="font-bold text-red-600">
-              {error}
-            </p>
+            <p className="font-bold text-red-600">{error}</p>
           </div>
         )}
 
         {!loading && !error && jobs.length === 0 && (
-          <div className="mt-12 rounded-[36px] border border-slate-200 bg-white p-10 text-center">
+          <div className="mt-12 rounded-[36px] border border-white/80 bg-white/75 p-10 text-center shadow-xl backdrop-blur-xl">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100">
               <SearchIcon large />
             </div>
 
-            <h3 className="mt-6 text-2xl font-black">
-              No matching roles
-            </h3>
+            <h3 className="mt-6 text-2xl font-black">No matching roles</h3>
 
             <p className="mx-auto mt-3 max-w-lg leading-7 text-slate-600">
-              Try another search term or select a different
-              team.
+              Try another search term or select a different team.
             </p>
           </div>
         )}
 
         {!loading && !error && jobs.length > 0 && (
-          <div className="mt-12 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-12 space-y-5">
             {jobs.map((job, index) => (
-              <JobCard
-                key={job.id}
-                job={job}
-                index={index}
-              />
+              <JobCard key={job.id} job={job} index={index} />
             ))}
           </div>
         )}
       </div>
     </section>
+  );
+}
+
+function GlassStat({ label, value, gradient }) {
+  return (
+    <div
+      className={`group relative overflow-hidden rounded-[24px] border border-white/70 bg-gradient-to-br p-5 backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl ${gradient}`}
+    >
+      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/40 blur-2xl transition duration-500 group-hover:scale-125" />
+
+      <div className="relative">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+          {label}
+        </p>
+
+        <p className="mt-3 text-2xl font-black text-slate-950 md:text-3xl">
+          {value}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -1059,7 +594,7 @@ function JobCard({ job, index }) {
     <article className="group py-8 md:py-10">
       <Link
         to={`/careers/${job.slug}`}
-        className="grid gap-8 rounded-[32px] p-3 transition duration-300 hover:bg-white hover:p-7 hover:shadow-xl md:grid-cols-[80px_1fr_auto] md:items-center"
+        className="grid gap-8 rounded-[32px] p-3 transition duration-500 hover:bg-gradient-to-r hover:from-white hover:via-sky-50 hover:to-violet-50 hover:p-7 hover:shadow-xl md:grid-cols-[80px_1fr_auto] md:items-center"
       >
         <div className="hidden h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-black text-slate-400 md:flex">
           {String(index + 1).padStart(2, "0")}
@@ -1093,9 +628,7 @@ function JobCard({ job, index }) {
           </div>
 
           {summary && (
-            <p className="mt-5 max-w-3xl leading-7 text-slate-600">
-              {summary}
-            </p>
+            <p className="mt-5 max-w-3xl leading-7 text-slate-600">{summary}</p>
           )}
         </div>
 
@@ -1104,6 +637,44 @@ function JobCard({ job, index }) {
         </div>
       </Link>
     </article>
+  );
+}
+
+function WorkingAtHandilCTA() {
+  return (
+    <section className="bg-white px-6 py-24 md:px-12 md:py-28">
+      <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-[48px] bg-slate-950 px-8 py-16 text-white md:px-14 md:py-20">
+        <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
+        <div className="absolute -bottom-24 -right-20 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl" />
+
+        <div className="relative flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="font-black uppercase tracking-[0.24em] text-sky-400">
+              Working at Handil
+            </p>
+
+            <h2 className="mt-6 max-w-4xl text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
+              Understand how we work and what we expect from one another.
+            </h2>
+
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+              Explore our working principles, team structure and the beliefs
+              that guide product and engineering decisions.
+            </p>
+          </div>
+
+          <Link
+            to="/working-at-handil"
+            className="group inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-white px-8 py-4 font-black text-slate-950 transition duration-500 hover:-translate-y-1 hover:bg-gradient-to-r hover:from-sky-100 hover:via-cyan-100 hover:to-violet-100 hover:shadow-2xl hover:shadow-sky-500/20"
+          >
+            How We Work
+            <span className="transition group-hover:translate-x-1">
+              <ArrowUpRightIcon />
+            </span>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -1124,9 +695,8 @@ function ClosingSection() {
           </h2>
 
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-300">
-            New opportunities will continue to open as
-            Handil grows. Check back soon and follow our
-            journey.
+            New opportunities will continue to open as Handil grows. Check back
+            soon and follow our journey.
           </p>
 
           <a
@@ -1159,148 +729,15 @@ function createJobSummary(description) {
     return "";
   }
 
-  const normalized = String(description)
-    .replace(/\s+/g, " ")
-    .trim();
+  const normalized = String(description).replace(/\s+/g, " ").trim();
 
-  const firstParagraph =
-    normalized.split(/\n\s*\n/)[0] || normalized;
+  const firstParagraph = normalized.split(/\n\s*\n/)[0] || normalized;
 
   if (firstParagraph.length <= 220) {
     return firstParagraph;
   }
 
   return `${firstParagraph.slice(0, 217).trim()}...`;
-}
-
-function TeamIcon({ type, light = false }) {
-  const className = light
-    ? "h-7 w-7 text-white"
-    : "h-7 w-7 text-slate-800";
-
-  if (type === "mobile") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className={className}
-        aria-hidden="true"
-      >
-        <rect
-          x="7"
-          y="2.5"
-          width="10"
-          height="19"
-          rx="2.5"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M10 5h4M11 18.5h2"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
-  if (type === "backend") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className={className}
-        aria-hidden="true"
-      >
-        <ellipse
-          cx="12"
-          cy="5"
-          rx="7"
-          ry="3"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M5 5v7c0 1.66 3.13 3 7 3s7-1.34 7-3V5"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M5 12v7c0 1.66 3.13 3 7 3s7-1.34 7-3v-7"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-      </svg>
-    );
-  }
-
-  if (type === "frontend") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className={className}
-        aria-hidden="true"
-      >
-        <rect
-          x="3"
-          y="4"
-          width="18"
-          height="16"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M3 8h18M7 6h.01M10 6h.01"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
-  if (type === "ai") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className={className}
-        aria-hidden="true"
-      >
-        <path
-          d="M12 3a4 4 0 0 0-4 4v1a4 4 0 0 0-2 7.46A4 4 0 0 0 10 21h2V3Z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 2 7.46A4 4 0 0 1 14 21h-2M8 10h2M14 8h2M14 15h3"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M4 7h16M7 4v6M17 4v6M5 13h6v6H5zM14 13h5v6h-5z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 function ShieldIcon() {
@@ -1355,19 +792,11 @@ function SearchIcon({ large = false }) {
       viewBox="0 0 24 24"
       fill="none"
       className={
-        large
-          ? "h-7 w-7 text-slate-500"
-          : "h-5 w-5 shrink-0 text-slate-400"
+        large ? "h-7 w-7 text-slate-500" : "h-5 w-5 shrink-0 text-slate-400"
       }
       aria-hidden="true"
     >
-      <circle
-        cx="11"
-        cy="11"
-        r="7"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
       <path
         d="m16.5 16.5 4 4"
         stroke="currentColor"
@@ -1380,12 +809,7 @@ function SearchIcon({ large = false }) {
 
 function ArrowDownIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
       <path
         d="M12 4v15m0 0-6-6m6 6 6-6"
         stroke="currentColor"
@@ -1399,12 +823,7 @@ function ArrowDownIcon() {
 
 function ArrowUpRightIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
       <path
         d="M7 17 17 7M8 7h9v9"
         stroke="currentColor"
@@ -1418,12 +837,7 @@ function ArrowUpRightIcon() {
 
 function ArrowUpIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
       <path
         d="M12 20V5m0 0-6 6m6-6 6 6"
         stroke="currentColor"
