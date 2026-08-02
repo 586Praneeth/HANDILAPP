@@ -19,6 +19,8 @@ import Careers from "./pages/Careers";
 import JobDetails from "./pages/JobDetails";
 import ApplyJob from "./pages/ApplyJob";
 import ApplicationSuccess from "./pages/ApplicationSuccess";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
 
 function App() {
   const [showEarlyAccess, setShowEarlyAccess] = useState(false);
@@ -90,6 +92,8 @@ function App() {
             </>
           }
         />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
 
         {/* CAREERS LIST */}
         <Route
