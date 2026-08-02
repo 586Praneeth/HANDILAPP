@@ -9,7 +9,8 @@ function Careers() {
   const [error, setError] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDepartment, setSelectedDepartment] = useState("All");
+  const [selectedDepartment, setSelectedDepartment] =
+    useState("All");
 
   useEffect(() => {
     let isMounted = true;
@@ -42,9 +43,14 @@ function Careers() {
       }
 
       if (supabaseError) {
-        console.error("Failed to fetch careers:", supabaseError);
+        console.error(
+          "Failed to fetch careers:",
+          supabaseError,
+        );
 
-        setError("Unable to load open positions. Please try again.");
+        setError(
+          "Unable to load open positions. Please try again.",
+        );
         setJobs([]);
         setLoading(false);
         return;
@@ -66,15 +72,21 @@ function Careers() {
       .map((job) => job.department)
       .filter(Boolean);
 
-    return ["All", ...Array.from(new Set(availableDepartments))];
+    return [
+      "All",
+      ...Array.from(new Set(availableDepartments)),
+    ];
   }, [jobs]);
 
   const filteredJobs = useMemo(() => {
-    const normalizedSearch = searchTerm.trim().toLowerCase();
+    const normalizedSearch = searchTerm
+      .trim()
+      .toLowerCase();
 
     return jobs.filter((job) => {
       const matchesDepartment =
-        selectedDepartment === "All" || job.department === selectedDepartment;
+        selectedDepartment === "All" ||
+        job.department === selectedDepartment;
 
       const searchableContent = [
         job.title,
@@ -88,22 +100,29 @@ function Careers() {
         .toLowerCase();
 
       const matchesSearch =
-        !normalizedSearch || searchableContent.includes(normalizedSearch);
+        !normalizedSearch ||
+        searchableContent.includes(normalizedSearch);
 
       return matchesDepartment && matchesSearch;
     });
   }, [jobs, searchTerm, selectedDepartment]);
 
   const scrollToOpenRoles = () => {
-    document.getElementById("open-roles")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    document
+      .getElementById("open-roles")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
   };
+
 
   return (
     <main className="overflow-hidden bg-white text-slate-950">
-      <CareersHero jobsCount={jobs.length} onViewRoles={scrollToOpenRoles} />
+      <CareersHero
+        jobsCount={jobs.length}
+        onViewRoles={scrollToOpenRoles}
+      />
 
       <OpenRolesSection
         jobs={filteredJobs}
@@ -201,25 +220,26 @@ function CareersHero({ jobsCount, onViewRoles }) {
           </h1>
 
           <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-            Join a team shaping a thoughtful, privacy-focused communication
-            platform. Work on meaningful problems, own important decisions and
-            help define what Handil becomes.
+            Join a team shaping a thoughtful,
+            privacy-focused communication platform. Work
+            on meaningful problems, own important
+            decisions and help define what Handil becomes.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <button
-              type="button"
-              onClick={onViewRoles}
-              className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sky-500 via-cyan-500 to-blue-600 px-8 py-4 font-black text-white shadow-[0_18px_45px_rgba(14,165,233,0.35)] transition duration-500 hover:-translate-y-1 hover:scale-[1.04] hover:from-cyan-400 hover:via-blue-500 hover:to-violet-600 hover:shadow-[0_24px_65px_rgba(124,58,237,0.42)] active:translate-y-0 active:scale-[0.98]"
-            >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+  type="button"
+  onClick={onViewRoles}
+  className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sky-500 via-cyan-500 to-blue-600 px-8 py-4 font-black text-white shadow-[0_18px_45px_rgba(14,165,233,0.35)] transition duration-500 hover:-translate-y-1 hover:scale-[1.04] hover:from-cyan-400 hover:via-blue-500 hover:to-violet-600 hover:shadow-[0_24px_65px_rgba(124,58,237,0.42)] active:translate-y-0 active:scale-[0.98]"
+>
+  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
 
-              <span className="relative z-10">View Open Roles</span>
+  <span className="relative z-10">View Open Roles</span>
 
-              <span className="relative z-10 transition duration-500 group-hover:translate-y-1">
-                <ArrowDownIcon />
-              </span>
-            </button>
+  <span className="relative z-10 transition duration-500 group-hover:translate-y-1">
+    <ArrowDownIcon />
+  </span>
+</button>
 
             <Link
               to="/working-at-handil"
@@ -229,6 +249,7 @@ function CareersHero({ jobsCount, onViewRoles }) {
               <ArrowUpRightIcon />
             </Link>
           </div>
+
         </div>
 
         <HeroVisual />
@@ -237,36 +258,21 @@ function CareersHero({ jobsCount, onViewRoles }) {
   );
 }
 
+
 function HeroVisual() {
   return (
-    <div className="relative mx-auto h-[620px] w-full max-w-[620px]">
+    <div className="relative mx-auto h-[620px] w-full max-w-[520px]">
       <div className="absolute left-1/2 top-1/2 h-[440px] w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-gradient-to-br from-sky-400/20 via-violet-500/10 to-transparent blur-sm" />
 
-      <div className="careers-float absolute left-0 top-20 z-20 rounded-3xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur-xl">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600">
-            <ShieldIcon />
-          </div>
 
-          <div>
-            <p className="font-black">Privacy by design</p>
-            <p className="text-sm text-slate-300">Built into every decision</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="careers-float-reverse absolute right-0 top-8 z-20 rounded-3xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur-xl">
-        <p className="text-sm font-bold text-cyan-300">TEAM PRINCIPLE</p>
-        <p className="mt-2 max-w-[190px] text-lg font-black">
-          Understand the problem before writing the code.
-        </p>
-      </div>
 
       <div className="absolute left-1/2 top-1/2 z-10 w-[310px] -translate-x-1/2 -translate-y-1/2 rotate-[-4deg] rounded-[52px] border-[10px] border-slate-800 bg-white p-3 shadow-[0_45px_120px_rgba(0,0,0,0.55)] sm:w-[340px]">
         <div className="overflow-hidden rounded-[38px] bg-slate-50">
           <div className="flex items-center justify-between bg-slate-950 px-5 py-5 text-white">
             <div>
-              <p className="text-xs text-slate-400">Handil Team</p>
+              <p className="text-xs text-slate-400">
+                Handil Team
+              </p>
               <p className="font-black">Build together</p>
             </div>
 
@@ -298,7 +304,9 @@ function HeroVisual() {
 
             <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
               <div className="flex items-center justify-between">
-                <p className="font-black text-slate-950">Today’s focus</p>
+                <p className="font-black text-slate-950">
+                  Today’s focus
+                </p>
 
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-600">
                   In progress
@@ -315,32 +323,7 @@ function HeroVisual() {
         </div>
       </div>
 
-      <div className="careers-float absolute bottom-10 left-4 z-20 w-56 rounded-3xl border border-white/15 bg-slate-900/75 p-5 shadow-2xl backdrop-blur-xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-300">
-          Ownership
-        </p>
 
-        <p className="mt-2 font-black">From idea to impact</p>
-
-        <div className="mt-4 flex gap-2">
-          <span className="h-2 flex-1 rounded-full bg-sky-400" />
-          <span className="h-2 flex-1 rounded-full bg-violet-400" />
-          <span className="h-2 flex-1 rounded-full bg-cyan-400" />
-        </div>
-      </div>
-
-      <div className="careers-float-reverse absolute bottom-20 right-0 z-20 rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur-xl">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-500">
-            <SparkIcon />
-          </div>
-
-          <div>
-            <p className="font-black">Learn quickly</p>
-            <p className="text-sm text-slate-300">Improve continuously</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -357,7 +340,11 @@ function MessageBubble({ align, title, text }) {
   const isRight = align === "right";
 
   return (
-    <div className={`flex ${isRight ? "justify-end" : "justify-start"}`}>
+    <div
+      className={`flex ${
+        isRight ? "justify-end" : "justify-start"
+      }`}
+    >
       <div
         className={`max-w-[88%] rounded-3xl px-4 py-3 ${
           isRight
@@ -373,7 +360,9 @@ function MessageBubble({ align, title, text }) {
           {title}
         </p>
 
-        <p className="mt-1 text-sm leading-6">{text}</p>
+        <p className="mt-1 text-sm leading-6">
+          {text}
+        </p>
       </div>
     </div>
   );
@@ -382,9 +371,13 @@ function MessageBubble({ align, title, text }) {
 function ProgressRow({ label, value }) {
   return (
     <div className="flex items-center justify-between text-sm">
-      <span className="font-semibold text-slate-600">{label}</span>
+      <span className="font-semibold text-slate-600">
+        {label}
+      </span>
 
-      <span className="font-black text-slate-950">{value}</span>
+      <span className="font-black text-slate-950">
+        {value}
+      </span>
     </div>
   );
 }
@@ -414,7 +407,7 @@ function OpenRolesSection({
 
       <div className="relative mx-auto max-w-[1400px]">
         {/* GLASS TRANSITION PANEL */}
-        <div className="-mt-16 mb-16 rounded-[36px] border border-white/70 bg-white/75 p-5 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur-2xl md:p-7">
+       <div className="-mt-16 mb-16 rounded-[36px] border border-white/70 bg-white/75 p-5 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur-2xl md:p-7">
           <div className="grid gap-5 md:grid-cols-3">
             <GlassStat
               label="Open opportunities"
@@ -485,7 +478,9 @@ function OpenRolesSection({
                 id="career-search"
                 type="search"
                 value={searchTerm}
-                onChange={(event) => onSearchChange(event.target.value)}
+                onChange={(event) =>
+                  onSearchChange(event.target.value)
+                }
                 placeholder="Search roles, teams or locations"
                 className="w-full bg-transparent py-4 outline-none placeholder:text-slate-400"
               />
@@ -496,13 +491,16 @@ function OpenRolesSection({
         {!loading && !error && departments.length > 1 && (
           <div className="mt-10 flex flex-wrap gap-3">
             {departments.map((department) => {
-              const isSelected = selectedDepartment === department;
+              const isSelected =
+                selectedDepartment === department;
 
               return (
                 <button
                   key={department}
                   type="button"
-                  onClick={() => onDepartmentChange(department)}
+                  onClick={() =>
+                    onDepartmentChange(department)
+                  }
                   className={`rounded-full px-5 py-3 text-sm font-black transition duration-300 ${
                     isSelected
                       ? "bg-gradient-to-r from-sky-500 via-blue-600 to-violet-600 text-white shadow-lg shadow-sky-500/20"
@@ -520,7 +518,9 @@ function OpenRolesSection({
 
         {!loading && error && (
           <div className="mt-12 rounded-[32px] border border-red-100 bg-red-50 p-8">
-            <p className="font-bold text-red-600">{error}</p>
+            <p className="font-bold text-red-600">
+              {error}
+            </p>
           </div>
         )}
 
@@ -530,10 +530,13 @@ function OpenRolesSection({
               <SearchIcon large />
             </div>
 
-            <h3 className="mt-6 text-2xl font-black">No matching roles</h3>
+            <h3 className="mt-6 text-2xl font-black">
+              No matching roles
+            </h3>
 
             <p className="mx-auto mt-3 max-w-lg leading-7 text-slate-600">
-              Try another search term or select a different team.
+              Try another search term or select a different
+              team.
             </p>
           </div>
         )}
@@ -541,7 +544,11 @@ function OpenRolesSection({
         {!loading && !error && jobs.length > 0 && (
           <div className="mt-12 space-y-5">
             {jobs.map((job, index) => (
-              <JobCard key={job.id} job={job} index={index} />
+              <JobCard
+                key={job.id}
+                job={job}
+                index={index}
+              />
             ))}
           </div>
         )}
@@ -628,7 +635,9 @@ function JobCard({ job, index }) {
           </div>
 
           {summary && (
-            <p className="mt-5 max-w-3xl leading-7 text-slate-600">{summary}</p>
+            <p className="mt-5 max-w-3xl leading-7 text-slate-600">
+              {summary}
+            </p>
           )}
         </div>
 
@@ -639,6 +648,7 @@ function JobCard({ job, index }) {
     </article>
   );
 }
+
 
 function WorkingAtHandilCTA() {
   return (
@@ -695,8 +705,9 @@ function ClosingSection() {
           </h2>
 
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-300">
-            New opportunities will continue to open as Handil grows. Check back
-            soon and follow our journey.
+            New opportunities will continue to open as
+            Handil grows. Check back soon and follow our
+            journey.
           </p>
 
           <a
@@ -729,9 +740,12 @@ function createJobSummary(description) {
     return "";
   }
 
-  const normalized = String(description).replace(/\s+/g, " ").trim();
+  const normalized = String(description)
+    .replace(/\s+/g, " ")
+    .trim();
 
-  const firstParagraph = normalized.split(/\n\s*\n/)[0] || normalized;
+  const firstParagraph =
+    normalized.split(/\n\s*\n/)[0] || normalized;
 
   if (firstParagraph.length <= 220) {
     return firstParagraph;
@@ -740,51 +754,6 @@ function createJobSummary(description) {
   return `${firstParagraph.slice(0, 217).trim()}...`;
 }
 
-function ShieldIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-6 w-6 text-white"
-      aria-hidden="true"
-    >
-      <path
-        d="M12 3 5 6v5c0 4.5 2.8 8.1 7 10 4.2-1.9 7-5.5 7-10V6l-7-3Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
-      <path
-        d="m9 12 2 2 4-5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function SparkIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-6 w-6 text-white"
-      aria-hidden="true"
-    >
-      <path
-        d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z"
-        fill="currentColor"
-      />
-      <path
-        d="m18.5 14 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"
-        fill="currentColor"
-        opacity="0.7"
-      />
-    </svg>
-  );
-}
 
 function SearchIcon({ large = false }) {
   return (
@@ -792,11 +761,19 @@ function SearchIcon({ large = false }) {
       viewBox="0 0 24 24"
       fill="none"
       className={
-        large ? "h-7 w-7 text-slate-500" : "h-5 w-5 shrink-0 text-slate-400"
+        large
+          ? "h-7 w-7 text-slate-500"
+          : "h-5 w-5 shrink-0 text-slate-400"
       }
       aria-hidden="true"
     >
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+      <circle
+        cx="11"
+        cy="11"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <path
         d="m16.5 16.5 4 4"
         stroke="currentColor"
@@ -809,7 +786,12 @@ function SearchIcon({ large = false }) {
 
 function ArrowDownIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
       <path
         d="M12 4v15m0 0-6-6m6 6 6-6"
         stroke="currentColor"
@@ -823,7 +805,12 @@ function ArrowDownIcon() {
 
 function ArrowUpRightIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
       <path
         d="M7 17 17 7M8 7h9v9"
         stroke="currentColor"
@@ -837,7 +824,12 @@ function ArrowUpRightIcon() {
 
 function ArrowUpIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
       <path
         d="M12 20V5m0 0-6 6m6-6 6 6"
         stroke="currentColor"
