@@ -86,7 +86,7 @@ function Footer() {
         {/* SOCIAL MEDIA */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
           <a
-            href="https://www.linkedin.com/company/handil"
+            href="https://www.linkedin.com/company/handilapp"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Handil on LinkedIn"
@@ -96,7 +96,7 @@ function Footer() {
           </a>
 
           <a
-            href="https://www.facebook.com/handil"
+            href="https://www.facebook.com/people/HandilApp/61593213819308/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Handil on Facebook"
@@ -106,7 +106,7 @@ function Footer() {
           </a>
 
           <a
-            href="https://www.instagram.com/handil"
+            href="https://www.instagram.com/handilapp"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Handil on Instagram"
@@ -116,7 +116,7 @@ function Footer() {
           </a>
 
           <a
-            href="https://x.com/handil"
+            href="https://x.com/handilapp"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Handil on X"
@@ -126,7 +126,7 @@ function Footer() {
           </a>
 
           <a
-            href="https://www.youtube.com/@handil"
+            href="https://www.youtube.com/@HandilApp"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Handil on YouTube"
