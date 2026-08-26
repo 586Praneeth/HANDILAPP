@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { supabase } from "../lib/supabaseClient";
 
@@ -20,6 +20,7 @@ const INITIAL_FORM = {
 function ApplyJob() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const fileInputRef = useRef(null);
 
   const [job, setJob] = useState(null);
@@ -29,6 +30,14 @@ function ApplyJob() {
   const [submitting, setSubmitting] = useState(false);
   const [pageError, setPageError] = useState("");
   const [submitError, setSubmitError] = useState("");
+
+  const rawSource = searchParams.get("source")?.trim().toLowerCase();
+
+  const allowedSources = ["linkedin", "wellfound", "builtin", "direct"];
+
+  const applicationSource = allowedSources.includes(rawSource)
+    ? rawSource
+    : "direct";
 
   useEffect(() => {
     let isMounted = true;
@@ -170,6 +179,7 @@ function ApplyJob() {
         cover_letter: formData.coverLetter.trim() || null,
         resume_file_name: resume.name,
         resume_storage_path: uploadedResumePath,
+        source: applicationSource,
         status: "Applied",
       };
 
