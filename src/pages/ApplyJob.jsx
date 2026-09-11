@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 import { supabase } from "../lib/supabaseClient";
 
@@ -33,7 +38,13 @@ function ApplyJob() {
 
   const rawSource = searchParams.get("source")?.trim().toLowerCase();
 
-  const allowedSources = ["linkedin", "wellfound", "builtin", "direct"];
+  const allowedSources = [
+    "linkedin",
+    "wellfound",
+    "builtin",
+    "direct",
+    "indeed",
+  ];
 
   const applicationSource = allowedSources.includes(rawSource)
     ? rawSource
@@ -189,6 +200,15 @@ function ApplyJob() {
 
       if (insertError) {
         console.error("Application insert failed:", insertError);
+
+        const { error: cleanupError } = await supabase.storage
+          .from("resumes")
+          .remove([uploadedResumePath]);
+
+        if (cleanupError) {
+          console.error("Resume cleanup failed:", cleanupError);
+        }
+
         throw new Error("Application submission failed. Please try again.");
       }
 
@@ -399,9 +419,7 @@ function ApplyJob() {
                   <UploadIcon />
                 </div>
 
-                <h3 className="mt-5 text-xl font-black">
-                  Upload your resume
-                </h3>
+                <h3 className="mt-5 text-xl font-black">Upload your resume</h3>
 
                 <p className="mt-2 text-sm text-slate-500">
                   PDF, DOC or DOCX. Maximum 10 MB.
@@ -418,7 +436,9 @@ function ApplyJob() {
                 {resume && (
                   <div className="mx-auto mt-5 flex max-w-xl items-center justify-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-emerald-700">
                     <CheckIcon />
-                    <span className="break-all font-semibold">{resume.name}</span>
+                    <span className="break-all font-semibold">
+                      {resume.name}
+                    </span>
                   </div>
                 )}
               </div>
@@ -517,9 +537,7 @@ function ApplyHero({ job }) {
 
           <div className="mt-8 flex flex-wrap gap-3">
             {job.location && <MetaPill>{job.location}</MetaPill>}
-            {job.employment_type && (
-              <MetaPill>{job.employment_type}</MetaPill>
-            )}
+            {job.employment_type && <MetaPill>{job.employment_type}</MetaPill>}
             {job.experience && <MetaPill>{job.experience}</MetaPill>}
           </div>
         </div>
@@ -661,12 +679,7 @@ function ApplyJobLoading() {
 
 function UploadIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-7 w-7"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" aria-hidden="true">
       <path
         d="M12 16V4m0 0-5 5m5-5 5 5M5 15v4h14v-4"
         stroke="currentColor"
@@ -699,12 +712,7 @@ function CheckIcon() {
 
 function ShieldIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-6 w-6"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
       <path
         d="M12 3 5 6v5c0 4.5 2.8 8.1 7 10 4.2-1.9 7-5.5 7-10V6l-7-3Z"
         stroke="currentColor"
@@ -724,12 +732,7 @@ function ShieldIcon() {
 
 function BackIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-4 w-4"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden="true">
       <path
         d="M19 12H5m0 0 6-6m-6 6 6 6"
         stroke="currentColor"
@@ -743,12 +746,7 @@ function BackIcon() {
 
 function ArrowUpRightIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
       <path
         d="M7 17 17 7M8 7h9v9"
         stroke="currentColor"

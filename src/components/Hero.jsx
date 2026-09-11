@@ -95,7 +95,7 @@ function Hero() {
         </div>
 
         {/* RIGHT PHONE VISUAL */}
-        <div className="relative flex min-h-[680px] items-center justify-center">
+       <div className="relative flex min-h-[560px] items-center justify-center sm:min-h-[680px]">
           <div className="absolute h-[520px] w-[520px] rounded-full bg-sky-300/30 blur-[140px]" />
 
           <motion.div
@@ -108,7 +108,7 @@ function Hero() {
             className="relative flex items-center justify-center"
           >
             {/* MAIN PHONE */}
-            <div className="relative z-20 w-[270px] rounded-[46px] border border-slate-200 bg-white p-3 shadow-[0_40px_110px_rgba(14,165,233,0.28)] sm:w-[310px]">
+           <div className="relative z-20 w-full max-w-[270px] rounded-[46px] border border-slate-200 bg-white p-3 shadow-[0_40px_110px_rgba(14,165,233,0.28)] sm:max-w-[310px]">
               <div className="overflow-hidden rounded-[36px] bg-slate-100">
                 <img
                   src={chat}

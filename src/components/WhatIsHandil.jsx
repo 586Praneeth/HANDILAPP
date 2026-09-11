@@ -120,7 +120,7 @@ function PhoneMockup() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="relative z-20 w-[270px] rounded-[46px] border border-slate-200 bg-white p-3 shadow-[0_40px_110px_rgba(14,165,233,0.25)] sm:w-[310px]"
+        className="relative z-20 w-full max-w-[270px] rounded-[46px] border border-slate-200 bg-white p-3 shadow-[0_40px_110px_rgba(14,165,233,0.25)] sm:max-w-[310px]"
       >
         <div className="overflow-hidden rounded-[36px] bg-slate-100">
           <img

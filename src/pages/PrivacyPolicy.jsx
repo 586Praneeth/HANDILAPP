@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import Logo from "../components/Logo";
+//import { Link } from "react-router-dom";
 
 const EFFECTIVE_DATE = "August 1, 2026";
 const SUPPORT_EMAIL = "support@handilapp.com";
@@ -515,13 +514,7 @@ function LegalHeader({ title, description }) {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:52px_52px]" />
 
       <div className="relative mx-auto max-w-[1300px]">
-        <Link
-          to="/"
-          className="inline-flex rounded-2xl bg-white p-3 transition hover:-translate-y-0.5"
-          aria-label="Go to Handil home page"
-        >
-          <Logo />
-        </Link>
+       
 
         <p className="mt-14 font-black uppercase tracking-[0.24em] text-sky-400">
           Trust and transparency

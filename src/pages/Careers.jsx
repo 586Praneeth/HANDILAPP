@@ -189,7 +189,7 @@ function Careers() {
 
 function CareersHero({ jobsCount, onViewRoles }) {
   return (
-    <section className="relative min-h-[850px] overflow-hidden bg-slate-950 px-6 pb-24 pt-32 text-white md:px-12 lg:min-h-[900px]">
+   <section className="relative overflow-hidden bg-slate-950 px-5 pb-20 pt-20 text-white sm:px-6 sm:pb-24 sm:pt-24 md:px-12 lg:min-h-[900px] lg:pt-32">
       <div className="careers-drift absolute -left-28 top-24 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl" />
       <div className="absolute -right-24 top-0 h-96 w-96 rounded-full bg-violet-500/20 blur-3xl" />
       <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -261,12 +261,12 @@ function CareersHero({ jobsCount, onViewRoles }) {
 
 function HeroVisual() {
   return (
-    <div className="relative mx-auto h-[620px] w-full max-w-[520px]">
+    <div className="relative mx-auto h-[540px] w-full max-w-[520px] sm:h-[620px]">
       <div className="absolute left-1/2 top-1/2 h-[440px] w-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-gradient-to-br from-sky-400/20 via-violet-500/10 to-transparent blur-sm" />
 
 
 
-      <div className="absolute left-1/2 top-1/2 z-10 w-[310px] -translate-x-1/2 -translate-y-1/2 rotate-[-4deg] rounded-[52px] border-[10px] border-slate-800 bg-white p-3 shadow-[0_45px_120px_rgba(0,0,0,0.55)] sm:w-[340px]">
+      <div className="absolute left-1/2 top-1/2 z-10 w-full max-w-[270px] -translate-x-1/2 -translate-y-1/2 rotate-[-4deg] rounded-[44px] border-[8px] border-slate-800 bg-white p-3 shadow-[0_45px_120px_rgba(0,0,0,0.55)] sm:max-w-[340px] sm:rounded-[52px] sm:border-[10px]">
         <div className="overflow-hidden rounded-[38px] bg-slate-50">
           <div className="flex items-center justify-between bg-slate-950 px-5 py-5 text-white">
             <div>

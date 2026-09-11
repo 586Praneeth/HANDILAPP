@@ -100,19 +100,13 @@ function App() {
           <Route path="/careers" element={<Careers />} />
 
           {/* WORKING AT HANDIL */}
-          <Route
-            path="/working-at-handil"
-            element={<WorkingAtHandil />}
-          />
+          <Route path="/working-at-handil" element={<WorkingAtHandil />} />
 
           {/* JOB DETAILS */}
           <Route path="/careers/:slug" element={<JobDetails />} />
 
           {/* JOB APPLICATION */}
-          <Route
-            path="/careers/:slug/apply"
-            element={<ApplyJob />}
-          />
+          <Route path="/careers/:slug/apply" element={<ApplyJob />} />
 
           {/* APPLICATION SUCCESS */}
           <Route
@@ -121,12 +115,36 @@ function App() {
           />
 
           {/* LEGAL */}
-          <Route
-            path="/privacy-policy"
-            element={<PrivacyPolicy />}
-          />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
           <Route path="/terms" element={<Terms />} />
+          <Route
+            path="*"
+            element={
+              <div className="flex min-h-[70vh] items-center justify-center bg-slate-50 px-6">
+                <div className="text-center">
+                  <p className="font-black uppercase tracking-[0.2em] text-sky-500">
+                    404
+                  </p>
+
+                  <h1 className="mt-4 text-4xl font-black text-slate-950 sm:text-5xl">
+                    Page not found.
+                  </h1>
+
+                  <p className="mt-4 text-slate-600">
+                    The page you're looking for doesn't exist.
+                  </p>
+
+                  <a
+                    href="/"
+                    className="mt-8 inline-flex rounded-full bg-sky-500 px-7 py-4 font-bold text-white transition hover:bg-sky-600"
+                  >
+                    Go Home
+                  </a>
+                </div>
+              </div>
+            }
+          />
         </Routes>
       </main>
 
@@ -134,10 +152,7 @@ function App() {
       <Footer onEarlyAccess={openEarlyAccess} />
 
       {/* GLOBAL EARLY ACCESS MODAL */}
-      <EarlyAccessModal
-        open={showEarlyAccess}
-        onClose={closeEarlyAccess}
-      />
+      <EarlyAccessModal open={showEarlyAccess} onClose={closeEarlyAccess} />
     </div>
   );
 }

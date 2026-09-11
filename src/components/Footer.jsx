@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-function Footer() {
+function Footer({ onEarlyAccess }) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -51,6 +51,13 @@ function Footer() {
           >
             How We Work
           </Link>
+          <button
+            type="button"
+            onClick={onEarlyAccess}
+            className="transition hover:-translate-y-0.5 hover:text-cyan-200"
+          >
+            Early Access
+          </button>
 
           <a
             href="/#feedback"

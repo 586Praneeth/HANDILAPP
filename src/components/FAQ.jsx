@@ -39,9 +39,7 @@ function FAQ() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const toggleItem = (index) => {
-    setActiveIndex((currentIndex) =>
-      currentIndex === index ? null : index,
-    );
+    setActiveIndex((currentIndex) => (currentIndex === index ? null : index));
   };
 
   return (
@@ -149,8 +147,8 @@ function FAQ() {
             </p>
 
             <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">
-              Join early access and stay informed as Handil moves closer to
-              launch.
+              Have a question, idea, or suggestion? Share your feedback and help
+              shape Handil.
             </p>
 
             <a
