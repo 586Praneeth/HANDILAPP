@@ -1,87 +1,151 @@
-//import { Link } from "react-router-dom";
 
-const EFFECTIVE_DATE = "August 1, 2026";
-const SUPPORT_EMAIL = "support@handilapp.com";
+
+const EFFECTIVE_DATE = "September 12, 2026";
+const PRIVACY_EMAIL = "connect@handilapp.com";
+
+const RETENTION_ITEMS = [
+  {
+    data: "Early-access information",
+    retention:
+      "Until the early-access purpose is completed, you withdraw consent, or up to 12 months after the relevant launch campaign ends, unless a longer period is legally required.",
+  },
+  {
+    data: "Website feedback",
+    retention:
+      "Generally up to 24 months, unless the feedback remains necessary for product development, security, dispute resolution, or legal compliance.",
+  },
+  {
+    data: "Careers applications",
+    retention:
+      "Generally up to 12 months after the recruitment decision, unless you consent to longer retention or a longer period is required for legal or operational purposes.",
+  },
+  {
+    data: "Support and grievance records",
+    retention:
+      "For as long as reasonably necessary to resolve the request and maintain appropriate compliance records.",
+  },
+  {
+    data: "Security and technical logs",
+    retention:
+      "For a period reasonably necessary for security, fraud prevention, troubleshooting, cybersecurity compliance, and service reliability.",
+  },
+  {
+    data: "Account and service data",
+    retention:
+      "For the duration of your account and thereafter only as long as reasonably necessary for deletion processing, security, legal compliance, dispute resolution, or another permitted purpose.",
+  },
+];
 
 function PrivacyPolicy() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-950">
-      <LegalHeader
-        title="Privacy Policy"
-        description="How Handil collects, uses, protects and manages personal information."
-      />
+      <LegalHeader />
 
-      <section className="px-6 py-16 md:px-12 md:py-24">
+      <section className="px-5 py-14 sm:px-6 md:px-12 md:py-24">
         <div className="mx-auto grid max-w-[1300px] gap-10 lg:grid-cols-[280px_minmax(0,1fr)]">
           <PrivacyNavigation />
 
-          <article className="space-y-8">
+          <article className="min-w-0 space-y-8">
             <LegalIntroduction>
-              This Privacy Policy explains how Handil collects, uses, stores,
-              shares and protects information when you access or use our
-              websites, mobile applications and related services.
+              This Privacy Notice explains how Handil collects, uses, stores,
+              shares, protects, and manages personal data when you use our
+              website, applications, careers services, early-access programs,
+              feedback tools, messaging features, and related services.
             </LegalIntroduction>
 
-            <LegalNotice>
-              This page is an initial policy template. Before launching Handil,
-              update every section so it accurately describes the product’s
-              actual technical and business practices.
-            </LegalNotice>
+            <ReviewNotice>
+              This Privacy Notice is intended to reflect Handil&apos;s current
+              privacy approach and should be reviewed by qualified Indian legal
+              counsel before commercial launch and whenever Handil materially
+              changes its services or data-processing practices.
+            </ReviewNotice>
 
             <LegalSection id="who-we-are" number="01" title="Who We Are">
               <p>
-                Handil is developing a mobile communication platform designed
-                around user control, privacy, organization and dependable
-                communication.
+                Handil is developing a communication platform designed around
+                privacy, intentional communication, organization, user control,
+                and safer digital interactions.
               </p>
 
               <p>
-                In this Privacy Policy, “Handil,” “we,” “our” and “us” refer to
-                the company operating the Handil services.
+                Where applicable, Handil may act as a Data Fiduciary for
+                purposes of Indian data-protection law when it determines the
+                purpose and means of processing personal data.
               </p>
 
               <p>
-                Questions about this Privacy Policy may be sent to{" "}
+                Privacy questions, rights requests, consent withdrawal requests,
+                grievances, and other privacy-related matters may be sent to{" "}
                 <a
-                  href={`mailto:${SUPPORT_EMAIL}`}
+                  href={`mailto:${PRIVACY_EMAIL}`}
                   className="font-bold text-sky-600 hover:text-sky-700"
                 >
-                  {SUPPORT_EMAIL}
+                  {PRIVACY_EMAIL}
                 </a>
                 .
               </p>
             </LegalSection>
 
             <LegalSection
-              id="information-we-collect"
+              id="legal-framework"
               number="02"
-              title="Information We Collect"
+              title="Compliance with Indian Laws"
             >
               <p>
-                The information Handil collects depends on the features you use,
-                the permissions you provide and how you interact with the
-                service.
+                Handil intends to operate and process personal data in
+                accordance with applicable laws, rules, regulations,
+                notifications, directions, and lawful requirements of the
+                Government of India and competent Indian authorities.
               </p>
 
-              <LegalSubsection title="Account information">
+              <p>
+                Depending on the nature of the service and processing activity,
+                applicable requirements may include:
+              </p>
+
+              <LegalList
+                items={[
+                  "The Digital Personal Data Protection Act, 2023 and applicable Digital Personal Data Protection Rules.",
+                  "The Information Technology Act, 2000 and applicable rules issued under it.",
+                  "Applicable Information Technology intermediary and digital-service rules.",
+                  "Cybersecurity requirements, directions, and reporting obligations issued by CERT-In or another competent authority.",
+                  "Applicable consumer-protection laws and regulations.",
+                  "Applicable requirements concerning electronic communications, commercial communications, and digital services.",
+                  "Other applicable statutory, regulatory, judicial, or governmental requirements.",
+                ]}
+              />
+
+              <p>
+                Handil may update its services, security controls, procedures,
+                notices, or policies where reasonably necessary to comply with
+                changes in applicable law or lawful directions issued by a
+                competent authority.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="information-we-collect"
+              number="03"
+              title="Personal Data We May Collect"
+            >
+              <LegalSubsection title="Account and identity information">
                 <LegalList
                   items={[
-                    "Name, display name or username.",
-                    "Email address and phone number.",
-                    "Account identifiers and authentication information.",
-                    "Profile information that you choose to provide.",
+                    "Name, display name, username, profile information, and account identifiers.",
+                    "Email address and, where required by a feature, phone number.",
+                    "Authentication, account-recovery, and security-related information.",
                     "Account settings and preferences.",
                   ]}
                 />
               </LegalSubsection>
 
-              <LegalSubsection title="Communication and product information">
+              <LegalSubsection title="Connections and communication">
                 <LegalList
                   items={[
-                    "Information required to deliver communication and collaboration features.",
-                    "Content, files, images, videos or documents that you choose to upload, send, save or manage through Handil.",
-                    "Bookmarks, organizational choices, storage selections and related product preferences.",
-                    "Information about recipients, participants or interactions where required to provide the requested feature.",
+                    "Usernames, QR-based connection information, connection requests, and relationship information required to provide connection features.",
+                    "Messages, files, photos, videos, documents, notes, and other content you intentionally create, send, upload, save, or manage through Handil.",
+                    "Conversation metadata reasonably necessary to deliver, synchronize, organize, secure, or maintain communications.",
+                    "Information required to support local, cloud, or hybrid storage choices where such features are offered.",
                   ]}
                 />
               </LegalSubsection>
@@ -89,377 +153,541 @@ function PrivacyPolicy() {
               <LegalSubsection title="Device and technical information">
                 <LegalList
                   items={[
-                    "Device type, operating system and application version.",
-                    "Language, region and time-zone settings.",
-                    "IP address and approximate network information.",
-                    "Application logs, error reports, crash information and diagnostic data.",
-                    "Identifiers required for security, notifications, fraud prevention or service operation.",
+                    "Device type, operating system, app version, browser type, language, region, and time-zone information.",
+                    "IP address and network-related information.",
+                    "Crash reports, diagnostic information, security events, and performance logs.",
+                    "Identifiers required for authentication, notifications, fraud prevention, abuse prevention, and service security.",
                   ]}
                 />
               </LegalSubsection>
 
-              <LegalSubsection title="Usage information">
+              <LegalSubsection title="Website and early-access information">
                 <LegalList
                   items={[
-                    "Features viewed or used.",
-                    "Pages and screens visited.",
-                    "Interaction timestamps and session information.",
-                    "Performance, reliability and application-response information.",
-                    "Referral, campaign or acquisition information where permitted.",
+                    "Email addresses submitted to join an early-access or launch-notification list.",
+                    "Consent records associated with an early-access subscription where consent is the applicable basis for processing.",
+                    "Feedback, suggestions, feature requests, and information voluntarily submitted through website forms.",
                   ]}
                 />
               </LegalSubsection>
 
-              <LegalSubsection title="Support and feedback">
+              <LegalSubsection title="Careers and recruitment information">
                 <LegalList
                   items={[
-                    "Messages sent to customer support.",
-                    "Feedback, survey responses and feature requests.",
-                    "Screenshots, recordings or files voluntarily shared when requesting support.",
-                    "Information submitted through early-access, careers or contact forms.",
+                    "Name, email address, phone number, and contact information.",
+                    "Resume or curriculum vitae.",
+                    "Employment history, current employer, job title, years of experience, and notice period.",
+                    "LinkedIn, GitHub, portfolio, or other professional links you choose to provide.",
+                    "Cover letters and information voluntarily submitted as part of an application.",
+                    "Application status, source, interview information, and recruitment-related communications.",
+                  ]}
+                />
+              </LegalSubsection>
+
+              <LegalSubsection title="Support, grievances, and rights requests">
+                <LegalList
+                  items={[
+                    "Messages and information submitted to customer support.",
+                    "Privacy requests, grievances, complaints, and correspondence.",
+                    "Information reasonably necessary to verify and respond to a request.",
                   ]}
                 />
               </LegalSubsection>
             </LegalSection>
 
             <LegalSection
-              id="how-we-use-information"
-              number="03"
-              title="How We Use Information"
-            >
-              <p>Handil may use information to:</p>
-
-              <LegalList
-                items={[
-                  "Create, authenticate and maintain user accounts.",
-                  "Provide communication, organization, storage and account-management features.",
-                  "Deliver notifications and service-related messages.",
-                  "Process user requests and maintain application state.",
-                  "Synchronize information across supported devices.",
-                  "Secure accounts, investigate suspicious activity and prevent abuse.",
-                  "Diagnose errors, crashes and performance problems.",
-                  "Maintain, test and improve the service.",
-                  "Respond to support requests and feedback.",
-                  "Measure product adoption and understand how features perform.",
-                  "Comply with applicable legal obligations.",
-                  "Protect the rights, safety and integrity of Handil, its users and others.",
-                ]}
-              />
-
-              <p>
-                Handil should collect and use only the information reasonably
-                necessary for clearly identified purposes.
-              </p>
-            </LegalSection>
-
-            <LegalSection
-              id="legal-bases"
+              id="purposes"
               number="04"
-              title="Legal Bases for Processing"
+              title="Why We Process Personal Data"
             >
-              <p>
-                Where applicable law requires a legal basis, Handil may process
-                information based on:
-              </p>
+              <p>Handil may process personal data to:</p>
 
               <LegalList
                 items={[
-                  "Performance of a contract when processing is necessary to provide the service you requested.",
-                  "Consent when you have affirmatively agreed to a particular use.",
-                  "Legitimate interests such as security, service improvement and fraud prevention, where those interests are not overridden by your rights.",
-                  "Compliance with legal obligations.",
-                  "Protection of vital interests or other lawful grounds recognized by applicable law.",
+                  "Create, authenticate, secure, and maintain accounts.",
+                  "Enable connection, identity, and communication features.",
+                  "Deliver messages, files, media, and other communications.",
+                  "Synchronize supported information across devices.",
+                  "Provide local, cloud, or hybrid storage functionality where offered.",
+                  "Organize and retrieve conversations and content.",
+                  "Send service, security, account, and transactional notifications.",
+                  "Provide early-access or launch notifications that you requested.",
+                  "Receive and analyze product feedback.",
+                  "Process employment applications and manage recruitment.",
+                  "Respond to support requests, privacy-rights requests, and grievances.",
+                  "Detect fraud, abuse, unauthorized access, cybersecurity incidents, and other threats.",
+                  "Monitor reliability, diagnose errors, and improve performance.",
+                  "Comply with applicable laws, regulations, directions, court orders, and lawful governmental requests.",
+                  "Protect Handil, our users, and others from misuse or harm.",
                 ]}
               />
 
               <p>
-                You may withdraw consent where processing depends on consent,
-                subject to legal and technical limitations.
+                Handil intends to collect only personal data that is reasonably
+                necessary for the stated purpose.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="consent"
+              number="05"
+              title="Consent and Permitted Processing"
+            >
+              <p>
+                Where Handil relies on consent, we intend to request consent in
+                clear and understandable language and identify the purpose for
+                which personal data is requested.
+              </p>
+
+              <p>
+                Consent-based processing should use a clear affirmative action.
+                Optional purposes should not be pre-selected or unnecessarily
+                bundled with unrelated purposes.
+              </p>
+
+              <p>
+                Where applicable, you may withdraw consent for consent-based
+                processing. Handil intends to provide a mechanism that is
+                reasonably comparable in ease to the mechanism used to provide
+                consent.
+              </p>
+
+              <p>
+                Withdrawal does not invalidate processing that lawfully occurred
+                before withdrawal. Handil may continue processing where
+                applicable law permits or requires such processing.
+              </p>
+
+              <p>
+                Handil may also process personal data without separate consent
+                where applicable law recognizes another permitted basis or
+                legitimate use.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="early-access"
+              number="06"
+              title="Early Access and Communications"
+            >
+              <p>
+                If you submit your email address to join Handil&apos;s
+                early-access list, we may use it to provide information about
+                Handil&apos;s launch, availability, invitations, product
+                announcements, and related early-access updates.
+              </p>
+
+              <p>
+                Where consent is required, these communications will be based on
+                your affirmative choice.
+              </p>
+
+              <p>
+                You may withdraw your consent or unsubscribe from optional
+                communications at any time.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="careers"
+              number="07"
+              title="Careers and Applicant Privacy"
+            >
+              <p>
+                Personal data submitted through Handil&apos;s careers pages may
+                be used to evaluate applications, communicate with candidates,
+                conduct interviews, make recruitment decisions, prevent fraud
+                or misuse, and maintain appropriate recruitment records.
+              </p>
+
+              <p>
+                Applicant information may be accessible to personnel and
+                service providers who reasonably require access for recruitment,
+                technical administration, security, or legal compliance.
+              </p>
+
+              <p>
+                Handil does not intend to make applicant resumes or application
+                information publicly accessible.
               </p>
             </LegalSection>
 
             <LegalSection
               id="sharing"
-              number="05"
-              title="How Information May Be Shared"
+              number="08"
+              title="Third Parties and Service Providers"
             >
               <p>
-                Handil does not sell personal information in exchange for money.
-                Update this statement if the company’s actual practices differ
-                or if applicable law defines “sale” or “sharing” more broadly.
+                Handil may use third-party service providers to operate portions
+                of the service. These may support:
               </p>
-
-              <p>Information may be disclosed to:</p>
 
               <LegalList
                 items={[
-                  "Service providers supporting hosting, storage, authentication, notifications, analytics, security, customer support and application operations.",
-                  "Other users when sharing is necessary for a feature that you intentionally use.",
-                  "Professional advisers such as attorneys, accountants, auditors and insurers.",
-                  "Government authorities or other parties when disclosure is required by law or necessary to protect rights, safety and security.",
-                  "A successor organization in connection with a merger, financing, acquisition, restructuring or sale of assets, subject to appropriate protections.",
+                  "Cloud hosting and infrastructure.",
+                  "Database and file-storage services.",
+                  "Authentication and account security.",
+                  "Email and transactional communications.",
+                  "Push notifications.",
+                  "Monitoring, error reporting, and cybersecurity operations.",
+                  "Customer support.",
+                  "Recruitment and careers functionality.",
+                  "Analytics, where enabled and legally permitted.",
                 ]}
               />
 
               <p>
-                Service providers should receive only the information required
-                to perform their contracted responsibilities.
+                Providers should receive only information reasonably necessary
+                to perform their services and should be subject to appropriate
+                contractual, confidentiality, security, and data-protection
+                obligations.
+              </p>
+
+              <p>
+                Handil may also disclose information where required by
+                applicable law, court order, regulatory requirement, lawful
+                governmental direction, or where reasonably necessary to
+                investigate abuse, protect rights or safety, or maintain the
+                security of the service.
+              </p>
+
+              <p>
+                Handil does not intend to sell personal data in exchange for
+                money.
               </p>
             </LegalSection>
 
             <LegalSection
-              id="third-party-services"
-              number="06"
-              title="Third-Party Services"
+              id="international"
+              number="09"
+              title="International Processing"
             >
               <p>
-                Handil may rely on third-party providers for cloud
-                infrastructure, database services, authentication, storage,
-                notifications, analytics, error monitoring, email delivery and
-                customer support.
+                Handil and its service providers may process information in
+                locations outside the state or country in which you reside.
               </p>
 
               <p>
-                Before launch, list or accurately describe the categories of
-                providers used by Handil. Review each provider’s privacy,
-                security, retention and international-transfer practices.
-              </p>
-
-              <p>
-                Third-party websites or services accessed through Handil may
-                operate under their own privacy policies.
-              </p>
-            </LegalSection>
-
-            <LegalSection
-              id="storage-security"
-              number="07"
-              title="Storage and Security"
-            >
-              <p>
-                Handil uses administrative, technical and organizational
-                safeguards intended to protect information against unauthorized
-                access, alteration, disclosure, loss or misuse.
-              </p>
-
-              <p>Depending on the service architecture, safeguards may include:</p>
-
-              <LegalList
-                items={[
-                  "Encryption in transit.",
-                  "Access controls and authentication requirements.",
-                  "Secure credential and secret-management practices.",
-                  "Monitoring, logging and vulnerability-management processes.",
-                  "Backups and recovery procedures.",
-                  "Restricted access based on operational need.",
-                ]}
-              />
-
-              <p>
-                No method of electronic transmission or storage is completely
-                secure. Handil cannot guarantee absolute security.
+                Where applicable Indian law imposes restrictions on
+                cross-border transfers or processing, Handil intends to comply
+                with those restrictions and applicable governmental
+                requirements.
               </p>
             </LegalSection>
 
             <LegalSection
               id="retention"
-              number="08"
+              number="10"
               title="Data Retention"
             >
               <p>
-                Handil retains information only for as long as reasonably
-                necessary to provide the service, satisfy the purposes described
-                in this policy, comply with legal obligations, resolve disputes
-                and enforce agreements.
+                Handil aims not to retain personal data longer than reasonably
+                necessary for the purpose for which it was collected, applicable
+                legal requirements, cybersecurity obligations, fraud prevention,
+                dispute resolution, or another permitted purpose.
               </p>
 
-              <p>
-                Retention periods may depend on the type of information, account
-                status, user choices, legal requirements, security needs and
-                technical backup cycles.
-              </p>
+              <div className="mt-6 overflow-hidden rounded-[28px] border border-slate-200">
+                {RETENTION_ITEMS.map((item, index) => (
+                  <div
+                    key={item.data}
+                    className={`p-5 sm:p-6 ${
+                      index !== RETENTION_ITEMS.length - 1
+                        ? "border-b border-slate-200"
+                        : ""
+                    }`}
+                  >
+                    <p className="font-black text-slate-950">{item.data}</p>
+                    <p className="mt-2 leading-7 text-slate-600">
+                      {item.retention}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
               <p>
-                Before launch, define specific retention periods for account
-                information, uploaded content, logs, analytics, deleted items,
-                backups, support records and job applications.
+                When personal data is no longer required, Handil intends to
+                delete, anonymize, or securely dispose of it, subject to backup
+                cycles and lawful retention requirements.
               </p>
             </LegalSection>
 
             <LegalSection
-              id="user-controls"
-              number="09"
-              title="Your Choices and Controls"
+              id="security"
+              number="11"
+              title="Security Safeguards"
             >
               <p>
-                Depending on available functionality and applicable law, users
-                may be able to:
+                Handil intends to maintain reasonable administrative, technical,
+                and organizational safeguards appropriate to the nature and risk
+                of the personal data processed.
               </p>
 
               <LegalList
                 items={[
-                  "Review or update account and profile information.",
-                  "Manage notification permissions.",
-                  "Manage device permissions through operating-system settings.",
-                  "Control storage, download or synchronization preferences.",
-                  "Delete selected content.",
-                  "Request account deletion.",
-                  "Opt out of certain analytics or marketing communications.",
+                  "Encryption in transit for production services.",
+                  "Appropriate encryption or equivalent safeguards for stored information where applicable.",
+                  "Authentication and access controls.",
+                  "Role-based and least-privilege access where appropriate.",
+                  "Secure management of credentials, tokens, keys, and application secrets.",
+                  "Logging, monitoring, and security-event review.",
+                  "Secure software-development and vulnerability-management practices.",
+                  "Backup and recovery controls.",
+                  "Restrictions on access to recruitment and confidential personal data.",
+                  "Measures intended to prevent unauthorized public access to private files and personal data.",
+                ]}
+              />
+
+              <p>
+                No electronic service can guarantee absolute security. Users
+                should protect credentials and devices and report suspected
+                unauthorized access promptly.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="cybersecurity"
+              number="12"
+              title="Cybersecurity and Regulatory Reporting"
+            >
+              <p>
+                Handil intends to maintain procedures for identifying,
+                investigating, containing, documenting, and responding to
+                cybersecurity incidents and personal-data breaches.
+              </p>
+
+              <p>
+                Where an incident is subject to mandatory reporting under
+                applicable Indian law, including applicable CERT-In directions,
+                Handil intends to report the incident to the appropriate
+                authority within the legally required timeframe.
+              </p>
+
+              <p>
+                Handil may maintain security records, logs, incident evidence,
+                and other information where reasonably required for
+                cybersecurity, investigation, compliance, and regulatory
+                purposes.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="breaches"
+              number="13"
+              title="Personal Data Breaches"
+            >
+              <p>
+                Where applicable privacy law requires notification following a
+                personal-data breach, Handil intends to notify affected
+                individuals and the competent authority, including the Data
+                Protection Board of India where applicable, in the manner and
+                timeframe required by law.
+              </p>
+
+              <p>
+                Handil may also take reasonable steps to contain the incident,
+                protect affected individuals, preserve evidence, investigate the
+                cause, and prevent recurrence.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="rights"
+              number="14"
+              title="Your Privacy Rights"
+            >
+              <p>
+                Subject to applicable law and permitted exceptions, you may have
+                rights relating to your personal data, including:
+              </p>
+
+              <LegalList
+                items={[
+                  "Access information regarding personal data being processed.",
+                  "Request correction of inaccurate or misleading personal data.",
+                  "Request completion or updating of incomplete or outdated personal data.",
+                  "Request erasure of personal data where applicable.",
                   "Withdraw consent where processing is based on consent.",
+                  "Raise a grievance regarding Handil's processing of personal data.",
+                  "Nominate another individual to exercise applicable rights in circumstances recognized by law.",
                 ]}
               />
 
               <p>
-                Some information may need to be retained for security, fraud
-                prevention, legal compliance or legitimate operational reasons.
+                Handil may request reasonable information necessary to verify
+                your identity before acting on a request.
               </p>
             </LegalSection>
 
             <LegalSection
-              id="privacy-rights"
-              number="10"
-              title="Privacy Rights"
+              id="rights-request"
+              number="15"
+              title="How to Exercise Your Rights"
             >
               <p>
-                Depending on your location, you may have rights concerning your
-                personal information, including the right to:
+                You may submit a privacy-rights request, correction request,
+                deletion request, or consent-withdrawal request by contacting:
               </p>
 
-              <LegalList
-                items={[
-                  "Request access to personal information.",
-                  "Request correction of inaccurate information.",
-                  "Request deletion of certain information.",
-                  "Request restriction of processing.",
-                  "Object to certain processing.",
-                  "Request data portability.",
-                  "Withdraw consent.",
-                  "Appeal certain privacy-request decisions where applicable.",
-                  "Lodge a complaint with an appropriate data-protection authority.",
-                ]}
-              />
+              <ContactCard />
 
               <p>
-                To submit a privacy request, contact{" "}
-                <a
-                  href={`mailto:${SUPPORT_EMAIL}`}
-                  className="font-bold text-sky-600 hover:text-sky-700"
-                >
-                  {SUPPORT_EMAIL}
-                </a>
-                . Handil may need to verify your identity before processing a
+                Please provide sufficient information for Handil to identify the
+                relevant account or interaction and understand the nature of the
                 request.
+              </p>
+
+              <p>
+                Handil may introduce an online privacy-rights request form as the
+                service develops.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="grievance"
+              number="16"
+              title="Grievance Redressal"
+            >
+              <p>
+                If you have a concern regarding Handil&apos;s handling of
+                personal data, privacy practices, account security, or another
+                data-protection matter, you may contact:
+              </p>
+
+              <ContactCard title="Handil Privacy & Grievance Contact" />
+
+              <p>
+                Handil intends to review grievances and respond within the
+                timeframe required under applicable law.
+              </p>
+
+              <p>
+                Where applicable, you may also have rights to pursue remedies
+                before the Data Protection Board of India or another competent
+                authority after using Handil&apos;s grievance process where
+                required.
               </p>
             </LegalSection>
 
             <LegalSection
               id="children"
-              number="11"
-              title="Children’s Privacy"
+              number="17"
+              title="Children and Minors"
             >
               <p>
-                Handil is not intended for children under the minimum age
-                permitted by applicable law unless the service is specifically
-                designed and authorized for them.
+                Unless Handil expressly announces otherwise for a particular
+                service, Handil&apos;s public service is intended for users who
+                are at least 18 years old.
               </p>
 
               <p>
-                Handil does not knowingly collect personal information from
-                children in violation of applicable law. Contact us if you
-                believe a child has provided information improperly.
+                If Handil introduces services intended for children, Handil
+                intends to implement age-appropriate safeguards and obtain
+                verifiable consent from a parent or lawful guardian where
+                required.
               </p>
 
               <p>
-                Before launch, establish the product’s minimum age and implement
-                any required consent, age-assurance and parental-control
-                processes.
+                Handil does not intend to knowingly engage in prohibited
+                tracking, behavioural monitoring, or targeted advertising
+                involving children.
               </p>
             </LegalSection>
 
             <LegalSection
-              id="international-transfers"
-              number="12"
-              title="International Data Transfers"
+              id="trackers"
+              number="18"
+              title="Cookies, Analytics and Trackers"
             >
               <p>
-                Handil and its service providers may process information in
-                countries other than the country in which a user resides.
+                Handil may use technologies necessary to operate, secure, and
+                maintain the website and service.
               </p>
 
               <p>
-                Where required, Handil will use recognized safeguards for
-                international transfers and provide additional information
-                about relevant transfer mechanisms.
+                If Handil introduces optional analytics, advertising, or other
+                non-essential tracking technologies requiring consent, Handil
+                intends not to activate such technologies until the required
+                consent has been obtained.
+              </p>
+
+              <p>
+                Where applicable, users will be given appropriate controls to
+                manage optional tracking preferences.
               </p>
             </LegalSection>
 
             <LegalSection
-              id="ai"
-              number="13"
-              title="Artificial Intelligence Features"
+              id="automated"
+              number="19"
+              title="Automated and AI-Assisted Features"
             >
               <p>
-                Handil may introduce AI-assisted capabilities in the future.
-                Before any AI feature is launched, this policy must clearly
-                explain:
+                Handil may introduce artificial-intelligence-assisted or
+                automated functionality as the product evolves.
               </p>
 
-              <LegalList
-                items={[
-                  "What information is processed by the AI feature.",
-                  "Whether information is sent to an external model provider.",
-                  "Whether prompts or outputs are retained.",
-                  "Whether data is used to train or improve models.",
-                  "What user controls, safeguards and limitations apply.",
-                  "Whether automated decisions materially affect users.",
-                ]}
-              />
+              <p>
+                Before such features process personal data, Handil intends to
+                review the relevant purpose, data flow, service providers,
+                security implications, user notice, retention period, and
+                applicable consent or other legal requirements.
+              </p>
+            </LegalSection>
+
+            <LegalSection
+              id="government"
+              number="20"
+              title="Government and Law-Enforcement Requests"
+            >
+              <p>
+                Handil may disclose information where required by applicable
+                law, a valid court order, lawful governmental direction,
+                regulatory requirement, or another legally binding request.
+              </p>
 
               <p>
-                Do not publish claims about AI privacy or training practices
-                until the actual architecture and provider agreements have been
-                confirmed.
+                Where legally permitted, Handil intends to evaluate requests for
+                validity, scope, and legal authority and disclose only
+                information reasonably required to comply with the request.
               </p>
             </LegalSection>
 
             <LegalSection
               id="changes"
-              number="14"
-              title="Changes to This Policy"
+              number="21"
+              title="Changes to This Privacy Notice"
             >
               <p>
-                Handil may update this Privacy Policy as the product, technology
-                or legal requirements change.
+                Handil may update this Privacy Notice as the product,
+                technology, legal requirements, regulatory obligations, or
+                business practices evolve.
               </p>
 
               <p>
-                When material changes are made, Handil may provide notice
-                through the application, website, email or another appropriate
-                method. The effective date at the top of this page will be
-                updated.
+                Where a change materially affects how personal data is
+                processed, Handil may provide notice through the website,
+                application, email, or another appropriate channel and seek
+                fresh consent where required.
               </p>
             </LegalSection>
 
-            <LegalSection id="contact" number="15" title="Contact Us">
-              <p>
-                Questions, concerns and privacy requests may be sent to:
+            <LegalSection id="contact" number="22" title="Contact Us">
+              <ContactCard />
+
+              <p className="text-sm text-slate-500">
+                Handil&apos;s final legal entity name, registered business
+                address, and any additional legally required grievance or
+                compliance contact information will be published when
+                finalized.
               </p>
 
-              <div className="rounded-2xl bg-slate-50 p-5">
-                <p className="font-black text-slate-950">Handil Privacy Team</p>
-
-                <a
-                  href={`mailto:${SUPPORT_EMAIL}`}
-                  className="mt-2 inline-block font-bold text-sky-600 hover:text-sky-700"
-                >
-                  {SUPPORT_EMAIL}
-                </a>
-
-                <p className="mt-3 text-sm text-slate-500">
-                  Add Handil’s legal entity name and business mailing address
-                  before launch.
-                </p>
-              </div>
+              {/* LEGAL REVIEW:
+                  Add final company legal entity name,
+                  registered/business address,
+                  grievance officer details if required,
+                  and any India-specific statutory disclosures
+                  before commercial launch. */}
             </LegalSection>
           </article>
         </div>
@@ -468,18 +696,50 @@ function PrivacyPolicy() {
   );
 }
 
+function LegalHeader() {
+  return (
+    <header className="relative overflow-hidden bg-slate-950 px-5 pb-20 pt-20 text-white sm:px-6 md:px-12 md:pb-24 md:pt-24">
+      <div className="absolute -left-32 top-10 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
+      <div className="absolute -right-32 top-0 h-96 w-96 rounded-full bg-violet-500/20 blur-3xl" />
+
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:52px_52px]" />
+
+      <div className="relative mx-auto max-w-[1300px]">
+        <p className="font-black uppercase tracking-[0.24em] text-sky-400">
+          Trust & Transparency
+        </p>
+
+        <h1 className="mt-6 max-w-5xl text-5xl font-black leading-tight sm:text-6xl md:text-7xl">
+          Privacy Notice
+        </h1>
+
+        <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
+          How Handil handles personal data and the choices available to you.
+        </p>
+
+        <p className="mt-6 text-sm font-semibold text-slate-400">
+          Effective: {EFFECTIVE_DATE}
+        </p>
+      </div>
+    </header>
+  );
+}
+
 function PrivacyNavigation() {
   const links = [
     ["who-we-are", "Who We Are"],
-    ["information-we-collect", "Information We Collect"],
-    ["how-we-use-information", "How We Use Information"],
-    ["sharing", "Information Sharing"],
-    ["storage-security", "Storage and Security"],
-    ["retention", "Data Retention"],
-    ["user-controls", "Your Controls"],
-    ["privacy-rights", "Privacy Rights"],
-    ["children", "Children’s Privacy"],
-    ["contact", "Contact Us"],
+    ["legal-framework", "Indian Laws"],
+    ["information-we-collect", "Data We Collect"],
+    ["purposes", "Why We Use Data"],
+    ["consent", "Consent"],
+    ["careers", "Careers"],
+    ["sharing", "Third Parties"],
+    ["retention", "Retention"],
+    ["security", "Security"],
+    ["rights", "Your Rights"],
+    ["grievance", "Grievances"],
+    ["children", "Children"],
+    ["contact", "Contact"],
   ];
 
   return (
@@ -505,47 +765,18 @@ function PrivacyNavigation() {
   );
 }
 
-function LegalHeader({ title, description }) {
-  return (
-    <header className="relative overflow-hidden bg-slate-950 px-6 pb-20 pt-28 text-white md:px-12 md:pb-24 md:pt-32">
-      <div className="absolute -left-32 top-10 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
-      <div className="absolute -right-32 top-0 h-96 w-96 rounded-full bg-violet-500/20 blur-3xl" />
-
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:52px_52px]" />
-
-      <div className="relative mx-auto max-w-[1300px]">
-       
-
-        <p className="mt-14 font-black uppercase tracking-[0.24em] text-sky-400">
-          Trust and transparency
-        </p>
-
-        <h1 className="mt-5 text-5xl font-black md:text-7xl">{title}</h1>
-
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-          {description}
-        </p>
-
-        <p className="mt-8 text-sm font-semibold text-slate-400">
-          Effective date: {EFFECTIVE_DATE}
-        </p>
-      </div>
-    </header>
-  );
-}
-
 function LegalIntroduction({ children }) {
   return (
-    <div className="rounded-[32px] bg-slate-950 p-7 text-lg leading-8 text-slate-300 md:p-10">
+    <div className="rounded-[32px] bg-slate-950 p-7 text-lg leading-8 text-slate-300 shadow-xl sm:p-9">
       {children}
     </div>
   );
 }
 
-function LegalNotice({ children }) {
+function ReviewNotice({ children }) {
   return (
     <div className="rounded-[28px] border border-amber-200 bg-amber-50 p-6 leading-7 text-amber-900">
-      <p className="font-black">Important launch notice</p>
+      <p className="font-black">Legal review notice</p>
       <p className="mt-2">{children}</p>
     </div>
   );
@@ -555,15 +786,17 @@ function LegalSection({ id, number, title, children }) {
   return (
     <section
       id={id}
-      className="scroll-mt-28 rounded-[36px] border border-slate-200 bg-white p-7 shadow-sm md:p-10"
+      className="scroll-mt-28 rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10"
     >
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-50 font-black text-sky-600">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sm font-black text-sky-600">
           {number}
-        </div>
+        </span>
 
         <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-black md:text-3xl">{title}</h2>
+          <h2 className="text-2xl font-black leading-tight sm:text-3xl">
+            {title}
+          </h2>
 
           <div className="mt-6 space-y-5 leading-8 text-slate-600">
             {children}
@@ -587,12 +820,27 @@ function LegalList({ items }) {
   return (
     <ul className="space-y-3">
       {items.map((item) => (
-        <li key={item} className="flex gap-3">
-          <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-sky-500" />
+        <li key={item} className="flex items-start gap-3">
+          <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" />
           <span>{item}</span>
         </li>
       ))}
     </ul>
+  );
+}
+
+function ContactCard({ title = "Handil Privacy Team" }) {
+  return (
+    <div className="rounded-2xl bg-slate-50 p-5">
+      <p className="font-black text-slate-950">{title}</p>
+
+      <a
+        href={`mailto:${PRIVACY_EMAIL}`}
+        className="mt-2 inline-block font-bold text-sky-600 hover:text-sky-700"
+      >
+        {PRIVACY_EMAIL}
+      </a>
+    </div>
   );
 }
 
