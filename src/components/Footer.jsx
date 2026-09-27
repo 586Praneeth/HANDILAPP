@@ -143,16 +143,39 @@ function Footer({ onEarlyAccess }) {
           </a>
         </div>
 
-        {/* COPYRIGHT */}
-        <div className="mt-8 border-t border-white/20 pt-6 text-center">
-          <p className="text-sm text-white/80">
-            © {new Date().getFullYear()} Handil. All rights reserved.
-          </p>
+     {/* COMPANY + COPYRIGHT */}
+<div className="mt-8 border-t border-white/20 pt-6 text-center">
+  <p className="text-sm text-white/90">
+    Handil is a product of{" "}
+    <span className="font-semibold">
+      Shori Technologies Private Limited
+    </span>
+    .
+  </p>
 
-          <p className="mt-2 text-xs text-white/60">
-            Private communication. Clearer control. Built around trust.
-          </p>
-        </div>
+  <p className="mt-2 text-xs leading-relaxed text-white/70">
+    Registered Office: 10-101/2/6, Libra Avenue, Nadergul,
+    Rangareddy, Telangana - 501510, India
+  </p>
+
+  <p className="mt-2 text-xs text-white/70">
+    Email:{" "}
+    <a
+      href="mailto:connect@handilapp.com"
+      className="font-medium text-white underline underline-offset-2 transition hover:text-cyan-200"
+    >
+      connect@handilapp.com
+    </a>
+  </p>
+
+  <p className="mt-5 text-sm text-white/80">
+    © {new Date().getFullYear()} Handil. All rights reserved.
+  </p>
+
+  <p className="mt-2 text-xs text-white/60">
+    Private communication. Clearer control. Built around trust.
+  </p>
+</div>
       </div>
     </footer>
   );
