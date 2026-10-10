@@ -18,11 +18,31 @@ function Footer({ onEarlyAccess }) {
 
   return (
     <footer className="relative overflow-hidden bg-gradient-to-r from-sky-600 via-blue-600 to-violet-600 px-6 py-10 text-white md:px-12">
+      {/* Background glow */}
       <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-
       <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-cyan-300/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-[1400px]">
+        {/* EARLY ACCESS CTA */}
+        <div className="mb-10 text-center">
+          <h3 className="text-2xl font-bold md:text-3xl">
+            Be among the first to try Handil
+          </h3>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/85 md:text-base">
+            Early beta access for Android and iPhone is coming soon.
+            Join now and we’ll notify you when access opens.
+          </p>
+
+          <button
+            type="button"
+            onClick={onEarlyAccess}
+            className="mt-5 rounded-full bg-white px-7 py-3 text-sm font-bold text-blue-600 shadow-lg transition duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-cyan-50 md:text-base"
+          >
+            Join Early Access
+          </button>
+        </div>
+
         {/* FOOTER NAVIGATION */}
         <nav
           aria-label="Footer navigation"
@@ -51,6 +71,7 @@ function Footer({ onEarlyAccess }) {
           >
             How We Work
           </Link>
+
           <button
             type="button"
             onClick={onEarlyAccess}
@@ -143,39 +164,39 @@ function Footer({ onEarlyAccess }) {
           </a>
         </div>
 
-     {/* COMPANY + COPYRIGHT */}
-<div className="mt-8 border-t border-white/20 pt-6 text-center">
-  <p className="text-sm text-white/90">
-    Handil is a product of{" "}
-    <span className="font-semibold">
-      Shori Technologies Private Limited
-    </span>
-    .
-  </p>
+        {/* COMPANY + COPYRIGHT */}
+        <div className="mt-8 border-t border-white/20 pt-6 text-center">
+          <p className="text-sm text-white/90">
+            Handil is a product of{" "}
+            <span className="font-semibold">
+              Shori Technologies Private Limited
+            </span>
+            .
+          </p>
 
-  <p className="mt-2 text-xs leading-relaxed text-white/70">
-    Registered Office: 10-101/2/6, Libra Avenue, Nadergul,
-    Rangareddy, Telangana - 501510, India
-  </p>
+          <p className="mt-2 text-xs leading-relaxed text-white/70">
+            Registered Office: 10-101/2/6, Libra Avenue, Nadergul,
+            Rangareddy, Telangana - 501510, India
+          </p>
 
-  <p className="mt-2 text-xs text-white/70">
-    Email:{" "}
-    <a
-      href="mailto:connect@handilapp.com"
-      className="font-medium text-white underline underline-offset-2 transition hover:text-cyan-200"
-    >
-      connect@handilapp.com
-    </a>
-  </p>
+          <p className="mt-2 text-xs text-white/70">
+            Email:{" "}
+            <a
+              href="mailto:connect@handilapp.com"
+              className="font-medium text-white underline underline-offset-2 transition hover:text-cyan-200"
+            >
+              connect@handilapp.com
+            </a>
+          </p>
 
-  <p className="mt-5 text-sm text-white/80">
-    © {new Date().getFullYear()} Handil. All rights reserved.
-  </p>
+          <p className="mt-5 text-sm text-white/80">
+            © {new Date().getFullYear()} Handil. All rights reserved.
+          </p>
 
-  <p className="mt-2 text-xs text-white/60">
-    Private communication. Clearer control. Built around trust.
-  </p>
-</div>
+          <p className="mt-2 text-xs text-white/60">
+            Private communication. Clearer control. Built around trust.
+          </p>
+        </div>
       </div>
     </footer>
   );
