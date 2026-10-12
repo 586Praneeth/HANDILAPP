@@ -3,10 +3,31 @@ import Reveal from "./Reveal";
 
 function RethinkingMessaging() {
   const highlights = [
-    "Memories",
-    "Documents",
-    "Decisions",
-    "Relationships",
+    {
+      title: "Scheduled Messages",
+      description:
+        "Plan messages ahead and send them automatically at the right time.",
+    },
+    {
+      title: "Birthday Reminders",
+      description:
+        "Remember important dates and meaningful moments without relying on memory alone.",
+    },
+    {
+      title: "Limited-View Messages",
+      description:
+        "Choose how many times a message can be viewed — once, twice, or three times.",
+    },
+    {
+      title: "Notes in Chat",
+      description:
+        "Create quick notes, lists, reminders, or important details without leaving the conversation.",
+    },
+    {
+      title: "Smart Connections",
+      description:
+        "Connect using a username or QR code without turning every conversation into a permanent contact.",
+    },
   ];
 
   return (
@@ -22,43 +43,41 @@ function RethinkingMessaging() {
         <Reveal>
           <div className="mx-auto max-w-5xl text-center">
             <p className="mb-5 text-sm font-bold uppercase tracking-[0.3em] text-sky-500">
-              RETHINKING MESSAGING
+              MORE THAN MESSAGING
             </p>
 
             <h2 className="text-4xl font-black leading-tight text-slate-950 sm:text-5xl lg:text-7xl">
-              Messaging, redesigned for the way people communicate today.
+              Practical tools for the way people communicate today.
             </h2>
 
             <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-slate-600">
-              Your conversations hold memories, documents, decisions, and
-              relationships. Handil helps you organize them, protect your
-              privacy, and stay in control of your communication.
+              Handil helps you communicate, remember important moments, organize
+              conversations, and stay in control of how you connect.
             </p>
           </div>
         </Reveal>
 
-        <div className="mx-auto mt-16 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-16 grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {highlights.map((item, index) => (
-            <Reveal key={item} delay={index * 0.08}>
+            <Reveal key={item.title} delay={index * 0.08}>
               <motion.div
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ duration: 0.25 }}
-                className="group relative overflow-hidden rounded-[28px] border border-slate-100 bg-[#f8fbff] p-7 shadow-lg shadow-sky-100/50"
+                className="group relative h-full overflow-hidden rounded-[28px] border border-slate-100 bg-[#f8fbff] p-7 shadow-lg shadow-sky-100/50"
               >
                 <div className="absolute right-[-30px] top-[-30px] h-24 w-24 rounded-full bg-sky-200/40 blur-2xl transition group-hover:bg-sky-300/60" />
 
                 <div className="relative">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-black text-sky-500 shadow-sm">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </div>
 
                   <h3 className="mt-6 text-xl font-black text-slate-950">
-                    {item}
+                    {item.title}
                   </h3>
 
                   <p className="mt-3 text-sm leading-6 text-slate-600">
-                    Important parts of your life deserve more than disappearing
-                    into endless conversations.
+                    {item.description}
                   </p>
                 </div>
               </motion.div>
@@ -69,13 +88,13 @@ function RethinkingMessaging() {
         <Reveal delay={0.2}>
           <div className="mx-auto mt-16 max-w-4xl rounded-[36px] border border-sky-100 bg-sky-50/70 px-8 py-10 text-center shadow-xl shadow-sky-100/50 backdrop-blur md:px-14">
             <p className="text-2xl font-black leading-tight text-slate-950 md:text-3xl">
-              Communication has changed.
+              Built around how people communicate today.
             </p>
 
             <p className="mt-4 text-lg leading-8 text-slate-600">
-              Messaging should help you find what matters, connect comfortably,
-              and make decisions about your data without unnecessary
-              complexity.
+              Schedule messages, remember important moments, control how messages
+              are viewed, keep notes close to conversations, and connect without
+              unnecessary contact sharing.
             </p>
           </div>
         </Reveal>
