@@ -2,33 +2,27 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 import addbio from "../assets/screens/addbio.png";
-import onboarding from "../assets/screens/onboarding.png";
 import chat from "../assets/screens/chat.png";
+import messagecontrol from "../assets/screens/messagecontrol.png";
 
 const steps = [
   {
     title: "Connect Privately",
-    text: "Connect with people without making your phone number the center of every interaction.",
-    badge: "Private Identity",
+    text: "Connect using a username or QR code without making your phone number the center of every interaction.",
+    badge: "Username + QR",
     image: addbio,
   },
   {
-    title: "Share Effortlessly",
-    text: "Use usernames or QR codes to start conversations in seconds.",
-    badge: "Username + QR",
-    image: onboarding,
-  },
-  {
-    title: "Stay Organized",
-    text: "Conversations become easier to manage with tools designed for everyday communication.",
-    badge: "Organized Conversations",
+    title: "Start a Conversation",
+    text: "Find conversations, unread messages, and pending connections from one simple home screen.",
+    badge: "Simple Messaging",
     image: chat,
   },
   {
-    title: "Your Data, Your Choice",
-    text: "Choose how your conversations and media are managed, with options that fit your needs.",
-    badge: "Local • Cloud",
-    image: chat,
+    title: "Message With More Control",
+    text: "Schedule messages or choose how many times a message can be viewed—all without leaving the conversation.",
+    badge: "View Once • 2 Views • 3 Views • Send Later",
+    image: messagecontrol,
   },
 ];
 
@@ -53,13 +47,12 @@ function HowItWorks() {
           </p>
 
           <h2 className="max-w-3xl text-4xl font-black leading-tight sm:text-5xl lg:text-7xl">
-            Connect your way. Control your data.
+            From connection to conversation.
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400 sm:mt-7 sm:text-lg sm:leading-8">
-            Every part of Handil is designed to give you simpler connections,
-            clearer organization, and better control over how your communication
-            works.
+            Handil keeps messaging simple while giving you better ways to
+            connect, communicate, and stay in control.
           </p>
 
           <div className="mt-10 space-y-4 sm:mt-14 sm:space-y-5">
@@ -111,40 +104,33 @@ function HowItWorks() {
         <div className="relative flex w-full justify-center overflow-hidden py-4">
           <div className="pointer-events-none absolute h-[360px] w-[360px] rounded-full bg-sky-500/20 blur-[120px] sm:h-[520px] sm:w-[520px] sm:blur-[150px]" />
 
-          <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{
-              duration: 5.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="relative z-20 w-full max-w-[280px] rounded-[40px] border border-white/10 bg-white/5 p-3 shadow-2xl backdrop-blur sm:max-w-[330px] sm:rounded-[48px]"
-          >
+          {/* STATIC PHONE */}
+          <div className="relative z-20 w-full max-w-[280px] rounded-[40px] border border-white/10 bg-white/5 p-3 shadow-2xl backdrop-blur sm:max-w-[330px] sm:rounded-[48px]">
             <div className="overflow-hidden rounded-[32px] bg-slate-900 sm:rounded-[38px]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={steps[active].title}
                   src={steps[active].image}
                   alt={steps[active].title}
-                  initial={{ opacity: 0, y: 22, scale: 0.97 }}
+                  initial={{ opacity: 0, y: 18, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -22, scale: 0.97 }}
-                  transition={{ duration: 0.35 }}
+                  exit={{ opacity: 0, y: -18, scale: 0.98 }}
+                  transition={{ duration: 0.3 }}
                   className="h-auto max-h-[590px] w-full object-contain sm:h-[680px] sm:max-h-none"
                 />
               </AnimatePresence>
             </div>
-          </motion.div>
+          </div>
 
           {/* ACTIVE BADGE */}
           <AnimatePresence mode="wait">
             <motion.div
               key={steps[active].badge}
-              initial={{ opacity: 0, y: 18, scale: 0.95 }}
+              initial={{ opacity: 0, y: 14, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -18, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="absolute bottom-5 z-30 max-w-[90%] rounded-[20px] border border-white/10 bg-slate-900/75 px-4 py-3 text-center shadow-xl backdrop-blur-xl sm:bottom-8 sm:rounded-[24px] sm:px-6 sm:py-4"
+              exit={{ opacity: 0, y: -14, scale: 0.96 }}
+              transition={{ duration: 0.25 }}
+              className="absolute bottom-5 z-30 max-w-[90%] rounded-[20px] border border-white/10 bg-slate-900/80 px-4 py-3 text-center shadow-xl backdrop-blur-xl sm:bottom-8 sm:rounded-[24px] sm:px-6 sm:py-4"
             >
               <p className="text-xs font-black text-sky-300 sm:text-sm">
                 {steps[active].badge}
@@ -155,21 +141,21 @@ function HowItWorks() {
           {/* DESKTOP BADGES */}
           <div className="absolute -left-4 top-28 hidden rounded-[22px] border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-xl lg:block">
             <p className="text-sm font-semibold text-white">
-              Private by design
+              Private connections
             </p>
 
             <p className="mt-1 text-xs text-slate-400">
-              Identity on your terms
+              Connect on your terms
             </p>
           </div>
 
           <div className="absolute -right-4 bottom-28 hidden rounded-[22px] border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-xl lg:block">
             <p className="text-sm font-semibold text-white">
-              Built for everyday life
+              More control
             </p>
 
             <p className="mt-1 text-xs text-slate-400">
-              Simple, useful, intentional
+              Messaging that works for you
             </p>
           </div>
         </div>

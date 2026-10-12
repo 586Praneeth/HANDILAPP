@@ -95,20 +95,12 @@ function Hero() {
         </div>
 
         {/* RIGHT PHONE VISUAL */}
-       <div className="relative flex min-h-[560px] items-center justify-center sm:min-h-[680px]">
+        <div className="relative flex min-h-[560px] items-center justify-center sm:min-h-[680px]">
           <div className="absolute h-[520px] w-[520px] rounded-full bg-sky-300/30 blur-[140px]" />
 
-          <motion.div
-            animate={{ y: [0, -14, 0] }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="relative flex items-center justify-center"
-          >
+          <div className="relative flex items-center justify-center">
             {/* MAIN PHONE */}
-           <div className="relative z-20 w-full max-w-[270px] rounded-[46px] border border-slate-200 bg-white p-3 shadow-[0_40px_110px_rgba(14,165,233,0.28)] sm:max-w-[310px]">
+            <div className="relative z-20 w-full max-w-[270px] rounded-[46px] border border-slate-200 bg-white p-3 shadow-[0_40px_110px_rgba(14,165,233,0.28)] sm:max-w-[310px]">
               <div className="overflow-hidden rounded-[36px] bg-slate-100">
                 <img
                   src={chat}
@@ -119,15 +111,7 @@ function Hero() {
             </div>
 
             {/* SECONDARY PHONE */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -left-28 top-20 z-10 hidden w-[200px] rotate-[-9deg] rounded-[38px] border border-slate-200 bg-white p-3 shadow-2xl md:block"
-            >
+            <div className="absolute -left-28 top-20 z-10 hidden w-[200px] rotate-[-9deg] rounded-[38px] border border-slate-200 bg-white p-3 shadow-2xl md:block">
               <div className="overflow-hidden rounded-[30px] bg-slate-100">
                 <img
                   src={onboarding}
@@ -135,18 +119,10 @@ function Hero() {
                   className="h-[440px] w-full object-contain"
                 />
               </div>
-            </motion.div>
+            </div>
 
             {/* PRIVACY BADGE */}
-            <motion.div
-              animate={{ y: [0, -7, 0] }}
-              transition={{
-                duration: 4.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -right-16 top-20 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block"
-            >
+            <div className="absolute -right-16 top-20 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block">
               <p className="text-sm font-black text-slate-950">
                 Private Identity
               </p>
@@ -154,18 +130,10 @@ function Hero() {
               <p className="mt-1 text-xs font-semibold text-sky-500">
                 Connect on your terms
               </p>
-            </motion.div>
+            </div>
 
             {/* DATA CHOICE BADGE */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{
-                duration: 5.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -right-16 bottom-28 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block"
-            >
+            <div className="absolute -right-16 bottom-28 z-30 hidden rounded-[22px] border border-white/70 bg-white/90 px-5 py-4 shadow-xl backdrop-blur md:block">
               <p className="text-sm font-black text-slate-950">
                 Your Data
               </p>
@@ -173,8 +141,8 @@ function Hero() {
               <p className="mt-1 text-xs font-semibold text-sky-500">
                 Local • Cloud • Your Choice
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
