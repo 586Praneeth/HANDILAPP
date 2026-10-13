@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import RethinkingMessaging from "./components/RethinkingMessaging";
 import WhatIsHandil from "./components/WhatIsHandil";
-import HowItWorks from "./components/HowItWorks";
 import CloudSection from "./components/CloudSection";
 import FAQ from "./components/FAQ";
 import RewardsFeedback from "./components/RewardsFeedback";
