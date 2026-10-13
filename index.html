@@ -8,31 +8,73 @@
       content="width=device-width, initial-scale=1.0"
     />
 
-    <!-- Primary SEO -->
+    <!-- ===================================================== -->
+    <!-- GOOGLE ANALYTICS 4 -->
+    <!-- Replace G-XXXXXXXXXX with your actual Measurement ID -->
+    <!-- ===================================================== -->
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+    ></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag("js", new Date());
+
+      gtag("config", "G-XXXXXXXXXX");
+    </script>
+
+    <!-- ===================================================== -->
+    <!-- PRIMARY SEO -->
+    <!-- ===================================================== -->
+
     <title>Handil — Private Messaging with More Control</title>
 
     <meta
       name="description"
-      content="Handil is a privacy-first messaging app built for smarter connections, organized conversations, and more control over how you communicate. Find Handil at HandilApp.com."
+      content="Handil is a privacy-first messaging app built for smarter connections, organized conversations, and more control over how you communicate."
     />
 
     <meta
       name="keywords"
-      content="Handil, HandilApp, Handil App, private messaging app, privacy-first messaging, secure messaging app, chat app, temporary contacts, organized messaging, messaging with more control"
+      content="Handil, HandilApp, Handil App, private messaging app, privacy-first messaging, secure messaging app, chat app, organized messaging, messaging with more control"
     />
 
-    <meta name="application-name" content="Handil" />
-    <meta name="author" content="Handil" />
+    <meta
+      name="application-name"
+      content="Handil"
+    />
 
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="author"
+      content="Handil"
+    />
 
-    <!-- Canonical -->
+    <meta
+      name="robots"
+      content="index, follow"
+    />
+
+    <!-- ===================================================== -->
+    <!-- CANONICAL URL -->
+    <!-- ===================================================== -->
+
     <link
       rel="canonical"
       href="https://handilapp.com/"
     />
 
-    <!-- Open Graph -->
+    <!-- ===================================================== -->
+    <!-- OPEN GRAPH -->
+    <!-- WhatsApp / Facebook / LinkedIn -->
+    <!-- ===================================================== -->
+
     <meta
       property="og:title"
       content="Handil — Private Messaging with More Control"
@@ -73,7 +115,10 @@
       content="Handil — Private Messaging with More Control"
     />
 
-    <!-- X / Twitter -->
+    <!-- ===================================================== -->
+    <!-- X / TWITTER -->
+    <!-- ===================================================== -->
+
     <meta
       name="twitter:card"
       content="summary_large_image"
@@ -99,7 +144,10 @@
       content="https://handilapp.com/og-image.png"
     />
 
-    <!-- Organization Structured Data -->
+    <!-- ===================================================== -->
+    <!-- ORGANIZATION STRUCTURED DATA -->
+    <!-- ===================================================== -->
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -114,6 +162,7 @@
         "description": "Handil is a privacy-first messaging app built for smarter connections, organized conversations, and more control over communication.",
         "sameAs": [
           "https://www.linkedin.com/company/handilapp",
+          "https://www.facebook.com/people/HandilApp/61593213819308/",
           "https://www.instagram.com/handilapp",
           "https://x.com/handilapp",
           "https://www.youtube.com/@HandilApp"
@@ -121,7 +170,10 @@
       }
     </script>
 
-    <!-- Website Structured Data -->
+    <!-- ===================================================== -->
+    <!-- WEBSITE STRUCTURED DATA -->
+    <!-- ===================================================== -->
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -135,7 +187,10 @@
       }
     </script>
 
-    <!-- Application Structured Data -->
+    <!-- ===================================================== -->
+    <!-- SOFTWARE APPLICATION STRUCTURED DATA -->
+    <!-- ===================================================== -->
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -156,6 +211,9 @@
   <body>
     <div id="root"></div>
 
-    <script type="module" src="/src/main.jsx"></script>
+    <script
+      type="module"
+      src="/src/main.jsx"
+    ></script>
   </body>
 </html>
