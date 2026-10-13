@@ -34,8 +34,6 @@ function HomePage() {
 
       <WhatIsHandil />
 
-      <HowItWorks />
-
       <CloudSection />
 
       <FAQ />
