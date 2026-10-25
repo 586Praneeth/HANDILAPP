@@ -30,8 +30,8 @@ function Footer({ onEarlyAccess }) {
           </h3>
 
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/85 md:text-base">
-            Early beta access for Android and iPhone is coming soon.
-            Join now and we’ll notify you when access opens.
+            Early beta access for Android and iPhone is coming soon. Join now
+            and we’ll notify you when access opens.
           </p>
 
           <button
@@ -107,7 +107,7 @@ function Footer({ onEarlyAccess }) {
             onClick={scrollToTop}
             className="transition hover:-translate-y-0.5 hover:text-cyan-200"
           >
-            Terms
+            Terms &amp; Conditions
           </Link>
         </nav>
 
@@ -175,8 +175,8 @@ function Footer({ onEarlyAccess }) {
           </p>
 
           <p className="mt-2 text-xs leading-relaxed text-white/70">
-            Registered Office: 10-101/2/6, Libra Avenue, Nadergul,
-            Rangareddy, Telangana - 501510, India
+            Registered Office: 10-101/2/6, Libra Avenue, Nadergul, Rangareddy,
+            Telangana - 501510, India
           </p>
 
           <p className="mt-2 text-xs text-white/70">

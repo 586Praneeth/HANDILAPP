@@ -1,740 +1,306 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const EFFECTIVE_DATE = "September 12, 2026";
-const CONTACT_EMAIL = "connect@handilapp.com";
+const SECTIONS = [
+  { id: "introduction", number: "01", title: 'Introduction' },
+  { id: "about-handil", number: "02", title: 'About Handil' },
+  { id: "age-eligibility", number: "03", title: 'Age Eligibility' },
+  { id: "account-registration-and-security", number: "04", title: 'Account Registration and Security' },
+  { id: "acceptable-use", number: "05", title: 'Acceptable Use' },
+  { id: "messages-and-user-content", number: "06", title: 'Messages and User Content' },
+  { id: "message-encryption-and-recovery", number: "07", title: 'Message Encryption and Recovery' },
+  { id: "contact-permissions", number: "08", title: 'Contact Permissions' },
+  { id: "optional-birthday-reminders", number: "09", title: 'Optional Birthday Reminders' },
+  { id: "privacy-and-personal-data", number: "10", title: 'Privacy and Personal Data' },
+  { id: "account-deletion", number: "11", title: 'Account Deletion' },
+  { id: "account-deletion-and-privacy-requests-without-signing-in", number: "12", title: 'Account Deletion and Privacy Requests Without Signing In' },
+  { id: "reporting-problems-and-grievances", number: "13", title: 'Reporting Problems and Grievances' },
+  { id: "account-restriction-and-termination", number: "14", title: 'Account Restriction and Termination' },
+  { id: "intellectual-property", number: "15", title: 'Intellectual Property' },
+  { id: "service-availability", number: "16", title: 'Service Availability' },
+  { id: "future-services-and-pricing", number: "17", title: 'Future Services and Pricing' },
+  { id: "disclaimer-and-liability", number: "18", title: 'Disclaimer and Liability' },
+  { id: "changes-to-these-terms", number: "19", title: 'Changes to These Terms' },
+  { id: "governing-law-and-jurisdiction", number: "20", title: 'Governing Law and Jurisdiction' },
+  { id: "contact-information", number: "21", title: 'Contact Information' },
+];
 
-function Terms() {
+function LegalHeader() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950">
-      <TermsHeader />
-
-      <section className="px-5 py-14 sm:px-6 md:px-12 md:py-24">
-        <article className="mx-auto max-w-5xl space-y-8">
-          <div className="rounded-[32px] bg-slate-950 p-7 text-lg leading-8 text-slate-300 shadow-xl sm:p-10">
-            These Terms of Service govern your access to and use of Handil&apos;s
-            websites, applications, communication services, careers services,
-            early-access features, and related products and services.
-          </div>
-
-          <div className="rounded-[28px] border border-amber-200 bg-amber-50 p-6 leading-7 text-amber-900">
-            <p className="font-black">Legal review notice</p>
-
-            <p className="mt-2">
-              These Terms should be reviewed by qualified Indian legal counsel
-              before commercial launch, particularly after Handil&apos;s final
-              legal entity, registered office, commercial model, user age
-              structure, intermediary classification, and production
-              architecture are finalized.
-            </p>
-          </div>
-
-          <TermsSection number="01" title="Acceptance of These Terms">
-            <p>
-              By accessing or using Handil, creating an account, submitting a
-              job application, or otherwise using a Handil service, you agree to
-              these Terms and acknowledge our{" "}
-              <Link
-                to="/privacy-policy"
-                className="font-bold text-sky-600 hover:text-sky-700"
-              >
-                Privacy Notice
-              </Link>
-              .
-            </p>
-
-            <p>
-              If you do not agree to these Terms, you should not access or use
-              the service.
-            </p>
-          </TermsSection>
-
-          <TermsSection
-            number="02"
-            title="Compliance with Applicable Indian Laws"
-          >
-            <p>
-              Handil intends to operate its services in accordance with
-              applicable laws, rules, regulations, notifications, directions,
-              and lawful requirements of India.
-            </p>
-
-            <p>
-              Depending on the nature of the service, these may include:
-            </p>
-
-            <TermsList
-              items={[
-                "The Information Technology Act, 2000 and applicable rules issued under it.",
-                "The Digital Personal Data Protection Act, 2023 and applicable Digital Personal Data Protection Rules.",
-                "Applicable intermediary, digital-service, and online-platform requirements.",
-                "Cybersecurity obligations and directions issued by CERT-In and other competent authorities.",
-                "Applicable consumer-protection laws, rules, and guidelines.",
-                "Applicable commercial-communication and electronic-communication requirements.",
-                "Other applicable statutory, regulatory, judicial, or governmental requirements.",
-              ]}
-            />
-
-            <p>
-              Handil may modify its services, policies, security measures,
-              operational procedures, or these Terms where reasonably necessary
-              to comply with applicable law or a lawful direction from a
-              competent authority.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="03" title="Eligibility">
-            <p>
-              Unless Handil expressly states otherwise for a particular service,
-              you must be at least 18 years old to create or use a Handil
-              account.
-            </p>
-
-            <p>
-              If Handil later offers a service to children or minors, additional
-              age-verification, parental-consent, privacy, and safety
-              requirements may apply.
-            </p>
-
-            <p>
-              If you use Handil on behalf of an organization, you represent that
-              you have authority to accept these Terms on behalf of that
-              organization.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="04" title="Your Account">
-            <TermsList
-              items={[
-                "Provide accurate and current information where required.",
-                "Protect passwords, access credentials, recovery information, and authenticated devices.",
-                "Do not knowingly allow unauthorized people to use your account.",
-                "Notify Handil promptly if you suspect unauthorized account activity.",
-                "Keep relevant account and recovery information reasonably current.",
-                "Use Handil only in accordance with applicable law and these Terms.",
-              ]}
-            />
-
-            <p>
-              You are responsible for activity performed through your account
-              except where applicable law provides otherwise.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="05" title="License to Use Handil">
-            <p>
-              Subject to these Terms, Handil grants you a limited,
-              non-exclusive, non-transferable, revocable license to use the
-              service for its intended purpose.
-            </p>
-
-            <p>
-              This license does not transfer ownership of Handil&apos;s
-              software, designs, interfaces, trademarks, documentation,
-              algorithms, systems, branding, or other intellectual property.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="06" title="Connections and Identity">
-            <p>
-              Handil may provide methods for discovering or connecting with
-              users, including usernames, QR codes, contact information, or
-              other identifiers.
-            </p>
-
-            <p>
-              You must not use identity or connection features to impersonate
-              another person, deceive users, collect information unlawfully, or
-              circumvent another person&apos;s privacy choices.
-            </p>
-
-            <p>
-              The availability and exact behavior of identity and connection
-              features may change as Handil evolves.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="07" title="Acceptable Use">
-            <p>You agree not to use Handil to:</p>
-
-            <TermsList
-              items={[
-                "Violate applicable law or another person's legal rights.",
-                "Harass, threaten, exploit, stalk, impersonate, or deceive another person.",
-                "Distribute malware, malicious code, or intentionally harmful content.",
-                "Attempt unauthorized access to accounts, devices, systems, networks, or data.",
-                "Bypass authentication, security, privacy, rate-limit, or abuse-prevention controls.",
-                "Interfere with the availability, integrity, security, or operation of Handil.",
-                "Scrape, crawl, reverse engineer, or automatically extract information except where permitted by law or expressly authorized.",
-                "Send spam, scams, fraudulent messages, or unlawful unsolicited communications.",
-                "Upload or distribute unlawful, infringing, abusive, or malicious content.",
-                "Use Handil to facilitate fraud, exploitation, cybercrime, or other harmful activity.",
-              ]}
-            />
-          </TermsSection>
-
-          <TermsSection number="08" title="User Content">
-            <p>
-              You retain ownership of content that you lawfully create and
-              submit through Handil.
-            </p>
-
-            <p>
-              You grant Handil a limited license to host, store, process,
-              transmit, reproduce, synchronize, and display your content only as
-              reasonably necessary to provide, secure, maintain, or improve the
-              service, comply with your instructions, or comply with applicable
-              law.
-            </p>
-
-            <p>
-              You are responsible for ensuring that you have all necessary
-              rights and permissions to upload, send, or share content.
-            </p>
-          </TermsSection>
-
-          <TermsSection
-            number="09"
-            title="Illegal, Harmful and Prohibited Content"
-          >
-            <p>
-              Handil must not be used to create, transmit, distribute, host, or
-              facilitate content or activity prohibited by applicable law.
-            </p>
-
-            <p>
-              Where Handil receives a legally valid notice, court order,
-              governmental direction, regulatory instruction, or other binding
-              legal request concerning content or activity, Handil may take
-              action necessary to comply with applicable law.
-            </p>
-
-            <p>
-              Such action may include restricting access, preserving relevant
-              records, suspending functionality, removing content where
-              technically applicable, or cooperating with competent authorities
-              where legally required.
-            </p>
-          </TermsSection>
-
-          <TermsSection
-            number="10"
-            title="Storage, Synchronization and Deletion"
-          >
-            <p>
-              Handil may provide local-device storage, cloud storage,
-              synchronization, or hybrid storage options depending on the
-              feature and product version.
-            </p>
-
-            <p>
-              Storage and deletion behavior may depend on your settings, device
-              state, synchronization status, backup cycles, recipients, and the
-              technical architecture of the service.
-            </p>
-
-            <p>
-              Deleting content from your account or device may not immediately
-              remove every synchronized, recipient-held, cached, security, or
-              backup copy.
-            </p>
-
-            <p>
-              Handil may retain limited information where reasonably necessary
-              for security, fraud prevention, legal compliance, dispute
-              resolution, cybersecurity investigation, or another permitted
-              purpose.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="11" title="Privacy and Data Protection">
-            <p>
-              Handil&apos;s collection and processing of personal data is
-              described in our{" "}
-              <Link
-                to="/privacy-policy"
-                className="font-bold text-sky-600 hover:text-sky-700"
-              >
-                Privacy Notice
-              </Link>
-              .
-            </p>
-
-            <p>
-              Handil intends to process personal data in accordance with
-              applicable Indian data-protection laws, including the Digital
-              Personal Data Protection Act, 2023 and applicable rules, to the
-              extent those provisions are in force and apply to the relevant
-              processing.
-            </p>
-
-            <p>
-              Where processing is based on consent, Handil intends to provide
-              appropriate information about the purpose of processing and a
-              mechanism to withdraw consent where required.
-            </p>
-
-            <p>
-              Subject to applicable law, users may have rights to access
-              information about processing, request correction, completion,
-              updating or erasure of personal data, withdraw consent, and raise
-              a grievance.
-            </p>
-
-            <p>
-              Privacy and data-protection requests may be submitted to{" "}
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="font-bold text-sky-600 hover:text-sky-700"
-              >
-                {CONTACT_EMAIL}
-              </a>
-              .
-            </p>
-          </TermsSection>
-
-          <TermsSection number="12" title="Consent">
-            <p>
-              Certain optional Handil features or processing activities may
-              require your consent.
-            </p>
-
-            <p>
-              Where consent is required, Handil intends to request it through a
-              clear affirmative action and identify the relevant purpose.
-              Optional unrelated purposes should not be unnecessarily bundled.
-            </p>
-
-            <p>
-              You may withdraw consent to consent-based processing where
-              applicable. Withdrawal will not affect processing lawfully
-              completed before withdrawal.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="13" title="Careers and Job Applications">
-            <p>
-              Information submitted through Handil&apos;s careers service is
-              provided for recruitment and employment-evaluation purposes.
-            </p>
-
-            <p>
-              Submission of an application does not guarantee an interview,
-              employment offer, employment relationship, or response.
-            </p>
-
-            <p>
-              Applicants should provide accurate information and should not
-              submit confidential third-party information unless authorized to
-              do so.
-            </p>
-
-            <p>
-              Applicant-data handling and retention are described in the
-              Privacy Notice.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="14" title="Early Access and Beta Features">
-            <p>
-              Handil may make certain products or features available as early
-              access, beta, preview, experimental, or testing functionality.
-            </p>
-
-            <p>
-              These features may be incomplete, contain defects, change
-              materially, become unavailable, or be discontinued.
-            </p>
-
-            <p>
-              Beta or early-access functionality should not be relied upon for
-              emergency, life-critical, or other high-risk communication.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="15" title="Third-Party Services">
-            <p>
-              Handil may depend on third-party providers for hosting, databases,
-              storage, authentication, communications, monitoring,
-              cybersecurity, recruitment, analytics, or other operational
-              services.
-            </p>
-
-            <p>
-              Third-party products and websites may be governed by their own
-              terms and privacy policies.
-            </p>
-
-            <p>
-              Handil is not responsible for independent third-party services
-              except to the extent required by applicable law or contractual
-              obligations.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="16" title="Cybersecurity">
-            <p>
-              Handil intends to implement reasonable technical,
-              organizational, and administrative safeguards designed to protect
-              its systems and personal data.
-            </p>
-
-            <p>
-              Handil may monitor systems, maintain logs, investigate security
-              events, preserve evidence, and take defensive action where
-              reasonably necessary to protect the service or comply with
-              applicable cybersecurity requirements.
-            </p>
-
-            <p>
-              Where an incident is reportable under applicable Indian law or
-              cybersecurity directions, Handil intends to comply with the
-              relevant reporting requirements.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="17" title="Personal Data Breaches">
-            <p>
-              Handil intends to maintain procedures for investigating,
-              containing, documenting, and responding to personal-data breaches.
-            </p>
-
-            <p>
-              Where legally required, Handil intends to notify affected
-              individuals, the Data Protection Board of India, CERT-In, or
-              another competent authority in accordance with applicable legal
-              requirements.
-            </p>
-          </TermsSection>
-
-          <TermsSection
-            number="18"
-            title="Government and Regulatory Requests"
-          >
-            <p>
-              Handil may cooperate with courts, regulatory authorities,
-              law-enforcement agencies, CERT-In, the Data Protection Board of
-              India, or other competent governmental authorities where required
-              by applicable law.
-            </p>
-
-            <p>
-              Handil may preserve or disclose information where required by a
-              legally valid request, court order, regulatory direction, or other
-              binding legal process.
-            </p>
-
-            <p>
-              Where legally permitted, Handil intends to evaluate such requests
-              for legal validity, scope, and authority.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="19" title="Consumer Protection">
-            <p>
-              Handil intends to present material information regarding its
-              services, pricing, subscriptions, limitations, and user choices in
-              a clear and non-deceptive manner where applicable.
-            </p>
-
-            <p>
-              Handil does not intend to use deceptive interface practices,
-              hidden charges, forced actions, misleading cancellation
-              mechanisms, or other practices prohibited by applicable
-              consumer-protection law.
-            </p>
-          </TermsSection>
-
-          <TermsSection
-            number="20"
-            title="Commercial and Promotional Communications"
-          >
-            <p>
-              Handil may send service-related communications necessary to
-              operate an account or service.
-            </p>
-
-            <p>
-              Promotional or optional communications will be sent in accordance
-              with applicable consent, communication, and consumer-protection
-              requirements.
-            </p>
-
-            <p>
-              Where applicable, users will be provided with a mechanism to opt
-              out of optional promotional communications.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="21" title="Artificial Intelligence">
-            <p>
-              Handil may introduce AI-assisted features in the future.
-            </p>
-
-            <p>
-              AI-generated output may be incomplete, inaccurate, or unsuitable
-              for a particular purpose. Users should independently review
-              important output before relying on or sharing it.
-            </p>
-
-            <p>
-              AI-assisted features should not be treated as substitutes for
-              professional legal, medical, financial, safety, or other
-              regulated advice unless expressly designed and authorized for that
-              purpose.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="22" title="Intellectual Property">
-            <p>
-              Handil and its licensors retain ownership of the service,
-              software, interfaces, branding, documentation, designs, systems,
-              and other intellectual property belonging to them.
-            </p>
-
-            <p>
-              “Handil,” its logos, branding, and associated marks may not be
-              copied or used without authorization except where permitted by
-              applicable law.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="23" title="Feedback">
-            <p>
-              You may voluntarily submit product ideas, suggestions, questions,
-              or feedback.
-            </p>
-
-            <p>
-              Unless otherwise agreed, Handil may use voluntary feedback to
-              evaluate and improve its products without an obligation to
-              compensate you.
-            </p>
-
-            <p>
-              This does not give Handil ownership of personal data contained in
-              feedback or remove obligations imposed by applicable privacy law.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="24" title="Service Changes">
-            <p>
-              Handil may add, modify, suspend, replace, or discontinue features
-              as the product evolves.
-            </p>
-
-            <p>
-              Where reasonably practicable and legally required, Handil may
-              provide notice of material changes that substantially affect
-              users.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="25" title="Suspension and Termination">
-            <p>
-              Handil may restrict, suspend, or terminate access where reasonably
-              necessary to:
-            </p>
-
-            <TermsList
-              items={[
-                "Protect users, Handil systems, or the public.",
-                "Investigate suspected fraud, abuse, illegal content, or cybersecurity threats.",
-                "Address material violations of these Terms.",
-                "Comply with applicable law, court orders, or lawful governmental directions.",
-                "Prevent unauthorized access or significant service disruption.",
-              ]}
-            />
-
-            <p>
-              You may stop using Handil and, where supported, request account
-              deletion subject to applicable retention requirements.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="26" title="Service Availability">
-            <p>
-              Handil aims to provide a reliable service but does not guarantee
-              uninterrupted, error-free, secure, or universally available
-              operation.
-            </p>
-
-            <p>
-              Availability may be affected by maintenance, outages, network
-              conditions, third-party dependencies, security events, or other
-              circumstances.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="27" title="No Emergency Communication">
-            <p>
-              Unless Handil expressly introduces and certifies a service for
-              emergency use, Handil is not an emergency communications service.
-            </p>
-
-            <p>
-              Do not rely on Handil to contact emergency services or communicate
-              information where delay, failure, or interruption could create
-              immediate danger.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="28" title="Disclaimers">
-            <p>
-              To the extent permitted by applicable law, Handil may be provided
-              on an “as available” basis during development, early access, or
-              beta stages.
-            </p>
-
-            <p>
-              Nothing in these Terms excludes warranties, rights, remedies, or
-              protections that cannot lawfully be excluded.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="29" title="Limitation of Liability">
-            <p>
-              To the extent permitted by applicable law, Handil will not be
-              liable for indirect, incidental, special, consequential, or
-              punitive losses arising solely from use or inability to use the
-              service.
-            </p>
-
-            <p>
-              Nothing in these Terms limits liability where such limitation is
-              prohibited by applicable law.
-            </p>
-
-            {/* LEGAL REVIEW:
-                Counsel should draft the final liability cap
-                based on Handil's entity, commercial model,
-                subscriptions, consumer law, and markets. */}
-          </TermsSection>
-
-          <TermsSection number="30" title="Governing Law and Disputes">
-            <p>
-              These Terms are intended to operate subject to applicable laws of
-              India.
-            </p>
-
-            <p>
-              Handil will specify final governing-law, jurisdiction,
-              dispute-resolution, and consumer-remedy provisions after its
-              legal entity, registered office, and commercial operating
-              structure are finalized.
-            </p>
-
-            {/* LEGAL REVIEW:
-                Do not insert a specific court,
-                arbitration seat, or jurisdiction until
-                company registration and counsel review are complete. */}
-          </TermsSection>
-
-          <TermsSection number="31" title="Grievances and Contact">
-            <p>
-              Questions, privacy concerns, complaints, abuse reports, and
-              grievances may be sent to:
-            </p>
-
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="font-black text-slate-950">
-                Handil Support & Grievance Contact
-              </p>
-
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="mt-2 inline-block font-bold text-sky-600 hover:text-sky-700"
-              >
-                {CONTACT_EMAIL}
-              </a>
-            </div>
-
-            <p>
-              Additional legally required entity, registered-address,
-              grievance-officer, nodal-contact, or compliance-contact details
-              will be published where applicable.
-            </p>
-          </TermsSection>
-
-          <TermsSection number="32" title="Changes to These Terms">
-            <p>
-              Handil may update these Terms as the product, applicable law,
-              regulatory requirements, or business changes.
-            </p>
-
-            <p>
-              Where changes materially affect users, Handil may provide notice
-              through the application, website, email, or another appropriate
-              method before the updated Terms become applicable where required.
-            </p>
-          </TermsSection>
-        </article>
-      </section>
-    </main>
-  );
-}
-
-function TermsHeader() {
-  return (
-    <header className="relative overflow-hidden bg-slate-950 px-5 pb-20 pt-20 text-white sm:px-6 md:px-12 md:pb-24 md:pt-24">
-      <div className="absolute -left-32 top-10 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
-      <div className="absolute -right-32 top-0 h-96 w-96 rounded-full bg-violet-500/20 blur-3xl" />
-
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:52px_52px]" />
-
-      <div className="relative mx-auto max-w-5xl">
-        <p className="font-black uppercase tracking-[0.24em] text-sky-400">
-          Rules for using Handil
-        </p>
-
-        <h1 className="mt-6 text-5xl font-black leading-tight sm:text-6xl md:text-7xl">
-          Terms of Service
-        </h1>
-
-        <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-          The terms governing access to and use of Handil.
-        </p>
-
-        <p className="mt-6 text-sm font-semibold text-slate-400">
-          Effective: {EFFECTIVE_DATE}
-        </p>
+    <header className="relative overflow-hidden bg-slate-950 px-5 pb-16 pt-20 text-white sm:px-6 md:px-12 md:pb-20 md:pt-24">
+      <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-10 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-violet-500/20 blur-3xl" />
+      <div className="relative mx-auto max-w-[1260px]">
+        <p className="text-xs font-bold uppercase tracking-[0.22em] text-sky-300">Trust &amp; Transparency</p>
+        <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">Terms &amp; Conditions</h1>
+        <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">The rules and responsibilities that help keep Handil simple, secure, and respectful for everyone.</p>
+        <div className="mt-7 flex flex-wrap gap-3 text-xs font-semibold text-slate-300">
+          <span className="rounded-full border border-white/20 px-3 py-1.5">Last updated: 24 October 2026</span>
+        </div>
       </div>
     </header>
   );
 }
 
-function TermsSection({ number, title, children }) {
+function LegalSection({ id, number, title, children }) {
   return (
-    <section className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10">
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sm font-black text-sky-600">
-          {number}
-        </span>
-
-        <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-black leading-tight sm:text-3xl">
-            {title}
-          </h2>
-
-          <div className="mt-6 space-y-5 leading-8 text-slate-600">
-            {children}
-          </div>
-        </div>
+    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-28 border-b border-slate-200 pb-11 pt-2 last:border-b-0">
+      <div className="mb-6 flex items-start gap-4">
+        <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sm font-bold text-sky-700">{number}</span>
+        <h2 id={`${id}-title`} className="pt-1 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">{title}</h2>
       </div>
+      <div className="space-y-5 text-[15px] leading-8 text-slate-600 sm:text-base">{children}</div>
     </section>
   );
 }
 
-function TermsList({ items }) {
+function TermsNavigation({ activeId }) {
   return (
-    <ul className="space-y-3">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-3">
-          <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
+    <aside className="hidden lg:block">
+      <nav aria-label="Terms & Conditions sections" className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p className="mb-4 px-3 text-xs font-bold uppercase tracking-[0.18em] text-slate-500">On this page</p>
+        <div className="space-y-0.5">
+          {SECTIONS.map((s) => (
+            <a key={s.id} href={`#${s.id}`} aria-current={activeId === s.id ? "location" : undefined} className={`block rounded-lg px-3 py-2 text-sm leading-5 transition ${activeId === s.id ? "bg-sky-50 font-semibold text-sky-800" : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"}`}>
+              {s.number}. {s.title}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </aside>
   );
 }
 
-export default Terms;
+export default function Terms() {
+  const [activeId, setActiveId] = useState(SECTIONS[0].id);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length) setActiveId(visible[0].target.id);
+      },
+      { rootMargin: "-110px 0px -65% 0px", threshold: 0 }
+    );
+    SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-slate-50 text-slate-950">
+      <LegalHeader />
+      <div className="mx-auto max-w-[1260px] px-5 pb-24 pt-10 sm:px-6 md:px-12 md:pt-14">
+        <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+          <Link to="/" className="hover:text-sky-700">Home</Link><span aria-hidden="true">/</span><span className="font-medium text-slate-900">Terms &amp; Conditions</span>
+          <span className="ml-auto"><Link to="/privacy-policy" className="font-medium text-sky-700 hover:underline">Privacy Policy →</Link></span>
+        </div>
+        <div className="grid gap-10 lg:grid-cols-[265px_minmax(0,1fr)]">
+          <TermsNavigation activeId={activeId} />
+          <div className="min-w-0">
+            <label htmlFor="terms-section" className="mb-2 block text-sm font-semibold text-slate-700 lg:hidden">Jump to a section</label>
+            <select id="terms-section" value={activeId} onChange={(e) => { const id = e.target.value; setActiveId(id); document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }} className="mb-8 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200 lg:hidden">
+              {SECTIONS.map((s) => <option key={s.id} value={s.id}>{s.number}. {s.title}</option>)}
+            </select>
+            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-9 md:p-12">
+              <div className="mb-12 border-b border-slate-200 pb-9">
+                <p className="text-xs font-bold uppercase tracking-wider text-sky-700">Handil · Terms &amp; Conditions</p>
+                <p className="mt-4 text-base leading-8 text-slate-600">These Terms govern your use of Handil, operated by SHORI TECHNOLOGIES PRIVATE LIMITED.</p>
+                <p className="mt-3 text-sm text-slate-500">For questions about these Terms: <a className="font-semibold text-sky-700 hover:underline" href="mailto:connect@handilapp.com">connect@handilapp.com</a></p>
+              </div>
+              <div className="space-y-11">
+                <LegalSection id="introduction" number="01" title="Introduction">
+                <p>Welcome to Handil.</p>
+                <p>Handil is a messaging and information-management platform operated by <strong className="font-semibold text-slate-900">SHORI TECHNOLOGIES PRIVATE LIMITED</strong>, a company registered in India.</p>
+                <p>These Terms &amp; Conditions ("Terms") govern your access to and use of the Handil mobile application and associated services.</p>
+                <p>By registering or using Handil, you agree to comply with these Terms.</p>
+                <p>If you do not agree, please do not create an account or use the application.</p>
+                </LegalSection>
+                <LegalSection id="about-handil" number="02" title="About Handil">
+                <p>Handil is designed to make communication simple, secure, and organized.</p>
+                <p>At launch, Handil provides:</p>
+                <ul className="list-disc space-y-2 pl-6 marker:text-sky-500">
+                  <li className="pl-1">Account registration using phone-number verification.</li>
+                  <li className="pl-1">One-to-one text messaging.</li>
+                  <li className="pl-1">User profile creation and management.</li>
+                  <li className="pl-1">Contact-related functionality.</li>
+                  <li className="pl-1">Optional birthday information and reminders.</li>
+                  <li className="pl-1">Available messaging and information-management features.</li>
+                </ul>
+                <p>Additional features may be introduced in future updates.</p>
+                <p>Handil is free to use at launch. Internet and mobile network charges from your service provider may apply.</p>
+                </LegalSection>
+                <LegalSection id="age-eligibility" number="03" title="Age Eligibility">
+                <p><strong className="font-semibold text-slate-900">Handil is intended for people aged 18 years or older.</strong></p>
+                <p>Users must confirm that they are at least 18 years old during account registration.</p>
+                <p>Handil does not provide a separate service or account mode for minors.</p>
+                <p>You must not register or use Handil if you are under 18.</p>
+                <p>The optional birthday field is provided for birthday reminders and is not used to independently verify your age.</p>
+                <p>A user's age declaration may not independently establish their actual age. We may take appropriate measures if we become aware that an account does not satisfy our eligibility requirements.</p>
+                </LegalSection>
+                <LegalSection id="account-registration-and-security" number="04" title="Account Registration and Security">
+                <p>To register, you must provide a valid mobile phone number and complete verification using a one-time password (OTP).</p>
+                <p>You may also provide profile information, including:</p>
+                <ul className="list-disc space-y-2 pl-6 marker:text-sky-500">
+                  <li className="pl-1">Display name.</li>
+                  <li className="pl-1">Username.</li>
+                  <li className="pl-1">Profile photo.</li>
+                  <li className="pl-1">Optional birthday information.</li>
+                  <li className="pl-1">Other profile details supported by the app.</li>
+                </ul>
+                <p>You agree to provide accurate information and to use a phone number you are authorized to register.</p>
+                <p>You are responsible for protecting your account and verification credentials.</p>
+                <p>Never share an OTP with anyone.</p>
+                <p>If you suspect unauthorized account access, contact connect@handilapp.com.</p>
+                </LegalSection>
+                <LegalSection id="acceptable-use" number="05" title="Acceptable Use">
+                <p>You agree to use Handil lawfully and respectfully.</p>
+                <p>You must not:</p>
+                <ul className="list-disc space-y-2 pl-6 marker:text-sky-500">
+                  <li className="pl-1">Send spam, fraudulent communications, or scams.</li>
+                  <li className="pl-1">Harass, threaten, bully, or intimidate others.</li>
+                  <li className="pl-1">Impersonate individuals or organizations.</li>
+                  <li className="pl-1">Share information that violates another person's privacy or lawful rights.</li>
+                  <li className="pl-1">Distribute illegal, exploitative, or otherwise prohibited content.</li>
+                  <li className="pl-1">Send malicious links, malware, or harmful software.</li>
+                  <li className="pl-1">Attempt unauthorized access to accounts, messages, or systems.</li>
+                  <li className="pl-1">Exploit security vulnerabilities or disrupt Handil's services.</li>
+                  <li className="pl-1">Violate intellectual property rights.</li>
+                  <li className="pl-1">Use the service for activities prohibited by applicable law.</li>
+                </ul>
+                <p>Handil may take appropriate action against violations in accordance with applicable law.</p>
+                </LegalSection>
+                <LegalSection id="messages-and-user-content" number="06" title="Messages and User Content">
+                <p>Handil enables one-to-one text messaging.</p>
+                <p>You retain the rights you lawfully hold in the content you create and share.</p>
+                <p>You are responsible for the content you send and the recipients to whom you send it.</p>
+                <p>You grant Handil a limited, non-exclusive permission to process, transmit, store, and manage your content as necessary to provide the service, maintain security, and comply with applicable legal obligations.</p>
+                <p>This permission does not transfer ownership of your messages to Handil.</p>
+                <p>Recipients may retain copies of messages you have shared with them.</p>
+                <p>Deleting an account does not necessarily delete content previously saved on another person's device.</p>
+                </LegalSection>
+                <LegalSection id="message-encryption-and-recovery" number="07" title="Message Encryption and Recovery">
+                <p>Handil uses end-to-end encryption for supported chat messages.</p>
+                <p>Messages are encrypted on the sender's device for the intended recipient, and encrypted messages are stored on Handil's backend infrastructure.</p>
+                <p>Private keys are maintained on user devices, while public keys support encrypted communication.</p>
+                <p>Handil also maintains an account-specific encrypted key backup to support key recovery when an application is reinstalled.</p>
+                <p>Key recovery depends on the availability and successful restoration of the required backup and recovery material.</p>
+                <p>If recovery is unsuccessful, new encryption keys may be generated, and previously encrypted messages may become unreadable on that device.</p>
+                <p>Signing out on the same device does not automatically remove locally stored keys.</p>
+                <p>Account deletion initiates removal of the associated encrypted key backup.</p>
+                <p>Additional information about encryption and personal data processing is available in our Terms & Conditions.</p>
+                </LegalSection>
+                <LegalSection id="contact-permissions" number="08" title="Contact Permissions">
+                <p>Handil may request access to contacts stored on your phone for contact-related functionality.</p>
+                <p>Your device's contact list is processed locally and is not synchronized or uploaded to Handil servers.</p>
+                <p>You can manage or disable contact permission through your phone's operating-system settings.</p>
+                <p>Disabling this permission may affect contact-related features.</p>
+                </LegalSection>
+                <LegalSection id="optional-birthday-reminders" number="09" title="Optional Birthday Reminders">
+                <p>Handil offers birthday reminders to help users remember the birthdays of their peers.</p>
+                <p>Providing birthday information is optional.</p>
+                <p>Users may enter a birthday without including the year. If the year is omitted, it is not stored.</p>
+                <p>Users can select who is allowed to see their birthday:</p>
+                <ul className="list-disc space-y-2 pl-6 marker:text-sky-500">
+                  <li className="pl-1">Everyone.</li>
+                  <li className="pl-1">Accepted Contacts.</li>
+                  <li className="pl-1">Selected People Only.</li>
+                  <li className="pl-1">Nobody.</li>
+                </ul>
+                <p><strong className="font-semibold text-slate-900">Accepted Contacts is the default birthday visibility setting.</strong></p>
+                <p>Birthday reminders and the Birthdays Today feature respect these visibility settings.</p>
+                <p>Selecting Nobody prevents birthday visibility and reminders from being shared with other users through this feature.</p>
+                <p>Users may remove their birthday information.</p>
+                </LegalSection>
+                <LegalSection id="privacy-and-personal-data" number="10" title="Privacy and Personal Data">
+                <p>Your use of Handil involves processing personal information.</p>
+                <p>Our Terms & Conditions explains what information is collected, how it is used, how it is protected, how long it is retained, and how users can submit privacy requests.</p>
+                <p>Handil does not share personal information with advertising partners at launch.</p>
+                <p>Please review our Terms & Conditions before registering.</p>
+                </LegalSection>
+                <LegalSection id="account-deletion" number="11" title="Account Deletion">
+                <p>Handil provides an account deletion option inside the app.</p>
+                <p>To delete your account, navigate to:</p>
+                <p><strong className="font-semibold text-slate-900">Settings → Privacy &amp; Security → Delete My Account</strong></p>
+                <p>The account deletion process is designed to remove associated profile information, messages sent by the user, relevant account records, and the account's encrypted key backup.</p>
+                <p>On the device used to delete the account, locally stored chats, notes, and keys are also cleared.</p>
+                <p>Deletion is subject to the successful completion of the relevant operations and applicable legal retention requirements.</p>
+                <p>Deletion does not automatically remove:</p>
+                <ul className="list-disc space-y-2 pl-6 marker:text-sky-500">
+                  <li className="pl-1">Messages sent by other users.</li>
+                  <li className="pl-1">Copies previously saved on other people's devices.</li>
+                  <li className="pl-1">Local information on another signed-in device until that device synchronizes or the application is removed.</li>
+                </ul>
+                <p>Further information is available in our Terms & Conditions.</p>
+                </LegalSection>
+                <LegalSection id="account-deletion-and-privacy-requests-without-signing-in" number="12" title="Account Deletion and Privacy Requests Without Signing In">
+                <p>Users may submit account deletion and other privacy requests through:</p>
+                <p><a href="https://handil.vercel.app/contact" className="font-medium text-sky-700 hover:underline">https://handil.vercel.app/contact</a></p>
+                <p>Select the appropriate request category and provide the requested contact information.</p>
+                <p>Submitting a form does not automatically delete an account. Requests are reviewed and handled through Handil's support process.</p>
+                <p>For assistance, contact connect@handilapp.com.</p>
+                </LegalSection>
+                <LegalSection id="reporting-problems-and-grievances" number="13" title="Reporting Problems and Grievances">
+                <p>Users may report suspected misuse, harassment, unauthorized access, privacy concerns, or technical issues through Handil's available support and grievance channels.</p>
+                <p><strong className="font-semibold text-slate-900">Email:</strong> connect@handilapp.com</p>
+                <p><strong className="font-semibold text-slate-900">Public Contact Page:</strong> https://handil.vercel.app/contact</p>
+                <p>We will review reports and respond according to applicable legal requirements, including any shorter deadlines applicable to specific categories of complaints.</p>
+                </LegalSection>
+                <LegalSection id="account-restriction-and-termination" number="14" title="Account Restriction and Termination">
+                <p>Handil may restrict, suspend, or terminate accounts where reasonably necessary because of:</p>
+                <ul className="list-disc space-y-2 pl-6 marker:text-sky-500">
+                  <li className="pl-1">Violations of these Terms.</li>
+                  <li className="pl-1">Fraudulent or illegal activity.</li>
+                  <li className="pl-1">Security threats.</li>
+                  <li className="pl-1">Misuse of Handil services.</li>
+                  <li className="pl-1">Valid legal orders or statutory obligations.</li>
+                </ul>
+                <p>We will provide applicable notice or review opportunities where legally required.</p>
+                </LegalSection>
+                <LegalSection id="intellectual-property" number="15" title="Intellectual Property">
+                <p>The Handil name, branding, application software, proprietary designs, and related materials are owned by or licensed to SHORI TECHNOLOGIES PRIVATE LIMITED.</p>
+                <p>You may not reproduce, distribute, or commercially exploit these materials without authorization, except where permitted by applicable law.</p>
+                </LegalSection>
+                <LegalSection id="service-availability" number="16" title="Service Availability">
+                <p>Handil aims to provide reliable and secure services.</p>
+                <p>However, temporary interruptions may occur because of maintenance, updates, network failures, infrastructure issues, or circumstances outside our reasonable control.</p>
+                <p>Handil does not guarantee uninterrupted or error-free availability.</p>
+                </LegalSection>
+                <LegalSection id="future-services-and-pricing" number="17" title="Future Services and Pricing">
+                <p>Handil is free to use at launch.</p>
+                <p>We may introduce additional features, paid services, or subscriptions in the future.</p>
+                <p>Applicable pricing and additional terms will be disclosed before users purchase such services.</p>
+                </LegalSection>
+                <LegalSection id="disclaimer-and-liability" number="18" title="Disclaimer and Liability">
+                <p>Handil seeks to maintain appropriate standards of functionality, reliability, and security.</p>
+                <p>To the extent permitted by applicable law, liability may be limited for losses that are remote, unforeseeable, or otherwise lawfully excludable.</p>
+                <p>Nothing in these Terms excludes statutory consumer rights or liabilities that cannot lawfully be excluded.</p>
+                </LegalSection>
+                <LegalSection id="changes-to-these-terms" number="19" title="Changes to These Terms">
+                <p>We may update these Terms to reflect changes in services, business practices, or legal obligations.</p>
+                <p>Updated Terms will be made available through the application or official website.</p>
+                <p>We will provide additional notice or request renewed agreement where required by law.</p>
+                </LegalSection>
+                <LegalSection id="governing-law-and-jurisdiction" number="20" title="Governing Law and Jurisdiction">
+                <p>These Terms are governed by the laws of India.</p>
+                <p>Subject to mandatory statutory jurisdictions and applicable consumer rights, disputes may be brought before the competent courts in Hyderabad, Telangana, India.</p>
+                </LegalSection>
+                <LegalSection id="contact-information" number="21" title="Contact Information">
+                <p><strong className="font-semibold text-slate-900">Company:</strong> SHORI TECHNOLOGIES PRIVATE LIMITED</p>
+                <p><strong className="font-semibold text-slate-900">Registered Address:</strong> 10 - 101/2/6 Libra Avenue, Nadergul, Rangareddy, Telangana 501510, India</p>
+                <p><strong className="font-semibold text-slate-900">Website:</strong> https://handilapp.com/</p>
+                <p><strong className="font-semibold text-slate-900">Support Email:</strong> connect@handilapp.com</p>
+                <p><strong className="font-semibold text-slate-900">Grievance Contact:</strong> connect@handilapp.com</p>
+                </LegalSection>
+              </div>
+              <footer className="mt-10 border-t border-slate-200 pt-7 text-sm text-slate-500">
+                Handil — Built to be Simple. Secure. Organized.
+              </footer>
+            </article>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
